@@ -4,6 +4,6 @@ aplikasi untuk rental berbagai macam kendaraan laut, seperti perahu, speedboat, 
 kapel lawd
 
 Ketua Kelompok:
-Anggota 1:
+Anggota 1: Hammam Priyandono-23/521232/TK/57494
 Anggota 2: Dzulfikar Rizqi Ramadhani-23/522193/TK/57616
 
