@@ -1,0 +1,11 @@
+# Folder cache Visual Studio
+/.vs/
+classDiagram1/.vs/
+
+# Folder hasil compile (build)
+[Bb]in/
+[Oo]bj/
+
+# File pengaturan user
+*.user
+*.suo

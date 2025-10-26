@@ -1,0 +1,97 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="WpfApp1 Login" Height="670" Width="520"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        Background="#F0F2F5">
+
+    <Grid>
+        <Border Width="380"
+                Padding="24"
+                Background="White"
+                CornerRadius="12"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" Height="438">
+
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="1"
+                                  BlurRadius="10"
+                                  Color="#DDDDDD"
+                                  Opacity="0.5" />
+            </Border.Effect>
+
+            <StackPanel>
+
+                <TextBlock Text="WELCOME TO KAPALIN"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           Foreground="#333333"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,25" />
+
+                <TextBlock Text="Email"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           Foreground="#555555"
+                           Margin="0,0,0,12" />
+
+                <TextBox x:Name="EmailTextBox"
+                         FontSize="20"
+                         Padding="10,8"
+                         BorderThickness="1"
+                         BorderBrush="#CCCCCC"
+                         Margin="0,0,0,20" />
+
+                <TextBlock Text="Password"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           Foreground="#555555"
+                           Margin="0,0,0,12" />
+
+                <PasswordBox x:Name="PasswordBox"
+                             FontSize="20"
+                             Padding="10,8"
+                             BorderThickness="1"
+                             BorderBrush="#CCCCCC"
+                             Margin="0,0,0,25" />
+
+                <Button x:Name="LoginButton"
+                        Content="Login"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Background="#007ACC"
+                        BorderThickness="0"
+                        Padding="10"
+                        Cursor="Hand"
+                        Margin="0,12,0,0"
+                        Click="LoginButton_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <TextBlock FontSize="12"
+                           HorizontalAlignment="Center"
+                           Margin="0,20,0,4"
+                           >
+                    <Run Text="Belum punya akun? "/>
+                    <Hyperlink x:Name="RegisterHyperlink" 
+                               Foreground="#007ACC"
+                               Cursor="Hand"
+                               Click="RegisterHyperlink_Click">
+                     Register
+                    </Hyperlink>
+                </TextBlock>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
