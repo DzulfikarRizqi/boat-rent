@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{A157340A-CB2A-4C57-8857-03ABBD0C6407}|classDiagram1\\classDiagram1.csproj|solutionrelative:classdiagram1\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A157340A-CB2A-4C57-8857-03ABBD0C6407}|classDiagram1\\classDiagram1.csproj|c:\\users\\dzulfikar\\source\\repos\\boat-rent\\classdiagram1\\classdiagram1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{A157340A-CB2A-4C57-8857-03ABBD0C6407}|classDiagram1\\classDiagram1.csproj|C:\\Users\\Dzulfikar\\source\\repos\\boat-rent\\classDiagram1\\classdiagram1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A157340A-CB2A-4C57-8857-03ABBD0C6407}|classDiagram1\\classDiagram1.csproj|solutionrelative:classdiagram1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
@@ -42,8 +42,7 @@
               "ToolTip": "C:\\Users\\Dzulfikar\\source\\repos\\boat-rent\\classDiagram1\\classDiagram1\\Form1.cs [Design]",
               "RelativeToolTip": "classDiagram1\\Form1.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-14T06:11:34.171Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-09-14T06:11:34.171Z"
             }
           ]
         }

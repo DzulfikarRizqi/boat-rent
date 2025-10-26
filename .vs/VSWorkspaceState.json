@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\classDiagram1",
+    "\\classDiagram1\\classDiagram1"
   ],
+  "SelectedNode": "\\classDiagram1\\classDiagram1\\User.cs",
   "PreviewInSolutionExplorer": false
 }
