@@ -24,7 +24,7 @@ namespace WpfApp1
             InitializeComponent();
         }
 
-        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        private void SignUpButton_Click(object sender, RoutedEventArgs e)
         {
             string name = NameTextBox.Text;
             string email = EmailTextBox.Text;

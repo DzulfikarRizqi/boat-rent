@@ -5,113 +5,96 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="WpfApp1 Register" Height="670" Width="520"
+        Title="WpfApp1 Register" Height="1080" Width="1920"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         Background="#F0F2F5">
 
     <Grid>
-        <Border Width="380"
-                Padding="24"
-                Background="White"
-                CornerRadius="12"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
 
+        <Border Width="850" Height="580"
+                Background="White"
+                CornerRadius="15"
+                Margin="15"
+                ClipToBounds="True">
             <Border.Effect>
-                <DropShadowEffect ShadowDepth="1"
-                                  BlurRadius="10"
-                                  Color="#DDDDDD"
-                                  Opacity="0.5" />
+                <DropShadowEffect ShadowDepth="2" BlurRadius="15" Color="#DDDDDD" Opacity="0.5"/>
             </Border.Effect>
 
-            <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.2*"/>
+                </Grid.ColumnDefinitions>
 
-                <TextBlock Text="BUAT AKUN BARU"
-                           FontSize="28"
-                           FontWeight="Bold"
-                           Foreground="#333333"
-                           HorizontalAlignment="Center"
-                           Margin="0,0,0,25" />
+                <Grid Grid.Column="0">
 
-                <TextBlock Text="Nama"
-                           FontSize="20"
-                           FontWeight="SemiBold"
-                           Foreground="#555555"
-                           Margin="0,0,0,12" />
-                <TextBox x:Name="NameTextBox"
-                         FontSize="20"
-                         Padding="10,8"
-                         BorderThickness="1"
-                         BorderBrush="#CCCCCC"
-                         Margin="0,0,0,20" />
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#1aa3ff" Offset="0.0"/>
+                            <GradientStop Color="#007ACC" Offset="0.5"/>
+                            <GradientStop Color="#004c80" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
 
-                <TextBlock Text="Email"
-                           FontSize="20"
-                           FontWeight="SemiBold"
-                           Foreground="#555555"
-                           Margin="0,0,0,12" />
-                <TextBox x:Name="EmailTextBox"
-                         FontSize="20"
-                         Padding="10,8"
-                         BorderThickness="1"
-                         BorderBrush="#CCCCCC"
-                         Margin="0,0,0,20" />
+                    <StackPanel VerticalAlignment="Center" Margin="35">
 
-                <TextBlock Text="Password"
-                           FontSize="20"
-                           FontWeight="SemiBold"
-                           Foreground="#555555"
-                           Margin="0,0,0,12" />
-                <PasswordBox x:Name="PasswordBox"
-                             FontSize="20"
-                             Padding="10,8"
-                             BorderThickness="1"
-                             BorderBrush="#CCCCCC"
-                             Margin="0,0,0,20" />
 
-                <TextBlock Text="Konfirmasi Password"
-                           FontSize="20"
-                           FontWeight="SemiBold"
-                           Foreground="#555555"
-                           Margin="0,0,0,12" />
-                <PasswordBox x:Name="ConfirmPasswordBox"
-                             FontSize="20"
-                             Padding="10,8"
-                             BorderThickness="1"
-                             BorderBrush="#CCCCCC"
-                             Margin="0,0,0,25" />
+                        <TextBlock Text="Selamat datang di KAPALIN"
+                                   FontSize="26" FontWeight="Bold" Foreground="#FFFFFF"
+                                   Margin="0,0,0,10" TextWrapping="Wrap"/>
 
-                <Button x:Name="RegisterButton"
-                        Content="Register"
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Foreground="White"
-                        Background="#007ACC"
-                        BorderThickness="0"
-                        Padding="10"
-                        Cursor="Hand"
-                        Margin="0,12,0,0"
-                        Click="RegisterButton_Click">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
+                        <TextBlock Text="Aplikasi untuk rental berbagai macam kendaraan laut, seperti perahu, speedboat, kapal, yacht."
+                                   FontSize="14" Foreground="#e6e6e6"
+                                   TextWrapping="Wrap" LineHeight="20" Margin="0,0,0,30"/>
 
-                <TextBlock FontSize="12"
-                           HorizontalAlignment="Center"
-                           Margin="0,20,0,4">
-                    <Run Text="Sudah punya akun? "/>
-                    <Hyperlink Foreground="#007ACC"
-                               Cursor="Hand"
-                               Click="LoginHyperlink_Click">
-                        Login
-                    </Hyperlink>
-                </TextBlock>
+                        
 
-            </StackPanel>
+
+                    </StackPanel>
+                </Grid>
+
+
+                <Grid Grid.Column="1" Background="White">
+
+                    <StackPanel VerticalAlignment="Center" Margin="50,0,50,0" >
+
+                        <TextBlock Text="Get Started"
+                                   FontSize="28" FontWeight="Bold" Foreground="#333" Margin="0,0,0,5"/>
+
+                        <TextBlock FontSize="14" Margin="0,0,0,25">
+                            <Run Text="Sudah punya akun? " Foreground="#555"/>
+                            <Hyperlink Foreground="#007ACC" Cursor="Hand" Click="LoginHyperlink_Click">
+                                Login
+                            </Hyperlink>
+                        </TextBlock>
+
+                        <TextBlock Text="Name" FontSize="14" FontWeight="SemiBold" Foreground="#555" Margin="0,0,0,5"/>
+                        <TextBox x:Name="NameTextBox" FontSize="14" Padding="10,8" BorderThickness="1" BorderBrush="#CCCCCC" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Email" FontSize="14" FontWeight="SemiBold" Foreground="#555" Margin="0,0,0,5"/>
+                        <TextBox x:Name="EmailTextBox" FontSize="14" Padding="10,8" BorderThickness="1" BorderBrush="#CCCCCC" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Password" FontSize="14" FontWeight="SemiBold" Foreground="#555" Margin="0,0,0,5"/>
+                        <PasswordBox x:Name="PasswordBox" FontSize="14" Padding="10,8" BorderThickness="1" BorderBrush="#CCCCCC" Margin="0,0,0,25"/>
+
+                        <TextBlock Text="Confirm Password" FontSize="14" FontWeight="SemiBold" Foreground="#555" Margin="0,0,0,5"/>
+                        <PasswordBox x:Name="ConfirmPasswordBox" FontSize="14" Padding="10,8" BorderThickness="1" BorderBrush="#CCCCCC" Margin="0,0,0,25"/>
+
+                        <Button x:Name="SignUpButton" Content="Sign Up"
+                                FontSize="16" FontWeight="Bold" Foreground="White" 
+                                Background="#007ACC" BorderThickness="0" Padding="12" 
+                                Cursor="Hand" Click="SignUpButton_Click">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
         </Border>
     </Grid>
 </Window>

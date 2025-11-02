@@ -5,8 +5,123 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="Dashboard" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Dashboard" Height="1080" Width="1920">
+<DockPanel>
+
+        <!-- ======== HEADER ======== -->
+        <Border Background="#007ACC" DockPanel.Dock="Top" Height="50">
+            <Grid>
+                <TextBlock Text="Dashboard - KAPALIN"
+                           Foreground="White"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           Margin="10,0,0,0" />
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Margin="0,0,10,0">
+
+                    <Button Content="Cek Booking"
+                            Width="110"
+                            Height="30"
+                            Margin="5,0"
+                            Background="White"
+                            Foreground="#007ACC"
+                            Click="CekBooking_Click"/>
+
+                    <Button Content="Logout"
+                            Width="80"
+                            Height="30"
+                            Margin="5,0"
+                            Background="Red"
+                            Foreground="White"
+                            Click="Logout_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ======== KONTEN KAPAL ======== -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <WrapPanel Margin="20" x:Name="BoatPanel">
+
+                <!-- Kapal 1 -->
+                <Border BorderBrush="#ccc" BorderThickness="1" CornerRadius="10" Margin="10" Background="White" Width="260">
+                    <StackPanel Margin="10">
+                        <Image Source="Assets/ferry.jpeg" Height="150" Stretch="UniformToFill" />
+                        <TextBlock Text="Kapal Ferry" 
+                                   FontSize="16" FontWeight="Bold"
+                                   Margin="0,10,0,2" 
+                                   HorizontalAlignment="Center"/>
+
+                        <StackPanel Margin="0,5,0,5">
+                            <TextBlock Text="Tahun: 2022" FontSize="13" Foreground="Gray" />
+                            <TextBlock Text="Harga: Rp 3.500.000 / hari" FontSize="13" Foreground="Gray" />
+                            <TextBlock Text="Status: Tersedia" FontSize="13" Foreground="Green" />
+                        </StackPanel>
+
+                        <Button Content="Pilih Kapal Ini"
+                                Width="160" Height="30"
+                                Background="#007ACC" Foreground="White"
+                                HorizontalAlignment="Center"
+                                Margin="0,10,0,0"
+                                Tag="1"
+                                Click="SelectBoat_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Kapal 2 -->
+                <Border BorderBrush="#ccc" BorderThickness="1" CornerRadius="10" Margin="10" Background="White" Width="260">
+                    <StackPanel Margin="10">
+                        <Image Source="Assets/speedboat.jpeg" Height="150" Stretch="UniformToFill" />
+                        <TextBlock Text="Speedboat" 
+                                   FontSize="16" FontWeight="Bold"
+                                   Margin="0,10,0,2" 
+                                   HorizontalAlignment="Center"/>
+
+                        <StackPanel Margin="0,5,0,5">
+                            <TextBlock Text="Tahun: 2018" FontSize="13" Foreground="Gray" />
+                            <TextBlock Text="Harga: Rp 1.200.000 / hari" FontSize="13" Foreground="Gray" />
+                            <TextBlock Text="Status: Tidak Tersedia" FontSize="13" Foreground="Red" />
+                        </StackPanel>
+
+                        <Button Content="Pilih Kapal Ini"
+                                Width="160" Height="30"
+                                Background="#007ACC" Foreground="White"
+                                HorizontalAlignment="Center"
+                                Margin="0,10,0,0"
+                                Tag="2"
+                                Click="SelectBoat_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Kapal 3 -->
+                <Border BorderBrush="#ccc" BorderThickness="1" CornerRadius="10" Margin="10" Background="White" Width="260">
+                    <StackPanel Margin="10">
+                        <Image Source="Assets/yacht.jpeg" Height="150" Stretch="UniformToFill" />
+                        <TextBlock Text="Yacht" 
+                                   FontSize="16" FontWeight="Bold"
+                                   Margin="0,10,0,2" 
+                                   HorizontalAlignment="Center"/>
+
+                        <StackPanel Margin="0,5,0,5">
+                            <TextBlock Text="Tahun: 2020" FontSize="13" Foreground="Gray" />
+                            <TextBlock Text="Harga: Rp 2.800.000 / hari" FontSize="13" Foreground="Gray" />
+                            <TextBlock Text="Status: Tersedia" FontSize="13" Foreground="Green" />
+                        </StackPanel>
+
+                        <Button Content="Pilih Kapal Ini"
+                                Width="160" Height="30"
+                                Background="#007ACC" Foreground="White"
+                                HorizontalAlignment="Center"
+                                Margin="0,10,0,0"
+                                Tag="3"
+                                Click="SelectBoat_Click"/>
+                    </StackPanel>
+                </Border>
+
+            </WrapPanel>
+        </ScrollViewer>
+    </DockPanel>
 </Window>
