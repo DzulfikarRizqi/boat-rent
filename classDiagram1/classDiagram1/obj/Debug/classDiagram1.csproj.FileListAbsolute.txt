@@ -1,9 +1,0 @@
-C:\Users\ROZAN\source\repos\boat-rent\classDiagram1\classDiagram1\obj\Debug\classDiagram1.csproj.AssemblyReference.cache
-C:\Users\ROZAN\source\repos\boat-rent\classDiagram1\classDiagram1\obj\Debug\classDiagram1.Properties.Resources.resources
-C:\Users\ROZAN\source\repos\boat-rent\classDiagram1\classDiagram1\obj\Debug\classDiagram1.csproj.GenerateResource.cache
-C:\Users\ROZAN\source\repos\boat-rent\classDiagram1\classDiagram1\obj\Debug\classDiagram1.csproj.CoreCompileInputs.cache
-C:\Users\ROZAN\source\repos\boat-rent\classDiagram1\classDiagram1\bin\Debug\classDiagram1.exe.config
-C:\Users\ROZAN\source\repos\boat-rent\classDiagram1\classDiagram1\bin\Debug\classDiagram1.exe
-C:\Users\ROZAN\source\repos\boat-rent\classDiagram1\classDiagram1\bin\Debug\classDiagram1.pdb
-C:\Users\ROZAN\source\repos\boat-rent\classDiagram1\classDiagram1\obj\Debug\classDiagram1.exe
-C:\Users\ROZAN\source\repos\boat-rent\classDiagram1\classDiagram1\obj\Debug\classDiagram1.pdb
