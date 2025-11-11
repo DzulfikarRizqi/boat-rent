@@ -1,0 +1,291 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|c:\\users\\rozan\\source\\repos\\boat-rentt\\boat-rent\\kapalin\\cobahw7\\dashboard.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|solutionrelative:cobahw7\\dashboard.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|c:\\users\\rozan\\source\\repos\\boat-rentt\\boat-rent\\kapalin\\cobahw7\\statustobrushconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|solutionrelative:cobahw7\\statustobrushconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|c:\\users\\rozan\\source\\repos\\boat-rentt\\boat-rent\\kapalin\\cobahw7\\dashboard.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|solutionrelative:cobahw7\\dashboard.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|c:\\users\\rozan\\source\\repos\\boat-rentt\\boat-rent\\kapalin\\cobahw7\\rupiahconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|solutionrelative:cobahw7\\rupiahconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|c:\\users\\rozan\\source\\repos\\boat-rentt\\boat-rent\\kapalin\\cobahw7\\dashboardadmin.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|solutionrelative:cobahw7\\dashboardadmin.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|c:\\users\\rozan\\source\\repos\\boat-rentt\\boat-rent\\kapalin\\cobahw7\\class\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|solutionrelative:cobahw7\\class\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|c:\\users\\rozan\\source\\repos\\boat-rentt\\boat-rent\\kapalin\\cobahw7\\data\\bookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|solutionrelative:cobahw7\\data\\bookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|c:\\users\\rozan\\source\\repos\\boat-rentt\\boat-rent\\kapalin\\cobahw7\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|solutionrelative:cobahw7\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|c:\\users\\rozan\\source\\repos\\boat-rentt\\boat-rent\\kapalin\\cobahw7\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|solutionrelative:cobahw7\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|c:\\users\\rozan\\source\\repos\\boat-rentt\\boat-rent\\kapalin\\cobahw7\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|solutionrelative:cobahw7\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|c:\\users\\rozan\\source\\repos\\boat-rentt\\boat-rent\\kapalin\\cobahw7\\data\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|solutionrelative:cobahw7\\data\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|c:\\users\\rozan\\source\\repos\\boat-rentt\\boat-rent\\kapalin\\cobahw7\\popupdialog.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|solutionrelative:cobahw7\\popupdialog.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|c:\\users\\rozan\\source\\repos\\boat-rentt\\boat-rent\\kapalin\\cobahw7\\dashboardwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|solutionrelative:cobahw7\\dashboardwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|c:\\users\\rozan\\source\\repos\\boat-rentt\\boat-rent\\kapalin\\cobahw7\\registerwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|solutionrelative:cobahw7\\registerwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|c:\\users\\rozan\\source\\repos\\boat-rentt\\boat-rent\\kapalin\\cobahw7\\data\\db.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|solutionrelative:cobahw7\\data\\db.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|c:\\users\\rozan\\source\\repos\\boat-rentt\\boat-rent\\kapalin\\cobahw7\\registerwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7D45A78F-542D-4935-A88B-4B9168A03BEF}|CobaHW7\\CobaHW7.csproj|solutionrelative:cobahw7\\registerwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 10,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Booking.cs",
+              "DocumentMoniker": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\Class\\Booking.cs",
+              "RelativeDocumentMoniker": "CobaHW7\\Class\\Booking.cs",
+              "ToolTip": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\Class\\Booking.cs",
+              "RelativeToolTip": "CobaHW7\\Class\\Booking.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAuwE4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T15:39:24.349Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DashboardAdmin.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\DashboardAdmin.xaml.cs",
+              "RelativeDocumentMoniker": "CobaHW7\\DashboardAdmin.xaml.cs",
+              "ToolTip": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\DashboardAdmin.xaml.cs",
+              "RelativeToolTip": "CobaHW7\\DashboardAdmin.xaml.cs",
+              "ViewState": "AgIAAI0AAAAAAAAAAAAcwJMAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T15:20:27.818Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "StatusToBrushConverter.cs",
+              "DocumentMoniker": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\StatusToBrushConverter.cs",
+              "RelativeDocumentMoniker": "CobaHW7\\StatusToBrushConverter.cs",
+              "ToolTip": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\StatusToBrushConverter.cs",
+              "RelativeToolTip": "CobaHW7\\StatusToBrushConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T11:11:29.522Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RupiahConverter.cs",
+              "DocumentMoniker": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\RupiahConverter.cs",
+              "RelativeDocumentMoniker": "CobaHW7\\RupiahConverter.cs",
+              "ToolTip": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\RupiahConverter.cs",
+              "RelativeToolTip": "CobaHW7\\RupiahConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T11:10:48.059Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BookingRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\Data\\BookingRepository.cs",
+              "RelativeDocumentMoniker": "CobaHW7\\Data\\BookingRepository.cs",
+              "ToolTip": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\Data\\BookingRepository.cs",
+              "RelativeToolTip": "CobaHW7\\Data\\BookingRepository.cs",
+              "ViewState": "AgIAAIwAAAAAAAAAAAAiwJUAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T10:41:22.19Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Dashboard.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\Dashboard.xaml.cs",
+              "RelativeDocumentMoniker": "CobaHW7\\Dashboard.xaml.cs",
+              "ToolTip": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\Dashboard.xaml.cs",
+              "RelativeToolTip": "CobaHW7\\Dashboard.xaml.cs",
+              "ViewState": "AgIAAMsAAAAAAAAAAAAAABoBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T10:56:16.606Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "DashboardWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\DashboardWindow.xaml",
+              "RelativeDocumentMoniker": "CobaHW7\\DashboardWindow.xaml",
+              "ToolTip": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\DashboardWindow.xaml",
+              "RelativeToolTip": "CobaHW7\\DashboardWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-11T09:52:51.204Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Dashboard.xaml",
+              "DocumentMoniker": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\Dashboard.xaml",
+              "RelativeDocumentMoniker": "CobaHW7\\Dashboard.xaml",
+              "ToolTip": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\Dashboard.xaml",
+              "RelativeToolTip": "CobaHW7\\Dashboard.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-11T09:41:58.135Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "CobaHW7\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\MainWindow.xaml",
+              "RelativeToolTip": "CobaHW7\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-11T08:40:09.202Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "CobaHW7\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\MainWindow.xaml.cs",
+              "RelativeToolTip": "CobaHW7\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAAwE4AAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T08:35:33.877Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\App.xaml",
+              "RelativeDocumentMoniker": "CobaHW7\\App.xaml",
+              "ToolTip": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\App.xaml",
+              "RelativeToolTip": "CobaHW7\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-11T08:28:19.914Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "RegisterWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\RegisterWindow.xaml.cs",
+              "RelativeDocumentMoniker": "CobaHW7\\RegisterWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\RegisterWindow.xaml.cs",
+              "RelativeToolTip": "CobaHW7\\RegisterWindow.xaml.cs",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAswEoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T08:22:09.595Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "PopupDialog.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\PopupDialog.xaml.cs",
+              "RelativeDocumentMoniker": "CobaHW7\\PopupDialog.xaml.cs",
+              "ToolTip": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\PopupDialog.xaml.cs",
+              "RelativeToolTip": "CobaHW7\\PopupDialog.xaml.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAgwBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T08:21:03.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "RegisterWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\RegisterWindow.xaml",
+              "RelativeDocumentMoniker": "CobaHW7\\RegisterWindow.xaml",
+              "ToolTip": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\RegisterWindow.xaml",
+              "RelativeToolTip": "CobaHW7\\RegisterWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-11T08:18:10.86Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\Data\\UserRepository.cs",
+              "RelativeDocumentMoniker": "CobaHW7\\Data\\UserRepository.cs",
+              "ToolTip": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\Data\\UserRepository.cs",
+              "RelativeToolTip": "CobaHW7\\Data\\UserRepository.cs",
+              "ViewState": "AgIAAKkAAAAAAAAAAAAYwLkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T08:08:08.537Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Db.cs",
+              "DocumentMoniker": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\Data\\Db.cs",
+              "RelativeDocumentMoniker": "CobaHW7\\Data\\Db.cs",
+              "ToolTip": "C:\\Users\\ROZAN\\source\\repos\\boat-rentt\\boat-rent\\Kapalin\\CobaHW7\\Data\\Db.cs",
+              "RelativeToolTip": "CobaHW7\\Data\\Db.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAUwBEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T08:04:36.282Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+﻿<Window x:Class="CobaHW7.DashboardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CobaHW7"
+        mc:Ignorable="d"
+        Title="DashboardWindow" Height="1080" Width="1920">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0"
+              Background="#004c80">
+            
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <WrapPanel Margin="0,50,0,0" x:Name="BoatPanel" HorizontalAlignment="Center">
+
+                <!-- Kapal 1 -->
+                <Border BorderBrush="#ccc" BorderThickness="2" CornerRadius="10" Margin="10" Background="#F8F8F3" Width="400">
+                    <StackPanel Margin="10">
+                        <Image Source="Assets/ferry.jpeg"  Stretch="UniformToFill" />
+                        <TextBlock Text="Kapal Ferry" 
+                       FontSize="16" FontWeight="Bold"
+                       Margin="0,10,0,2" 
+                       HorizontalAlignment="Center"/>
+
+                        <StackPanel Margin="0,5,0,5">
+                            <TextBlock Text="Tahun: 2024" FontSize="13" Foreground="Gray" />
+                            <TextBlock Text="Harga: Rp 3.500.000 / hari" FontSize="13" Foreground="Gray" />
+                            <TextBlock Text="Status: Tersedia" FontSize="13" Foreground="Green" />
+                        </StackPanel>
+
+                        <Button Content="Pilih Kapal Ini"
+                                Width="160" Height="30"
+                                Background="#007ACC" Foreground="White"
+                                HorizontalAlignment="Center"
+                                Margin="0,10,0,0"
+                                Tag="1"/>
+                    
+                    </StackPanel>
+                </Border>
+
+                <!-- Kapal 2 -->
+                <Border BorderBrush="#ccc" BorderThickness="2" CornerRadius="10" Margin="10" Background="#F8F8F3" Width="400">
+                    <StackPanel Margin="10">
+                        <Image Source="Assets/speedboat.jpeg" Stretch="UniformToFill" />
+                        <TextBlock Text="Speedboat" 
+                       FontSize="16" FontWeight="Bold"
+                       Margin="0,10,0,2" 
+                       HorizontalAlignment="Center"/>
+
+                        <StackPanel Margin="0,5,0,5">
+                            <TextBlock Text="Tahun: 2018" FontSize="13" Foreground="Gray" />
+                            <TextBlock Text="Harga: Rp 1.200.000 / hari" FontSize="13" Foreground="Gray" />
+                            <TextBlock Text="Status: Tidak Tersedia" FontSize="13" Foreground="Red" />
+                        </StackPanel>
+
+                        <Button Content="Pilih Kapal Ini"
+                                Width="160" Height="30"
+                                Background="#007ACC" Foreground="White"
+                                HorizontalAlignment="Center"
+                                Margin="0,10,0,0"
+                                Tag="2"
+                        />
+                    </StackPanel>
+                </Border>
+
+                <!-- Kapal 3 -->
+                <Border BorderBrush="#ccc" BorderThickness="2" CornerRadius="10" Margin="10" Background="#F8F8F3" Width="400">
+                    <StackPanel Margin="10">
+                        <Image Source="Assets/yacht.jpeg" Stretch="UniformToFill" />
+                        <TextBlock Text="Yacht" 
+                       FontSize="16" FontWeight="Bold"
+                       Margin="0,10,0,2" 
+                       HorizontalAlignment="Center"/>
+
+                        <StackPanel Margin="0,5,0,5">
+                            <TextBlock Text="Tahun: 2020" FontSize="13" Foreground="Gray" />
+                            <TextBlock Text="Harga: Rp 2.800.000 / hari" FontSize="13" Foreground="Gray" />
+                            <TextBlock Text="Status: Tersedia" FontSize="13" Foreground="Green" />
+                        </StackPanel>
+
+                        <Button Content="Pilih Kapal Ini"
+                                Width="160" Height="30"
+                                Background="#007ACC" Foreground="White"
+                                HorizontalAlignment="Center"
+                                Margin="0,10,0,0"
+                                Tag="3"
+                                />
+                    </StackPanel>
+                </Border>
+
+            </WrapPanel>
+        </Grid>
+        
+    </Grid>
+</Window>
