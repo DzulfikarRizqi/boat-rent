@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Remove="Class\Booking.Payment.cs" />
     <Compile Remove="Class\PaymentMethod.cs" />
     <Compile Remove="Dashboard.xaml.cs" />
@@ -19,6 +20,9 @@
     <PackageReference Include="Npgsql" Version="9.0.4" />
     <PackageReference Include="postgrest-csharp" Version="3.5.1" />
     <PackageReference Include="supabase-csharp" Version="0.16.2" />
+=======
+    <PackageReference Include="Npgsql" Version="9.0.4" />
+>>>>>>> 9e92305cab807394a9274ee994589271c4f34ced
   </ItemGroup>
 
 </Project>

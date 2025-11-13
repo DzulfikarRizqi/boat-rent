@@ -177,9 +177,15 @@
                             <!-- Toolbar -->
                             <DockPanel Grid.Row="0" LastChildFill="True" Margin="0,0,0,12">
                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+<<<<<<< HEAD
                                     <Button Content="Tambah Kapal" Style="{StaticResource PrimaryButton}" Command="{Binding AddBoatCommand}"/>
                                     <Button Content="Hapus Kapal"   Style="{StaticResource SecondaryButton}"/>
                                     <Button Content="Simpan Perubahan" Style="{StaticResource SecondaryButton}" Margin="0"/>
+=======
+                                    <Button Content="Tambah Kapal" Style="{StaticResource PrimaryButton}" Click="AddBoat_Click"/>
+                                    <Button Content="Hapus Kapal"   Style="{StaticResource SecondaryButton}" Click="DeleteBoat_Click"/>
+                                    <Button Content="Simpan Perubahan" Style="{StaticResource SecondaryButton}" Margin="0" Click="SaveBoats_Click"/>
+>>>>>>> 9e92305cab807394a9274ee994589271c4f34ced
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
                                     <TextBlock Text="Cari:" VerticalAlignment="Center" Margin="0,0,6,0"/>
@@ -212,7 +218,11 @@
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Button Content="Hapus" Style="{StaticResource DangerButton}"
+<<<<<<< HEAD
                                                                 Padding="8,4" Margin="0" Tag="{Binding}"/>
+=======
+                                                                Padding="8,4" Margin="0" Tag="{Binding}" Click="DeleteBoatRow_Click"/>
+>>>>>>> 9e92305cab807394a9274ee994589271c4f34ced
                                                     </StackPanel>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
@@ -290,9 +300,15 @@
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Button Content="Konfirmasi" Style="{StaticResource PrimaryButton}"
+<<<<<<< HEAD
                                                                 Padding="8,4" Margin="0,0,8,0" Tag="{Binding}"/>
                                                         <Button Content="Batalkan"   Style="{StaticResource DangerButton}"
                                                                 Padding="8,4" Tag="{Binding}"/>
+=======
+                                                                Padding="8,4" Margin="0,0,8,0" Tag="{Binding}" Click="ConfirmBooking_Click"/>
+                                                        <Button Content="Batalkan"   Style="{StaticResource DangerButton}"
+                                                                Padding="8,4" Tag="{Binding}" Click="CancelBooking_Click"/>
+>>>>>>> 9e92305cab807394a9274ee994589271c4f34ced
                                                     </StackPanel>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>

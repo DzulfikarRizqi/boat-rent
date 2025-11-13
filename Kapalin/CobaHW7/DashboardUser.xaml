@@ -1,0 +1,162 @@
+﻿<Window x:Class="CobaHW7.DashboardUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:CobaHW7.ViewModels"
+        xmlns:models="clr-namespace:CobaHW7.Class"
+        mc:Ignorable="d"
+        Title="Kapalku - Dashboard User" Height="720" Width="1080"
+        WindowStartupLocation="CenterScreen" Background="#0F1115">
+
+    <Window.DataContext>
+        <vm:DashboardUserViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top bar -->
+        <DockPanel Margin="16" Grid.Row="0">
+            <TextBlock Text="Kapalku" FontSize="22" FontWeight="Bold" Foreground="White" DockPanel.Dock="Left"/>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" Margin="8,0,0,0">
+                <Button x:Name="BtnCekBooking" Content="Cek Booking" Padding="12,6" Margin="0,0,8,0" Click="BtnCekBooking_Click"/>
+                <Button x:Name="BtnLogout" Content="Logout" Padding="12,6" Click="BtnLogout_Click"/>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Konten -->
+        <Grid Grid.Row="1" Margin="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Filters -->
+            <Border CornerRadius="8" Background="#669" Padding="12" Grid.Row="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Margin="4" Padding="8" VerticalContentAlignment="Center"
+                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <StackPanel Grid.Column="1" Margin="4">
+                        <TextBlock Foreground="#B0B8C0" Text="Harga Min (IDR)" FontSize="12"/>
+                        <TextBox Text="{Binding PriceMinText, UpdateSourceTrigger=PropertyChanged}" Padding="6"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" Margin="4">
+                        <TextBlock Foreground="#B0B8C0" Text="Harga Maks (IDR)" FontSize="12"/>
+                        <TextBox Text="{Binding PriceMaxText, UpdateSourceTrigger=PropertyChanged}" Padding="6"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="3" Margin="4">
+                        <TextBlock Foreground="#B0B8C0" Text="Min Kapasitas" FontSize="12"/>
+                        <TextBox Text="{Binding CapacityMinText, UpdateSourceTrigger=PropertyChanged}" Padding="6"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="4" Margin="4">
+                        <TextBlock Foreground="#B0B8C0" Text="Mulai" FontSize="12"/>
+                        <DatePicker SelectedDate="{Binding StartDate, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="5" Margin="4">
+                        <TextBlock Foreground="#B0B8C0" Text="Selesai" FontSize="12"/>
+                        <DatePicker SelectedDate="{Binding EndDate, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="6" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="4">
+                        <CheckBox Content="Hanya Tersedia" IsChecked="{Binding AvailableOnly}" Foreground="White" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <ComboBox Width="150" ItemsSource="{Binding SortOptions}" SelectedItem="{Binding SortBy}" Margin="0,0,8,0"/>
+                        <Button Content="Reset" Click="Reset_Click" Padding="10,6"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- List -->
+            <ScrollViewer Grid.Row="1" Margin="0,12,0,0">
+                <ItemsControl ItemsSource="{Binding BoatsView}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:Boat}">
+                            <Border Margin="8" Padding="10" Background="#667" CornerRadius="12" Width="300">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="180"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Area gambar -->
+                                    <Grid Grid.Row="0" ClipToBounds="True" Background="#111418">
+                                        <Image Stretch="UniformToFill" Source="{Binding ThumbnailPath}"/>
+
+                                        <!-- Placeholder tanpa converter -->
+                                        <TextBlock Text="(no image)" Foreground="#667"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ThumbnailPath}" Value="{x:Null}">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ThumbnailPath}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+
+                                    <!-- Info kapal -->
+                                    <StackPanel Grid.Row="1" Margin="0,8,0,0">
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16" Foreground="White"/>
+                                        <TextBlock Text="{Binding Model}" Foreground="#B0B8C0"/>
+                                        <TextBlock Text="{Binding Location}" Foreground="#B0B8C0"/>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,6,0,0">
+                                        <TextBlock Text="💺"/>
+                                        <TextBlock Text="{Binding Capacity}" Foreground="White" Margin="6,0,12,0"/>
+                                        <TextBlock Text="⭐"/>
+                                        <TextBlock Text="{Binding Rating}" Foreground="White" Margin="6,0,12,0"/>
+                                        <TextBlock Text="•" Foreground="#666" Margin="0,0,8,0"/>
+                                        <TextBlock Text="{Binding Year}" Foreground="#B0B8C0"/>
+                                    </StackPanel>
+
+                                    <!-- Harga + tombol pilih -->
+                                    <DockPanel Grid.Row="3" Margin="0,8,0,0" LastChildFill="False">
+                                        <TextBlock DockPanel.Dock="Left" FontSize="16" FontWeight="SemiBold" Foreground="#CDE">
+                                            <Run Text="IDR "/><Run Text="{Binding PricePerDay, StringFormat=N0}"/><Run Text="/hari"/>
+                                        </TextBlock>
+                                        <Button DockPanel.Dock="Right" Content="Pilih Kapal Ini" Padding="10,6"
+                                                Tag="{Binding}" Click="SelectBoat_Click"/>
+                                    </DockPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>

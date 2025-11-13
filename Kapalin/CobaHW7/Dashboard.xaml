@@ -4,23 +4,45 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CobaHW7"
+<<<<<<< HEAD
         mc:Ignorable="d"
         Title="Dashboard" Height="1080" Width="1920">
 <DockPanel>
 
         <!-- ======== HEADER ======== -->
         <Border Background="#007ACC" DockPanel.Dock="Top" Height="50">
+=======
+        xmlns:data="clr-namespace:CobaHW7.Data"
+        mc:Ignorable="d"
+        Title="Dashboard" Height="1080" Width="1920" Background="#F5F7FB">
+
+    <!-- Converters -->
+    <Window.Resources>
+        <local:RupiahConverter x:Key="Rupiah" />
+        <local:StatusToBrushConverter x:Key="StatusBrush" />
+    </Window.Resources>
+
+    <DockPanel>
+
+        <!-- ======== HEADER ======== -->
+        <Border Background="#007ACC" DockPanel.Dock="Top" Height="56">
+>>>>>>> 9e92305cab807394a9274ee994589271c4f34ced
             <Grid>
                 <TextBlock Text="Dashboard - KAPALIN"
                            Foreground="White"
                            FontSize="18"
                            FontWeight="Bold"
                            VerticalAlignment="Center"
+<<<<<<< HEAD
                            Margin="10,0,0,0" />
+=======
+                           Margin="16,0,0,0" />
+>>>>>>> 9e92305cab807394a9274ee994589271c4f34ced
 
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
+<<<<<<< HEAD
                             Margin="0,0,10,0">
 
                     <Button Content="Cek Booking"
@@ -38,10 +60,24 @@
                             Background="Red"
                             Foreground="White"
                             />
+=======
+                            Margin="0,0,16,0">
+
+                    <Button Content="Cek Booking"
+                            Width="120" Height="32" Margin="6,0"
+                            Background="White" Foreground="#007ACC"
+                            Click="CekBooking_Click"/>
+
+                    <Button Content="Logout"
+                            Width="88" Height="32" Margin="6,0"
+                            Background="#E53935" Foreground="White"
+                            Click="Logout_Click"/>
+>>>>>>> 9e92305cab807394a9274ee994589271c4f34ced
                 </StackPanel>
             </Grid>
         </Border>
 
+<<<<<<< HEAD
         <!-- ======== KONTEN KAPAL ======== -->
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <WrapPanel Margin="20" x:Name="BoatPanel">
@@ -123,5 +159,222 @@
 
             </WrapPanel>
         </ScrollViewer>
+=======
+        <!-- ======== CONTENT ROOT ======== -->
+        <Grid>
+            <!-- ========== DAFTAR KAPAL (default terlihat) ========== -->
+            <ScrollViewer x:Name="BoatScroll" VerticalScrollBarVisibility="Auto">
+                <WrapPanel Margin="20" x:Name="BoatPanel">
+
+                    <!-- Kapal 1 -->
+                    <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="12"
+                            Margin="10" Background="White" Width="260">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#22000000" BlurRadius="12" ShadowDepth="0"/>
+                        </Border.Effect>
+                        <StackPanel Margin="10">
+                            <Image Source="Assets/ferry.jpeg" Height="150" Stretch="UniformToFill" />
+                            <TextBlock Text="Kapal Ferry" 
+                                       FontSize="16" FontWeight="Bold"
+                                       Margin="0,10,0,2" 
+                                       HorizontalAlignment="Center"/>
+
+                            <StackPanel Margin="0,5,0,5">
+                                <TextBlock Text="Tahun: 2022" FontSize="13" Foreground="#616161" />
+                                <TextBlock Text="Harga: Rp 3.500.000 / hari" FontSize="13" Foreground="#616161" />
+                                <TextBlock Text="Status: Tersedia" FontSize="13" Foreground="#2E7D32" />
+                            </StackPanel>
+
+                            <Button Content="Pilih Kapal Ini"
+                                    Width="160" Height="32"
+                                    Background="#007ACC" Foreground="White"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,10,0,0"
+                                    Tag="1"
+                                    Click="SelectBoat_Click"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Kapal 2 -->
+                    <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="12"
+                            Margin="10" Background="White" Width="260">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#22000000" BlurRadius="12" ShadowDepth="0"/>
+                        </Border.Effect>
+                        <StackPanel Margin="10">
+                            <Image Source="Assets/speedboat.jpeg" Height="150" Stretch="UniformToFill" />
+                            <TextBlock Text="Speedboat" 
+                                       FontSize="16" FontWeight="Bold"
+                                       Margin="0,10,0,2" 
+                                       HorizontalAlignment="Center"/>
+
+                            <StackPanel Margin="0,5,0,5">
+                                <TextBlock Text="Tahun: 2018" FontSize="13" Foreground="#616161" />
+                                <TextBlock Text="Harga: Rp 1.200.000 / hari" FontSize="13" Foreground="#616161" />
+                                <TextBlock Text="Status: Tidak Tersedia" FontSize="13" Foreground="#C62828" />
+                            </StackPanel>
+
+                            <Button Content="Pilih Kapal Ini"
+                                    Width="160" Height="32"
+                                    Background="#007ACC" Foreground="White"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,10,0,0"
+                                    Tag="2"
+                                    Click="SelectBoat_Click"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Kapal 3 -->
+                    <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="12"
+                            Margin="10" Background="White" Width="260">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#22000000" BlurRadius="12" ShadowDepth="0"/>
+                        </Border.Effect>
+                        <StackPanel Margin="10">
+                            <Image Source="Assets/yacht.jpeg" Height="150" Stretch="UniformToFill" />
+                            <TextBlock Text="Yacht" 
+                                       FontSize="16" FontWeight="Bold"
+                                       Margin="0,10,0,2" 
+                                       HorizontalAlignment="Center"/>
+
+                            <StackPanel Margin="0,5,0,5">
+                                <TextBlock Text="Tahun: 2020" FontSize="13" Foreground="#616161" />
+                                <TextBlock Text="Harga: Rp 2.800.000 / hari" FontSize="13" Foreground="#616161" />
+                                <TextBlock Text="Status: Tersedia" FontSize="13" Foreground="#2E7D32" />
+                            </StackPanel>
+
+                            <Button Content="Pilih Kapal Ini"
+                                    Width="160" Height="32"
+                                    Background="#007ACC" Foreground="White"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,10,0,0"
+                                    Tag="3"
+                                    Click="SelectBoat_Click"/>
+                        </StackPanel>
+                    </Border>
+
+                </WrapPanel>
+            </ScrollViewer>
+
+            <!-- ========== CEK BOOKING (modern cards) ========== -->
+            <Grid x:Name="BookingSection" Visibility="Collapsed" Margin="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <Border CornerRadius="14" Padding="16" Grid.Row="0">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#1976D2" Offset="0"/>
+                            <GradientStop Color="#42A5F5" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Left">
+                            <TextBlock Text="Cek Booking" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                            <TextBlock Text="Pesanan kapalmu terbaru" Foreground="#E3F2FD"/>
+                        </StackPanel>
+                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                            <ComboBox x:Name="StatusFilter" Width="150" Margin="0,0,10,0"
+                                      SelectionChanged="StatusFilter_SelectionChanged">
+                                <ComboBoxItem Content="Semua" IsSelected="True"/>
+                                <ComboBoxItem Content="Pending"/>
+                                <ComboBoxItem Content="Dipesan"/>
+                                <ComboBoxItem Content="Selesai"/>
+                                <ComboBoxItem Content="Dibatalkan"/>
+                            </ComboBox>
+                            <TextBox x:Name="SearchBox" Width="240" Height="28" Padding="8,2" Margin="0,0,10,0"
+                                     ToolTip="Cari nama kapal..." TextChanged="SearchBox_TextChanged"/>
+                            <Button Content="Refresh" Height="28" Padding="12,0" Click="RefreshBookings_Click"/>
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+
+                <!-- Cards list -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,12,0,0">
+                    <ItemsControl x:Name="BookingList">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel IsItemsHost="True" Margin="4" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <!-- BookingRow berada di namespace CobaHW7.Data -->
+                            <DataTemplate DataType="{x:Type data:BookingRow}">
+                                <Border Width="320" Margin="8" CornerRadius="14" Background="White" Padding="12">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="#22000000" BlurRadius="16" ShadowDepth="0"/>
+                                    </Border.Effect>
+
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- Title + status badge -->
+                                        <DockPanel Grid.Row="0">
+                                            <TextBlock Text="{Binding BoatName}" FontSize="16" FontWeight="Bold" Foreground="#263238"/>
+                                            <Border Background="{Binding Status, Converter={StaticResource StatusBrush}}"
+                                                    CornerRadius="10" Padding="6,2" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="6,0,0,0">
+                                                <TextBlock Text="{Binding Status}" Foreground="White" FontWeight="SemiBold"/>
+                                            </Border>
+                                        </DockPanel>
+
+                                        <!-- Dates -->
+                                        <TextBlock Grid.Row="1" Margin="0,6,0,0" Foreground="#607D8B">
+                                            <Run Text="{Binding StartDate, StringFormat={}{0:dd MMM yyyy}}"/>
+                                            <Run Text=" — "/>
+                                            <Run Text="{Binding EndDate, StringFormat={}{0:dd MMM yyyy}}"/>
+                                        </TextBlock>
+
+                                        <!-- Total -->
+                                        <TextBlock Grid.Row="2" Margin="0,4,0,0" FontWeight="SemiBold" Foreground="#1E88E5">
+                                            <Run Text="Total: "/>
+                                            <Run Text="{Binding TotalAmount, Converter={StaticResource Rupiah}}"/>
+                                        </TextBlock>
+
+                                        <!-- Actions -->
+                                        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,10,0,0">
+                                            <Button Content="Detail" Height="28" Padding="12,0" Margin="0,0,8,0" Click="OpenBookingDetail_Click"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+
+                        <!-- Empty state -->
+                        <ItemsControl.Style>
+                            <Style TargetType="ItemsControl">
+                                <Style.Triggers>
+                                    <Trigger Property="HasItems" Value="False">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ItemsControl">
+                                                    <Grid>
+                                                        <TextBlock Text="Belum ada booking."
+                                                                   Foreground="#90A4AE"
+                                                                   HorizontalAlignment="Center"
+                                                                   VerticalAlignment="Center"
+                                                                   FontSize="16"/>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ItemsControl.Style>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
+>>>>>>> 9e92305cab807394a9274ee994589271c4f34ced
     </DockPanel>
 </Window>
