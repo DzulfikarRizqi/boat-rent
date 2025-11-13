@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿using System.Windows;
+using System.Windows;
 using System;
 using System.Collections.Generic;
 using CobaHW7.Class;
@@ -7,29 +6,17 @@ using UserModel = CobaHW7.Class.User;
 using Supabase.Gotrue;
 using CobaHW7.Supabase;
 using Supabase;
-=======
-﻿using System.Data;
-using System.Windows;
-using CobaHW7.Class;
-using CobaHW7.Data;
->>>>>>> 9e92305cab807394a9274ee994589271c4f34ced
 
 namespace CobaHW7
 {
     public partial class RegisterWindow : Window
     {
-<<<<<<< HEAD
-=======
-        private readonly UserRepository _repo = new UserRepository();
-
->>>>>>> 9e92305cab807394a9274ee994589271c4f34ced
         public RegisterWindow()
         {
             InitializeComponent();
         }
 
-<<<<<<< HEAD
-        
+
         private async void SignUpButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -144,82 +131,16 @@ namespace CobaHW7
                 // Aktifkan kembali tombol setelah proses selesai
                 SignUpButton.IsEnabled = true;
                 SignUpButton.Content = "Sign Up";
-=======
-        // Pastikan tombol di XAML:  Click="SignUpButton_Click"
-        private async void SignUpButton_Click(object sender, RoutedEventArgs e)
-        {
-            string name = NameTextBox.Text?.Trim();
-            string email = EmailTextBox.Text?.Trim();
-            string password = PasswordBox.Password;
-            string confirm = ConfirmPasswordBox.Password;
-
-            if (string.IsNullOrWhiteSpace(name) ||
-                string.IsNullOrWhiteSpace(email) ||
-                string.IsNullOrWhiteSpace(password))
-            {
-                DialogService.Info("Form belum lengkap", "Nama, email, dan password wajib diisi.");
-                return;
-            }
-
-            if (password != confirm)
-            {
-                DialogService.Error("Konfirmasi salah", "Password dan konfirmasi tidak sama.");
-                return;
-            }
-
-            try
-            {
-                if (await _repo.EmailExistsAsync(email))
-                {
-                    DialogService.Error("Akun sudah teregistrasi",
-                        "Email ini sudah digunakan. Silakan login atau pakai email lain.");
-                    return;
-                }
-
-                var id = await _repo.CreateAsync(new User
-                {
-                    Name = name,
-                    Email = email,
-                    Password = password,   // TODO: ganti ke hash
-                    IsAdmin = false
-                });
-
-                DialogService.Success("Registrasi berhasil", $"Akunmu aktif. ID: {id}");
-                new MainWindow { Owner = this }.Show(); // atau LoginWindow kalau ada
-                Close();
-            }
-            catch (DuplicateNameException)
-            {
-                DialogService.Error("Akun sudah teregistrasi",
-                    "Email ini sudah digunakan. Silakan login atau ubah email.");
-            }
-            catch (Exception ex)
-            {
-                DialogService.Error("Gagal mendaftar", $"Terjadi kesalahan: {ex.Message}");
->>>>>>> 9e92305cab807394a9274ee994589271c4f34ced
             }
         }
 
         private void LoginHyperlink_Click(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
             //new MainWindow().Show();
             //this.Close();
             MainWindow loginWindow = new MainWindow(); // Ganti dengan nama window login Anda
             loginWindow.Show();
             this.Close();
         }
-=======
-            new MainWindow { Owner = this }.Show();
-            Close();
-        }
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-            if (Owner != null) Owner.Show();
-        }
-
-
->>>>>>> 9e92305cab807394a9274ee994589271c4f34ced
     }
 }

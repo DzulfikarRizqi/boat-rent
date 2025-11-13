@@ -2,12 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:CobaHW7"
-<<<<<<< HEAD
-             StartupUri="DashboardAdmin.xaml">
-=======
-             StartupUri="MainWindow.xaml"
+             StartupUri="DashboardAdmin.xaml"
              ShutdownMode="OnLastWindowClose">
->>>>>>> 9e92305cab807394a9274ee994589271c4f34ced
     <Application.Resources>
          
     </Application.Resources>
