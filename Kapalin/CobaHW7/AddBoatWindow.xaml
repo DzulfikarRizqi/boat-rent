@@ -1,0 +1,60 @@
+﻿<Window x:Class="CobaHW7.AddBoatWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CobaHW7"
+        mc:Ignorable="d"
+        Title="AddBoatWindow" Height="500" Width="400">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="ID Kapal" VerticalAlignment="Center"/>
+        <TextBox x:Name="IdTextBox" Grid.Row="0" Grid.Column="1" Margin="5"/>
+        
+        <Label Grid.Row="1" Grid.Column="0" Content="Nama Kapal" VerticalAlignment="Center"/>
+        <TextBox x:Name="NameTextBox" Grid.Row="1" Grid.Column="1" Margin="5"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Model" VerticalAlignment="Center"/>
+        <TextBox x:Name="ModelTextBox" Grid.Row="2" Grid.Column="1" Margin="5"/>
+
+        <Label Grid.Row="3" Grid.Column="0" Content="Lokasi" VerticalAlignment="Center"/>
+        <TextBox x:Name="LocationTextBox" Grid.Row="3" Grid.Column="1" Margin="5"/>
+
+        <Label Grid.Row="4" Grid.Column="0" Content="Kapasitas" VerticalAlignment="Center"/>
+        <TextBox x:Name="CapacityTextBox" Grid.Row="4" Grid.Column="1" Margin="5"/>
+
+        <Label Grid.Row="5" Grid.Column="0" Content="Tahun" VerticalAlignment="Center"/>
+        <TextBox x:Name="YearTextBox" Grid.Row="5" Grid.Column="1" Margin="5"/>
+
+        <Label Grid.Row="6" Grid.Column="0" Content="Rating" VerticalAlignment="Center"/>
+        <TextBox x:Name="RatingTextBox" Grid.Row="6" Grid.Column="1" Margin="5"/>
+
+        <Label Grid.Row="7" Grid.Column="0" Content="Harga per Hari" VerticalAlignment="Center"/>
+        <TextBox x:Name="PriceTextBox" Grid.Row="7" Grid.Column="1" Margin="5"/>
+
+        <Label Grid.Row="8" Grid.Column="0" Content="Aktif" VerticalAlignment="Center"/>
+        <CheckBox x:Name="AvailableCheckBox" Grid.Row="8" Grid.Column="1" Margin="5" VerticalAlignment="Center" IsChecked="True"/>
+
+        <StackPanel Grid.Row="10" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Simpan" Width="80" Margin="0,0,10,0" IsDefault="True" Click="SaveButton_Click"/>
+            <Button Content="Batal" Width="80" IsCancel="True" Click="CancelButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
