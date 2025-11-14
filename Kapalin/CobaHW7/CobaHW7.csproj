@@ -28,6 +28,7 @@
     <PackageReference Include="Npgsql" Version="9.0.4" />
     <PackageReference Include="postgrest-csharp" Version="3.5.1" />
     <PackageReference Include="supabase-csharp" Version="0.16.2" />
+    <PackageReference Include="supabase-storage-csharp" Version="1.4.0" />
   </ItemGroup>
 
   <ItemGroup>

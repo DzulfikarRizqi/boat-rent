@@ -1,5 +1,5 @@
 using CobaHW7.Class;
-using CobaHW7.Supabase; // lokasi SupabaseService
+using CobaHW7.Services; // lokasi SupabaseService
 using CobaHW7.ViewModels; // <-- TAMBAHKAN INI (jika RelayCommand di sana)
 using System;
 using System.Collections.ObjectModel;

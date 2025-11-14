@@ -1,7 +1,7 @@
 using System.Windows;
 using CobaHW7.Class;
 using CobaHW7;
-using CobaHW7.Supabase;
+using CobaHW7.Services;
 
 namespace CobaHW7
 {

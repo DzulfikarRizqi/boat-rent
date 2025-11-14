@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using CobaHW7.Class;
 using UserModel = CobaHW7.Class.User;
 using Supabase.Gotrue;
-using CobaHW7.Supabase;
+using CobaHW7.Services;
 using Supabase;
 
 namespace CobaHW7

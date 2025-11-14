@@ -206,7 +206,22 @@
                                         <DataGridTextColumn Header="Rating" Binding="{Binding Rating, UpdateSourceTrigger=PropertyChanged, StringFormat=F1}" Width="80" />
                                         <DataGridTextColumn Header="Harga/Hari" Binding="{Binding PricePerDay, UpdateSourceTrigger=PropertyChanged, StringFormat=N0}" Width="120" />
                                         <DataGridCheckBoxColumn Header="Aktif" Binding="{Binding Available}" Width="70" />
-                                        <DataGridTextColumn Header="ThumbnailPath" Binding="{Binding ThumbnailPath, UpdateSourceTrigger=PropertyChanged}" Width="200" />
+                                        <DataGridTemplateColumn Header="Gambar" Width="120">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border Background="#F0F0F0" 
+                    CornerRadius="4" 
+                    Height="50" Width="100" 
+                    Margin="2">
+
+                                                        <Image Source="{Binding ThumbnailPath}" 
+                       Stretch="UniformToFill" 
+                       ClipToBounds="True" />
+
+                                                    </Border>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
                                         <DataGridTemplateColumn Header="Aksi" Width="110">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
