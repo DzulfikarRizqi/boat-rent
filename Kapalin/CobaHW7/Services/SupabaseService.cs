@@ -85,13 +85,14 @@ namespace CobaHW7.Services
             }
         }
 
-        public static async Task DeleteBoatAsync(long boatId)
+        public static async Task<bool> DeleteBoatAsync(long boatId)
         {
             try
             {
                 await Client.From<Boat>()
                             .Where(b => b.ID == boatId) // Asumsi properti ID Anda 'ID'
                             .Delete();
+                return true;
             }
             catch (Exception ex)
             {

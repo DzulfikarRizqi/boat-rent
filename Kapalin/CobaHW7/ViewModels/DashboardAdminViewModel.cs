@@ -1,115 +1,20 @@
 using CobaHW7.Class;
-using CobaHW7.Services; // lokasi SupabaseService
-using CobaHW7.ViewModels; // <-- TAMBAHKAN INI (jika RelayCommand di sana)
+using CobaHW7.Services; // Lokasi SupabaseService
+using CobaHW7.ViewModels; // Lokasi RelayCommand
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;  // <-- TAMBAHKAN INI
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Input; // <-- TAMBAHKAN INI
+using System.Windows.Input;
 
 namespace CobaHW7.ViewModels
 {
-    //public class DashboardAdminViewModel : BaseViewModel
-    //{
-
-    //    // 2. Properti untuk filter (sesuai binding di XAML )
-    //    private string _boatFilter;
-    //    public string BoatFilter
-    //    {
-    //        get => _boatFilter;
-    //        set
-    //        {
-    //            _boatFilter = value;
-    //            OnPropertyChanged(nameof(BoatFilter));
-    //            // Refresh filter setiap kali teks berubah
-    //            BoatsView.Refresh();
-    //        }
-    //    }
-
-    //    // 3. Properti untuk DataGrid (sesuai binding di XAML )
-
-    //    // Ini adalah koleksi *internal* untuk menyimpan SEMUA kapal
-    //    private ObservableCollection<Boat> _allBoats;
-
-    //    // Ini adalah 'View' yang akan dilihat oleh DataGrid 
-    //    // ICollectionView sangat bagus karena bisa difilter
-    //    public ICollectionView BoatsView { get; private set; }
-
-    //    // Properti untuk data booking 
-    //    public ObservableCollection<Booking> Bookings { get; private set; }
-
-    //    public DashboardAdminViewModel()
-    //    {
-
-    //        // Inisialisasi koleksi
-    //        _allBoats = new ObservableCollection<Boat>();
-    //        Bookings = new ObservableCollection<Booking>();
-
-    //        // Buat ICollectionView berdasarkan koleksi internal _allBoats
-    //        BoatsView = CollectionViewSource.GetDefaultView(_allBoats);
-
-    //        // Terapkan logika filter
-    //        BoatsView.Filter = FilterBoats;
-
-    //        // Panggil metode untuk memuat data
-    //        LoadDataAsync();
-    //    }
-
-    //    // 5. Metode untuk memuat data dari Supabase
-    //    private async void LoadDataAsync()
-    //    {
-    //        try
-    //        {
-    //            // Ambil data kapal
-    //            var boats = await SupabaseService.GetBoatsAsync();
-    //            _allBoats.Clear();
-    //            foreach (var boat in boats)
-    //            {
-    //                _allBoats.Add(boat);
-    //            }
-
-    //            // Ambil data booking
-    //            var bookings = await SupabaseService.GetBookingsAsync();
-    //            Bookings.Clear();
-    //            foreach (var booking in bookings)
-    //            {
-    //                Bookings.Add(booking);
-    //            }
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            // Tangani error, misalnya tampilkan MessageBox
-    //            Console.WriteLine($"Gagal memuat data: {ex.Message}");
-    //        }
-    //    }
-
-    //    // 6. Logika untuk memfilter DataGrid kapal
-    //    private bool FilterBoats(object item)
-    //    {
-    //        if (string.IsNullOrEmpty(BoatFilter))
-    //        {
-    //            // Jika filter kosong, tampilkan semua
-    //            return true;
-    //        }
-
-    //        if (item is Boat boat)
-    //        {
-    //            // Cek apakah nama kapal mengandung teks filter (tidak case-sensitive)
-    //            return boat.Name.IndexOf(BoatFilter, StringComparison.OrdinalIgnoreCase) >= 0 ||
-    //                   boat.Location.IndexOf(BoatFilter, StringComparison.OrdinalIgnoreCase) >= 0;
-    //        }
-
-    //        return false;
-    //    }
-    //}
-
     public class DashboardAdminViewModel : BaseViewModel
     {
-        // 2. Properti untuk filter (sesuai binding di XAML )
-        // Saya tambahkan = "" untuk mengatasi warning nullable CS8618
+        // 1. Properti untuk filter
         private string _boatFilter = "";
         public string BoatFilter
         {
@@ -118,75 +23,105 @@ namespace CobaHW7.ViewModels
             {
                 _boatFilter = value;
                 OnPropertyChanged(nameof(BoatFilter));
-                // Refresh filter setiap kali teks berubah
-                BoatsView.Refresh();
+                BoatsView.Refresh(); // Refresh filter setiap kali teks berubah
             }
         }
 
-        // 3. Properti untuk DataGrid (sesuai binding di XAML )
+        // 2. Properti untuk DataGrid
         private ObservableCollection<Boat> _allBoats;
         public ICollectionView BoatsView { get; private set; }
         public ObservableCollection<Booking> Bookings { get; private set; }
 
 
-        // --- PROPERTI COMMAND BARU ---
-        public ICommand AddBoatCommand { get; } // <-- BARU
+        // 3. Command untuk Tambah Kapal
+        public ICommand AddBoatCommand { get; }
+        public ICommand DeleteBoatCommand { get; }
 
 
-        // 4. Constructor
+        // --- [BARU] 4. Properti & Command untuk Image Viewer ---
+        private string? _largeImageUrl;
+        public string? LargeImageUrl
+        {
+            get => _largeImageUrl;
+            set
+            {
+                if (_largeImageUrl != value)
+                {
+                    _largeImageUrl = value;
+                    OnPropertyChanged(nameof(LargeImageUrl));
+                }
+            }
+        }
+
+        public ICommand ShowImageCommand { get; }
+        public ICommand HideImageCommand { get; }
+
+
+        // 5. Constructor
         public DashboardAdminViewModel()
         {
             // Inisialisasi koleksi
             _allBoats = new ObservableCollection<Boat>();
             Bookings = new ObservableCollection<Booking>();
 
-            // Buat ICollectionView berdasarkan koleksi internal _allBoats
+            // Buat ICollectionView
             BoatsView = CollectionViewSource.GetDefaultView(_allBoats);
-
-            // Terapkan logika filter
+            BoatsView.SortDescriptions.Add(new SortDescription(nameof(Boat.ID), ListSortDirection.Ascending));
             BoatsView.Filter = FilterBoats;
 
-            // --- INISIALISASI COMMAND BARU ---
-            // 'ExecuteAddBoat' adalah nama metode yang akan dipanggil
-            AddBoatCommand = new RelayCommand(ExecuteAddBoat); // <-- BARU
+            // Inisialisasi Command Lama
+            AddBoatCommand = new RelayCommand(ExecuteAddBoat);
+            DeleteBoatCommand = new RelayCommand(ExecuteDeleteBoat);
 
-            // Panggil metode untuk memuat data
+            // --- [BARU] Inisialisasi Command Image Viewer ---
+            ShowImageCommand = new RelayCommand(ExecuteShowImage);
+            HideImageCommand = new RelayCommand(ExecuteHideImage);
+
+            // Muat data
             LoadDataAsync();
         }
 
 
-        // --- METODE BARU UNTUK MENANGANI TOMBOL ---
+        // --- [BARU] Metode untuk Image Viewer ---
 
-        /// <summary>
-        /// Dipanggil oleh AddBoatCommand (tombol "Tambah Kapal")
-        /// </summary>
-        private async void ExecuteAddBoat(object parameter) // <-- BARU (SELURUH METODE)
+        private void ExecuteShowImage(object parameter)
         {
-            // Buat instance window form baru
-            AddBoatWindow addWindow = new AddBoatWindow();
+            // Parameter dikirim dari XAML (CommandParameter="{Binding ThumbnailPath}")
+            if (parameter is string url && !string.IsNullOrEmpty(url))
+            {
+                LargeImageUrl = url;
+            }
+        }
 
-            // Set 'Owner' agar window muncul di tengah aplikasi utama
+        private void ExecuteHideImage(object parameter)
+        {
+            // Set null untuk menyembunyikan pop-up (karena trigger di XAML)
+            LargeImageUrl = null;
+        }
+
+
+        // --- Metode Lama (Tambah Kapal) ---
+
+        private async void ExecuteAddBoat(object parameter)
+        {
+            AddBoatWindow addWindow = new AddBoatWindow();
             addWindow.Owner = Application.Current.MainWindow;
 
-            // Tampilkan window sebagai dialog (menghentikan eksekusi di sini)
             bool? result = addWindow.ShowDialog();
 
-            // Cek apakah user mengklik "Simpan" (DialogResult == true)
             if (result == true)
             {
-                // Ambil objek Boat baru dari properti di AddBoatWindow
-                Boat boatFromForm = addWindow.NewBoat;
+                Boat? boatFromForm = addWindow.NewBoat; // Menggunakan 'Boat?' agar aman
+
+                if (boatFromForm == null) return;
 
                 try
                 {
-                    // Panggil service untuk menyimpan ke Supabase
-                    // 'AddBoatAsync' akan mengembalikan kapal baru lengkap dengan ID
+                    // Simpan ke Supabase
                     Boat boatFromDb = await SupabaseService.AddBoatAsync(boatFromForm);
 
                     if (boatFromDb != null)
                     {
-                        // PENTING: Tambahkan kapal baru ke koleksi lokal
-                        // Ini akan otomatis update DataGrid di UI
                         _allBoats.Add(boatFromDb);
                     }
                 }
@@ -198,15 +133,47 @@ namespace CobaHW7.ViewModels
             }
         }
 
+        private async void ExecuteDeleteBoat(object parameter)
+        {
+            // Parameter dikirim dari tombol (Objek Boat yang mau dihapus)
+            if (parameter is Boat boatToDelete)
+            {
+                // A. Tanya Konfirmasi User dulu
+                var result = MessageBox.Show(
+                    $"Apakah Anda yakin ingin menghapus kapal '{boatToDelete.Name}'?\nData yang dihapus tidak dapat dikembalikan.",
+                    "Konfirmasi Hapus",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
 
-        // --- METODE LAMA ANDA (Sudah Benar) ---
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        // B. Hapus dari Database Supabase
+                        await SupabaseService.DeleteBoatAsync(boatToDelete.ID);
 
-        // 5. Metode untuk memuat data dari Supabase
+                        // C. Hapus dari Tampilan Aplikasi (ObservableCollection)
+                        // Ini penting agar barisnya hilang tanpa perlu restart aplikasi
+                        _allBoats.Remove(boatToDelete);
+
+                        MessageBox.Show("Data berhasil dihapus.", "Sukses", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Tips: Ini biasanya gagal jika Kapal sudah punya data Booking (Foreign Key Error)
+                        MessageBox.Show($"Gagal menghapus data. Pastikan kapal tidak memiliki riwayat booking.\nError: {ex.Message}",
+                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
+
+        // --- Metode Lama (Load Data & Filter) ---
+
         private async void LoadDataAsync()
         {
             try
             {
-                // Ambil data kapal
                 var boats = await SupabaseService.GetBoatsAsync();
                 _allBoats.Clear();
                 foreach (var boat in boats)
@@ -214,7 +181,6 @@ namespace CobaHW7.ViewModels
                     _allBoats.Add(boat);
                 }
 
-                // Ambil data booking
                 var bookings = await SupabaseService.GetBookingsAsync();
                 Bookings.Clear();
                 foreach (var booking in bookings)
@@ -224,27 +190,23 @@ namespace CobaHW7.ViewModels
             }
             catch (Exception ex)
             {
-                // Mengganti Console.WriteLine ke Debug.WriteLine
                 Debug.WriteLine($"Gagal memuat data: {ex.Message}");
             }
         }
 
-        // 6. Logika untuk memfilter DataGrid kapal
         private bool FilterBoats(object item)
         {
-            if (string.IsNullOrEmpty(BoatFilter))
-            {
-                // Jika filter kosong, tampilkan semua
-                return true;
-            }
+            if (string.IsNullOrEmpty(BoatFilter)) return true;
 
             if (item is Boat boat)
             {
-                // Cek apakah nama kapal mengandung teks filter (tidak case-sensitive)
-                return boat.Name.IndexOf(BoatFilter, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                       boat.Location.IndexOf(BoatFilter, StringComparison.OrdinalIgnoreCase) >= 0;
-            }
+                // Cek null pada properti string untuk menghindari crash
+                string name = boat.Name ?? "";
+                string location = boat.Location ?? "";
 
+                return name.IndexOf(BoatFilter, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                       location.IndexOf(BoatFilter, StringComparison.OrdinalIgnoreCase) >= 0;
+            }
             return false;
         }
     }
