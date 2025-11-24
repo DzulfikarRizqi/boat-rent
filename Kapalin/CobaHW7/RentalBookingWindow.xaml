@@ -152,7 +152,7 @@
                         </Button.Resources>
                     </Button>
 
-                    <Button Grid.Column="1" Content="Pesan Sekarang" Width="150" Height="40"
+                    <Button x:Name="BookNowButton" Grid.Column="1" Content="Pesan Sekarang" Width="150" Height="40"
                             Background="#007ACC" Foreground="White" FontSize="14" FontWeight="SemiBold"
                             Cursor="Hand" Click="BookNowButton_Click">
                         <Button.Resources>

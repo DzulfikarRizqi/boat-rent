@@ -161,28 +161,70 @@ namespace CobaHW7
 
             try
             {
-                // Create booking object
-                var booking = new Booking
+                // Open payment window based on selected payment method
+                bool paymentConfirmed = false;
+
+                if (paymentMethod == "QRIS")
                 {
-                    BoatId = selectedBoat.ID,
-                    StartDate = startDate,
-                    EndDate = endDate,
-                    TotalAmount = total,
-                    PaymentMethod = paymentMethod,
-                    Status = "Menunggu Pembayaran"
-                };
+                    QrisPaymentWindow qrisWindow = new QrisPaymentWindow(total);
+                    qrisWindow.ShowDialog();
+                    paymentConfirmed = qrisWindow.IsConfirmed;
+                }
+                else
+                {
+                    VirtualAccountPaymentWindow vaWindow = new VirtualAccountPaymentWindow(total);
+                    vaWindow.ShowDialog();
+                    paymentConfirmed = vaWindow.IsConfirmed;
+                }
 
-                // TODO: Save to Supabase
-                // var result = await SupabaseService.Client.From<Booking>().Insert(booking);
+                // Jika pembayaran dikonfirmasi, simpan booking
+                if (paymentConfirmed)
+                {
+                    // Disable button saat processing
+                    BookNowButton.IsEnabled = false;
+                    BookNowButton.Content = "Memproses...";
 
-                // Show success message
-                var alert = new AlertWindow("Pemesanan Berhasil!",
-                    $"Pesanan Anda untuk {selectedBoat.Name} telah dibuat.\n\nTotal: Rp {total:N0}\nMetode Pembayaran: {paymentMethod}",
-                    AlertWindow.AlertType.Success);
-                alert.ShowDialog();
+                    try
+                    {
+                        // Show processing alert
+                        var processingAlert = new AlertWindow("Pesanan Sedang Diproses",
+                            "Pesanan Anda sedang kami proses. Harap tunggu sebentar...",
+                            AlertWindow.AlertType.Info);
+                        processingAlert.ShowDialog();
 
-                // Close this window and go back to dashboard
-                this.Close();
+                        // Create booking object
+                        var booking = new Booking
+                        {
+                            BoatId = selectedBoat.ID,
+                            StartDate = startDate,
+                            EndDate = endDate,
+                            TotalAmount = total,
+                            PaymentMethod = paymentMethod,
+                            Status = "Menunggu Pembayaran"
+                        };
+
+                        // TODO: Save to Supabase
+                        // var result = await SupabaseService.Client.From<Booking>().Insert(booking);
+
+                        // Simulate processing delay
+                        await Task.Delay(1500);
+
+                        // Show success message
+                        var successAlert = new AlertWindow("Pemesanan Berhasil!",
+                            $"Pesanan Anda untuk {selectedBoat.Name} telah dibuat.\n\nTotal: Rp {total:N0}\nMetode Pembayaran: {paymentMethod}",
+                            AlertWindow.AlertType.Success);
+                        successAlert.ShowDialog();
+
+                        // Close this window and go back to dashboard
+                        this.Close();
+                    }
+                    finally
+                    {
+                        // Re-enable button in case of error
+                        BookNowButton.IsEnabled = true;
+                        BookNowButton.Content = "Pesan Sekarang";
+                    }
+                }
             }
             catch (Exception ex)
             {
