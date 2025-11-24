@@ -28,7 +28,7 @@
                            VerticalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
                     <Button Content="Cek Booking" Padding="15,8" Background="White" Foreground="#1976D2" FontWeight="SemiBold" BorderThickness="0" Margin="0,0,10,0"/>
-                    <Button Content="Logout" Padding="15,8" Background="#D32F2F" Foreground="White" FontWeight="SemiBold" BorderThickness="0"/>
+                    <Button x:Name="BtnLogout" Content="Logout" Padding="15,8" Background="#D32F2F" Foreground="White" FontWeight="SemiBold" BorderThickness="0" Click="BtnLogout_Click"/>
                 </StackPanel>
             </DockPanel>
         </Border>
