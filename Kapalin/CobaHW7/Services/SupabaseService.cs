@@ -85,6 +85,22 @@ namespace CobaHW7.Services
             }
         }
 
+        public static async Task<Boat> UpdateBoatAsync(Boat updatedBoat)
+        {
+            try
+            {
+                var response = await Client.From<Boat>()
+                                           .Update(updatedBoat);
+
+                return response.Models.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error updating boat: {ex.Message}");
+                throw;
+            }
+        }
+
         public static async Task<bool> DeleteBoatAsync(long boatId)
         {
             try

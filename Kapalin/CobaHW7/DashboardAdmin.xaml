@@ -166,14 +166,14 @@
 
                             <DockPanel Grid.Row="0" LastChildFill="True" Margin="0,0,0,12">
                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                                    <Button Content="Tambah Kapal" Style="{StaticResource PrimaryButton}" Command="{Binding AddBoatCommand}"/>
-                                    <Button Content="Hapus Kapal"   Style="{StaticResource SecondaryButton}"/>
-                                    <Button Content="Simpan Perubahan" Style="{StaticResource SecondaryButton}" />
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
-                                    <TextBlock Text="Cari:" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                                    <TextBox Width="240" Style="{StaticResource ToolbarTextBox}"
-                                             Text="{Binding BoatFilter, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Button Content="Tambah Kapal" 
+                                            Style="{StaticResource PrimaryButton}" 
+                                            Command="{Binding AddBoatCommand}"
+                                            Width="120" 
+                                            Height="40"
+                                            Padding="20,10" 
+                                            FontSize="16"
+                                            Margin="0,0,10,0"/>
                                 </StackPanel>
                             </DockPanel>
 
@@ -217,12 +217,25 @@
                                         <DataGridTemplateColumn Header="Aksi" Width="110">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <Button Content="Hapus" Style="{StaticResource DangerButton}"
-                                                                Padding="8,4" Margin="0" Tag="{Binding}"
-                                                                Command="{Binding DataContext.DeleteBoatCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                                CommandParameter="{Binding}"
-                                                                />
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center" 
+                                                                VerticalAlignment="Center">
+
+                                                        <Button Content="Edit" 
+                                                                Width="30" 
+                                                                Height="40"
+                                                                Style="{StaticResource SecondaryButton}"
+                                                                Padding="8,4" Margin="0,0,5,0"
+                                                                Command="{Binding DataContext.EditBoatCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                                CommandParameter="{Binding}"/>
+                                                        <Button Content="Hapus" 
+                                                                Width="50" 
+                                                                Height="40"
+                                                                Style="{StaticResource DangerButton}"
+                                                                Padding="8,4" Margin="0" 
+                                                                Command="{Binding DataContext.BoatCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                                CommandParameter="{Binding}" />
+
                                                     </StackPanel>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>

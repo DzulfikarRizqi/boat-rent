@@ -35,6 +35,7 @@ namespace CobaHW7.ViewModels
 
         // 3. Command untuk Tambah Kapal
         public ICommand AddBoatCommand { get; }
+        public ICommand EditBoatCommand { get; }
         public ICommand DeleteBoatCommand { get; }
 
 
@@ -71,6 +72,7 @@ namespace CobaHW7.ViewModels
 
             // Inisialisasi Command Lama
             AddBoatCommand = new RelayCommand(ExecuteAddBoat);
+            EditBoatCommand = new RelayCommand(ExecuteEditBoat);
             DeleteBoatCommand = new RelayCommand(ExecuteDeleteBoat);
 
             // --- [BARU] Inisialisasi Command Image Viewer ---
@@ -129,6 +131,48 @@ namespace CobaHW7.ViewModels
                 {
                     Debug.WriteLine($"Gagal menyimpan kapal baru: {ex.Message}");
                     MessageBox.Show("Gagal menyimpan data ke database.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private async void ExecuteEditBoat(object parameter)
+        {
+            if (parameter is Boat boatToEdit)
+            {
+                // Buka window dengan Constructor Edit (mengirim data kapal)
+                AddBoatWindow editWindow = new AddBoatWindow(boatToEdit);
+                editWindow.Owner = Application.Current.MainWindow;
+
+                bool? result = editWindow.ShowDialog();
+
+                if (result == true)
+                {
+                    Boat? updatedBoat = editWindow.NewBoat;
+                    if (updatedBoat == null) return;
+
+                    try
+                    {
+                        // Panggil Service Update
+                        Boat resultBoat = await SupabaseService.UpdateBoatAsync(updatedBoat);
+
+                        if (resultBoat != null)
+                        {
+                            // Update tampilan di DataGrid tanpa reload database
+                            // Kita cari index data lama dan ganti dengan data baru
+                            var index = _allBoats.IndexOf(boatToEdit);
+                            if (index != -1)
+                            {
+                                _allBoats[index] = resultBoat;
+                            }
+
+                            MessageBox.Show("Data berhasil diperbarui!", "Sukses", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Gagal update: {ex.Message}");
+                        MessageBox.Show("Gagal update data.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;       // <-- TAMBAHKAN INI
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,24 +12,60 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Microsoft.Win32; // <-- TAMBAHKAN INI
-using CobaHW7.Class; // Pastikan namespace ini benar
-using CobaHW7.Services; // <-- TAMBAHKAN BARIS INI
+using Microsoft.Win32;
+using CobaHW7.Class;
+using CobaHW7.Services;
 
 namespace CobaHW7
 {
     /// <summary>
     /// Interaction logic for AddBoatWindow.xaml
     /// </summary>
-    
     public partial class AddBoatWindow : Window
     {
         public Boat? NewBoat { get; private set; }
 
-        private string _selectedThumbnailPath = ""; // <-- BARU
+        // Menyimpan path file lokal jika user memilih gambar baru
+        private string _selectedThumbnailPath = "";
+
+        // Menyimpan URL gambar yang SUDAH ADA (untuk mode Edit)
+        private string _existingImageUrl = "";
+
+        // --- CONSTRUCTOR 1: Mode Tambah Baru (Default) ---
         public AddBoatWindow()
         {
             InitializeComponent();
+            Title = "Tambah Kapal Baru"; // Judul Window
+        }
+
+        // --- CONSTRUCTOR 2: Mode Edit (Baru) ---
+        // Dipanggil saat tombol "Edit" diklik di Dashboard
+        public AddBoatWindow(Boat boatToEdit) : this() // Panggil constructor dasar dulu
+        {
+            Title = "Edit Data Kapal"; // Ubah Judul Window
+
+            // 1. Isi form dengan data yang sudah ada
+            IdTextBox.Text = boatToEdit.ID.ToString();
+
+            // PENTING: Kunci ID agar tidak bisa diubah (Primary Key tidak boleh ganti)
+            IdTextBox.IsReadOnly = true;
+            IdTextBox.Background = Brushes.LightGray;
+
+            NameTextBox.Text = boatToEdit.Name;
+            ModelTextBox.Text = boatToEdit.Model;
+            LocationTextBox.Text = boatToEdit.Location;
+            CapacityTextBox.Text = boatToEdit.Capacity.ToString();
+            YearTextBox.Text = boatToEdit.Year.ToString();
+            RatingTextBox.Text = boatToEdit.Rating.ToString();
+            PriceTextBox.Text = boatToEdit.PricePerDay.ToString();
+            AvailableCheckBox.IsChecked = boatToEdit.Available;
+
+            // 2. Simpan URL gambar lama
+            if (!string.IsNullOrEmpty(boatToEdit.ThumbnailPath))
+            {
+                _existingImageUrl = boatToEdit.ThumbnailPath;
+                ThumbnailTextBox.Text = _existingImageUrl; // Tampilkan URL di kotak teks
+            }
         }
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
@@ -42,16 +78,16 @@ namespace CobaHW7
 
             if (openFileDialog.ShowDialog() == true)
             {
-                // Simpan path file
+                // Simpan path file baru yang dipilih user
                 _selectedThumbnailPath = openFileDialog.FileName;
-                // Tampilkan di TextBox
+                // Tampilkan path di TextBox
                 ThumbnailTextBox.Text = _selectedThumbnailPath;
             }
         }
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            // Validasi sederhana (bisa Anda kembangkan)
+            // Validasi sederhana
             if (string.IsNullOrWhiteSpace(IdTextBox.Text) || string.IsNullOrWhiteSpace(NameTextBox.Text) ||
                 string.IsNullOrWhiteSpace(PriceTextBox.Text))
             {
@@ -61,21 +97,22 @@ namespace CobaHW7
 
             try
             {
-                string thumbnailUrl = ""; // Default URL kosong
+                // Logika Gambar:
+                // Mulai dengan asumsi kita pakai gambar lama (jika sedang edit)
+                string finalThumbnailUrl = _existingImageUrl;
 
-                // 1. Cek jika user memilih file gambar
+                // Jika user memilih file gambar BARU lewat tombol Browse
                 if (!string.IsNullOrEmpty(_selectedThumbnailPath))
                 {
-                    // Buat nama file unik, misal: "boat_ID_namafile.jpg"
+                    // Buat nama file unik
                     string extension = System.IO.Path.GetExtension(_selectedThumbnailPath);
                     string fileNameInStorage = $"boat_{IdTextBox.Text}{extension}";
 
-                    // 2. Upload gambar ke Supabase Storage
-                    // Ini akan memanggil SupabaseService
-                    thumbnailUrl = await SupabaseService.UploadBoatImageAsync(_selectedThumbnailPath, fileNameInStorage);
+                    // Upload gambar BARU ke Supabase Storage dan dapatkan URL baru
+                    finalThumbnailUrl = await SupabaseService.UploadBoatImageAsync(_selectedThumbnailPath, fileNameInStorage);
                 }
 
-                // 3. Buat objek Boat baru, SEKARANG TERMASUK URL GAMBAR
+                // Buat objek Boat baru (atau update yang lama)
                 NewBoat = new Boat
                 {
                     ID = long.Parse(IdTextBox.Text),
@@ -87,10 +124,12 @@ namespace CobaHW7
                     Rating = double.Parse(RatingTextBox.Text),
                     PricePerDay = decimal.Parse(PriceTextBox.Text),
                     Available = AvailableCheckBox.IsChecked ?? false,
-                    ThumbnailPath = thumbnailUrl // <-- SIMPAN URL, BUKAN PATH LOKAL
+
+                    // Gunakan URL yang sudah ditentukan (bisa baru, bisa lama)
+                    ThumbnailPath = finalThumbnailUrl
                 };
 
-                // 4. Tutup window (ViewModel akan mengambil NewBoat)
+                // Tutup window dan beri tahu sukses
                 this.DialogResult = true;
                 this.Close();
             }
