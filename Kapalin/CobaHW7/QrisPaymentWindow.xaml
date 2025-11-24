@@ -77,11 +77,25 @@
 
                 <Button Grid.Column="0" Content="Batalkan" Width="120" Height="45"
                         Background="#E0E0E0" Foreground="#333" FontSize="14" FontWeight="SemiBold"
-                        Cursor="Hand" Click="Cancel_Click"/>
+                        Cursor="Hand" Click="Cancel_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+
 
                 <Button Grid.Column="2" Content="Konfirmasi Pembayaran" Width="180" Height="45"
                         Background="#007ACC" Foreground="White" FontSize="14" FontWeight="SemiBold"
-                        Cursor="Hand" Click="Confirm_Click"/>
+                        Cursor="Hand" Click="Confirm_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
             </Grid>
         </StackPanel>
     </Grid>
