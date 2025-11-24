@@ -11,13 +11,11 @@
   <ItemGroup>
     <Compile Remove="Class\Booking.Payment.cs" />
     <Compile Remove="Class\PaymentMethod.cs" />
-    <Compile Remove="Dashboard.xaml.cs" />
     <Compile Remove="DashboardUser.xaml.cs" />
     <Compile Remove="Data\BoatRepository.cs" />
     <Compile Remove="Data\BookingRepository.cs" />
     <Compile Remove="Data\Db.cs" />
     <Compile Remove="Data\UserRepository.cs" />
-    <Compile Remove="ViewModels\DashboardUserViewModel.cs" />
   </ItemGroup>
 
   <ItemGroup>

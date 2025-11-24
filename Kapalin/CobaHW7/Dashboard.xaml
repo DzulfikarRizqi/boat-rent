@@ -3,125 +3,136 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CobaHW7"
+        
+        xmlns:vm="clr-namespace:CobaHW7.ViewModels"
         mc:Ignorable="d"
-        Title="Dashboard" Height="1080" Width="1920">
-<DockPanel>
+        Title="Dashboard" 
+        Height="1080" Width="1920"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F7FB">
 
-        <!-- ======== HEADER ======== -->
-        <Border Background="#007ACC" DockPanel.Dock="Top" Height="50">
-            <Grid>
-                <TextBlock Text="Dashboard - KAPALIN"
-                           Foreground="White"
-                           FontSize="18"
-                           FontWeight="Bold"
-                           VerticalAlignment="Center"
-                           Margin="10,0,0,0" />
+    <Window.DataContext>
+        <vm:DashboardUserViewModel/>
+    </Window.DataContext>
 
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Margin="0,0,10,0">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-                    <Button Content="Cek Booking"
-                            Width="110"
-                            Height="30"
-                            Margin="5,0"
-                            Background="White"
-                            Foreground="#007ACC"
-                            />
-
-                    <Button Content="Logout"
-                            Width="80"
-                            Height="30"
-                            Margin="5,0"
-                            Background="Red"
-                            Foreground="White"
-                            />
+        <Border Grid.Row="0" Background="#1976D2" Padding="20,15">
+            <DockPanel LastChildFill="False">
+                <TextBlock Text="Dashboard — KAPALIN" 
+                           Foreground="White" FontWeight="Bold" FontSize="20" 
+                           VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                    <Button Content="Cek Booking" Padding="15,8" Background="White" Foreground="#1976D2" FontWeight="SemiBold" BorderThickness="0" Margin="0,0,10,0"/>
+                    <Button Content="Logout" Padding="15,8" Background="#D32F2F" Foreground="White" FontWeight="SemiBold" BorderThickness="0"/>
                 </StackPanel>
-            </Grid>
+            </DockPanel>
         </Border>
 
-        <!-- ======== KONTEN KAPAL ======== -->
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <WrapPanel Margin="20" x:Name="BoatPanel">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="20">
+            <ItemsControl ItemsSource="{Binding Boats}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-                <!-- Kapal 1 -->
-                <Border BorderBrush="#ccc" BorderThickness="1" CornerRadius="10" Margin="10" Background="White" Width="260">
-                    <StackPanel Margin="10">
-                        <Image Source="Assets/ferry.jpeg" Height="150" Stretch="UniformToFill" />
-                        <TextBlock Text="Kapal Ferry" 
-                                   FontSize="16" FontWeight="Bold"
-                                   Margin="0,10,0,2" 
-                                   HorizontalAlignment="Center"/>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="White" Width="280" Margin="0,0,20,20" BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="8">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.1" Color="Black"/>
+                            </Border.Effect>
 
-                        <StackPanel Margin="0,5,0,5">
-                            <TextBlock Text="Tahun: 2022" FontSize="13" Foreground="Gray" />
-                            <TextBlock Text="Harga: Rp 3.500.000 / hari" FontSize="13" Foreground="Gray" />
-                            <TextBlock Text="Status: Tersedia" FontSize="13" Foreground="Green" />
-                        </StackPanel>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="160"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                        <Button Content="Pilih Kapal Ini"
-                                Width="160" Height="30"
-                                Background="#007ACC" Foreground="White"
-                                HorizontalAlignment="Center"
-                                Margin="0,10,0,0"
-                                Tag="1"
-                                />
-                    </StackPanel>
-                </Border>
+                                <Border Grid.Row="0" CornerRadius="8,8,0,0" Background="#F0F0F0" ClipToBounds="True">
+                                    <Image Source="{Binding ThumbnailPath, TargetNullValue={x:Null}, FallbackValue={x:Null}}" Stretch="UniformToFill"/>
+                                </Border>
 
-                <!-- Kapal 2 -->
-                <Border BorderBrush="#ccc" BorderThickness="1" CornerRadius="10" Margin="10" Background="White" Width="260">
-                    <StackPanel Margin="10">
-                        <Image Source="Assets/speedboat.jpeg" Height="150" Stretch="UniformToFill" />
-                        <TextBlock Text="Speedboat" 
-                                   FontSize="16" FontWeight="Bold"
-                                   Margin="0,10,0,2" 
-                                   HorizontalAlignment="Center"/>
+                                <StackPanel Grid.Row="1" Margin="15">
 
-                        <StackPanel Margin="0,5,0,5">
-                            <TextBlock Text="Tahun: 2018" FontSize="13" Foreground="Gray" />
-                            <TextBlock Text="Harga: Rp 1.200.000 / hari" FontSize="13" Foreground="Gray" />
-                            <TextBlock Text="Status: Tidak Tersedia" FontSize="13" Foreground="Red" />
-                        </StackPanel>
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="18" Foreground="#333" Margin="0,0,0,5"/>
+                                    <TextBlock Text="{Binding Model}" FontSize="12" Foreground="Gray" Margin="0,0,0,10"/>
+                                    <Separator Background="#EEE" Margin="0,0,0,10"/>
 
-                        <Button Content="Pilih Kapal Ini"
-                                Width="160" Height="30"
-                                Background="#007ACC" Foreground="White"
-                                HorizontalAlignment="Center"
-                                Margin="0,10,0,0"
-                                Tag="2"
-                                />
-                    </StackPanel>
-                </Border>
+                                    <Grid Margin="0,0,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
 
-                <!-- Kapal 3 -->
-                <Border BorderBrush="#ccc" BorderThickness="1" CornerRadius="10" Margin="10" Background="White" Width="260">
-                    <StackPanel Margin="10">
-                        <Image Source="Assets/yacht.jpeg" Height="150" Stretch="UniformToFill" />
-                        <TextBlock Text="Yacht" 
-                                   FontSize="16" FontWeight="Bold"
-                                   Margin="0,10,0,2" 
-                                   HorizontalAlignment="Center"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Tahun:" Foreground="Gray"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Year}" FontWeight="SemiBold" HorizontalAlignment="Right"/>
 
-                        <StackPanel Margin="0,5,0,5">
-                            <TextBlock Text="Tahun: 2020" FontSize="13" Foreground="Gray" />
-                            <TextBlock Text="Harga: Rp 2.800.000 / hari" FontSize="13" Foreground="Gray" />
-                            <TextBlock Text="Status: Tersedia" FontSize="13" Foreground="Green" />
-                        </StackPanel>
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Kapasitas:" Foreground="Gray" Margin="0,5"/>
+                                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Capacity, StringFormat='\{0\} Orang'}" FontWeight="SemiBold" HorizontalAlignment="Right" Margin="0,5"/>
 
-                        <Button Content="Pilih Kapal Ini"
-                                Width="160" Height="30"
-                                Background="#007ACC" Foreground="White"
-                                HorizontalAlignment="Center"
-                                Margin="0,10,0,0"
-                                Tag="3"
-                                />
-                    </StackPanel>
-                </Border>
+                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Harga:" Foreground="Gray"/>
+                                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding PricePerDay, StringFormat='Rp {0:N0} /hari'}" FontWeight="Bold" Foreground="#1976D2" HorizontalAlignment="Right"/>
+                                    </Grid>
 
-            </WrapPanel>
+                                    <TextBlock Margin="0,10,0,15" FontWeight="SemiBold">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Available}" Value="True">
+                                                        <Setter Property="Text" Value="Status: Tersedia"/>
+                                                        <Setter Property="Foreground" Value="#388E3C"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Available}" Value="False">
+                                                        <Setter Property="Text" Value="Status: Tidak Tersedia"/>
+                                                        <Setter Property="Foreground" Value="#D32F2F"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Available}" Value="{x:Null}">
+                                                        <Setter Property="Text" Value="Status: Tidak Diketahui"/>
+                                                        <Setter Property="Foreground" Value="Gray"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <Button Content="Pilih Kapal Ini"
+                                            Command="{Binding DataContext.SelectBoatCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            CommandParameter="{Binding}"
+                                            Height="40" Background="#1976D2" Foreground="White" FontWeight="Bold" BorderThickness="0" Cursor="Hand">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="6"/>
+                                            </Style>
+                                        </Button.Resources>
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Available}" Value="False">
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                        <Setter Property="Opacity" Value="0.6"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </ScrollViewer>
-    </DockPanel>
+    </Grid>
 </Window>

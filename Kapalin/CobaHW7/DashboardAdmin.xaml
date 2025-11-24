@@ -6,8 +6,9 @@
         xmlns:vm="clr-namespace:CobaHW7.ViewModels"
         mc:Ignorable="d"
         Title="Kapal - Dashboard Admin"
-        Height="780" Width="1200"
+        Height="1080" Width="1920"
         WindowStartupLocation="CenterScreen"
+        MouseDown="Window_MouseDown"
         Background="#F5F7FB">
 
     <Window.Resources>
@@ -106,7 +107,7 @@
             <Setter Property="RowHeaderWidth" Value="0"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="ColumnHeaderHeight" Value="32"/>
-            <Setter Property="RowHeight" Value="60"/>
+            <Setter Property="RowHeight" Value="200"/>
             <Setter Property="ColumnHeaderStyle">
                 <Setter.Value>
                     <Style TargetType="DataGridColumnHeader">
@@ -178,24 +179,25 @@
                             </DockPanel>
 
                             <Border CornerRadius="10" BorderBrush="{StaticResource CardBorder}" BorderThickness="1" Grid.Row="1">
-                                <DataGrid ItemsSource="{Binding BoatsView}"
+                                <DataGrid x:Name="BoatsDataGrid"
+                                          ItemsSource="{Binding BoatsView}"
                                           Style="{StaticResource ModernGrid}"
                                           AutoGenerateColumns="False"
                                           CanUserAddRows="False"
                                           CanUserDeleteRows="False"
-                                          IsReadOnly="False">
+                                          IsReadOnly="True">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="ID" Binding="{Binding ID}" IsReadOnly="True" Width="60" />
-                                        <DataGridTextColumn Header="Nama" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                                        <DataGridTextColumn Header="Nama" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="150" />
                                         <DataGridTextColumn Header="Model" Binding="{Binding Model, UpdateSourceTrigger=PropertyChanged}" Width="140" />
-                                        <DataGridTextColumn Header="Lokasi" Binding="{Binding Location, UpdateSourceTrigger=PropertyChanged}" Width="120" />
+                                        <DataGridTextColumn Header="Lokasi" Binding="{Binding Location, UpdateSourceTrigger=PropertyChanged}" Width="150" />
                                         <DataGridTextColumn Header="Kapasitas" Binding="{Binding Capacity, UpdateSourceTrigger=PropertyChanged}" Width="90" />
-                                        <DataGridTextColumn Header="Tahun" Binding="{Binding Year, UpdateSourceTrigger=PropertyChanged}" Width="80" />
-                                        <DataGridTextColumn Header="Rating" Binding="{Binding Rating, UpdateSourceTrigger=PropertyChanged, StringFormat=F1}" Width="80" />
-                                        <DataGridTextColumn Header="Harga/Hari" Binding="{Binding PricePerDay, UpdateSourceTrigger=PropertyChanged, StringFormat=N0}" Width="120" />
+                                        <DataGridTextColumn Header="Tahun" Binding="{Binding Year, UpdateSourceTrigger=PropertyChanged}" Width="120" />
+                                        <DataGridTextColumn Header="Rating" Binding="{Binding Rating, UpdateSourceTrigger=PropertyChanged, StringFormat=F1}" Width="120" />
+                                        <DataGridTextColumn Header="Harga/Hari" Binding="{Binding PricePerDay, UpdateSourceTrigger=PropertyChanged, StringFormat='Rp {0:N0}'}" Width="120" />
                                         <DataGridCheckBoxColumn Header="Aktif" Binding="{Binding Available}" Width="70" />
 
-                                        <DataGridTemplateColumn Header="Gambar" Width="120">
+                                        <DataGridTemplateColumn Header="Gambar" Width="*">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
@@ -203,7 +205,7 @@
                                                             CommandParameter="{Binding ThumbnailPath}"
                                                             ToolTip="Klik untuk memperbesar gambar"
                                                             Cursor="Hand"
-                                                            Height="50" Width="100">
+                                                            Height="180" Width="400">
                                                         <Border Background="#F0F0F0" CornerRadius="4">
                                                             <Image Source="{Binding ThumbnailPath, TargetNullValue={x:Null}, FallbackValue={x:Null}}" 
                                                                    Stretch="UniformToFill" 
@@ -214,7 +216,7 @@
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
 
-                                        <DataGridTemplateColumn Header="Aksi" Width="110">
+                                        <DataGridTemplateColumn Header="Aksi" Width="250">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal"
@@ -222,15 +224,15 @@
                                                                 VerticalAlignment="Center">
 
                                                         <Button Content="Edit" 
-                                                                Width="30" 
-                                                                Height="40"
+                                                                Width="80" 
+                                                                Height="60"
                                                                 Style="{StaticResource SecondaryButton}"
-                                                                Padding="8,4" Margin="0,0,5,0"
+                                                                Padding="8,4" Margin="0,0,20,0"
                                                                 Command="{Binding DataContext.EditBoatCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                                                 CommandParameter="{Binding}"/>
                                                         <Button Content="Hapus" 
-                                                                Width="50" 
-                                                                Height="40"
+                                                                Width="100" 
+                                                                Height="60"
                                                                 Style="{StaticResource DangerButton}"
                                                                 Padding="8,4" Margin="0" 
                                                                 Command="{Binding DataContext.BoatCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
