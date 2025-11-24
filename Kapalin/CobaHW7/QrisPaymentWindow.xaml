@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Pembayaran QRIS" Height="600" Width="500"
+        Title="Pembayaran QRIS" Height="800" Width="500"
         WindowStartupLocation="CenterScreen"
         Background="#F5F5F5"
         WindowStyle="SingleBorderWindow">
@@ -68,18 +68,18 @@
             </Border>
 
             <!-- Action Buttons -->
-            <Grid>
+            <Grid Margin="0,20,0,0" HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="10"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Content="Batalkan" Width="Auto" Height="40"
+                <Button Grid.Column="0" Content="Batalkan" Width="120" Height="45"
                         Background="#E0E0E0" Foreground="#333" FontSize="14" FontWeight="SemiBold"
                         Cursor="Hand" Click="Cancel_Click"/>
 
-                <Button Grid.Column="2" Content="Konfirmasi Pembayaran" Width="Auto" Height="40"
+                <Button Grid.Column="2" Content="Konfirmasi Pembayaran" Width="180" Height="45"
                         Background="#007ACC" Foreground="White" FontSize="14" FontWeight="SemiBold"
                         Cursor="Hand" Click="Confirm_Click"/>
             </Grid>
