@@ -64,22 +64,20 @@ namespace CobaHW7
                 if (button != null)
                     button.IsEnabled = false;
 
-                // Tampilkan alert info sedang logout
                 var logoutAlert = new AlertWindow("Sedang Logout",
                     "Anda sedang logout dari aplikasi. Harap tunggu...",
                     AlertWindow.AlertType.Info);
                 logoutAlert.ShowDialog();
 
-                // Sign out dari Supabase (non-async version)
                 try
                 {
                     // Attempt async sign out
                     var signOutTask = SupabaseService.Client.Auth.SignOut();
-                    signOutTask.Wait(5000); // Wait max 5 seconds
+                    signOutTask.Wait(5000); 
                 }
                 catch
                 {
-                    // Ignore errors from Supabase, proceed to logout anyway
+
                 }
 
                 // Tampilkan success message
@@ -97,7 +95,6 @@ namespace CobaHW7
             }
             catch (Exception ex)
             {
-                // Jika ada error, tetap buka MainWindow tapi tampilkan warning
                 var errorAlert = new AlertWindow("Logout",
                     "Anda akan diarahkan ke halaman login.",
                     AlertWindow.AlertType.Info);
