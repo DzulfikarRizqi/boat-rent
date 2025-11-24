@@ -1,3 +1,4 @@
+using System;
 using System.Windows;
 using CobaHW7.Class;
 using CobaHW7;
@@ -25,13 +26,6 @@ namespace CobaHW7
                 return;
             }
 
-            if (email == "admin@gmail.com" && password == "admin")
-            {
-                DashboardAdmin dashboardAdmin = new DashboardAdmin();
-                dashboardAdmin.Show();
-                this.Close();
-            }
-
             // Beri umpan balik ke UI
             SignInButton.IsEnabled = false;
             SignInButton.Content = "Signing In...";
@@ -47,8 +41,46 @@ namespace CobaHW7
                     var alert = new AlertWindow("Login Berhasil!", $"Selamat datang, {session.User.Email}!", AlertWindow.AlertType.Success);
                     alert.ShowDialog();
 
-                    Dashboard dashboard = new Dashboard();
-                    dashboard.Show();
+                    // Ambil data user dari tabel users di Supabase
+                    try
+                    {
+                        var userList = await SupabaseService.Client
+                            .From<User>()
+                            .Where(u => u.Email == session.User.Email)
+                            .Get();
+
+                        if (userList.Models.Count > 0)
+                        {
+                            var user = userList.Models[0];
+
+                            // Cek apakah user adalah admin (is_admin = 1 atau true)
+                            if (user.IsAdmin)
+                            {
+                                // Buka DashboardAdmin
+                                DashboardAdmin dashboardAdmin = new DashboardAdmin();
+                                dashboardAdmin.Show();
+                            }
+                            else
+                            {
+                                // Buka Dashboard regular user
+                                Dashboard dashboard = new Dashboard();
+                                dashboard.Show();
+                            }
+                        }
+                        else
+                        {
+                            // User tidak ditemukan di tabel users, buka dashboard regular
+                            Dashboard dashboard = new Dashboard();
+                            dashboard.Show();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Jika ada error saat mengambil data user, default ke Dashboard regular
+                        Dashboard dashboard = new Dashboard();
+                        dashboard.Show();
+                    }
+
                     this.Close();
                 }
             }

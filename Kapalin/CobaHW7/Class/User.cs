@@ -49,9 +49,12 @@ namespace CobaHW7.Class
         public long Id { get; set; }
 
         [Column("username")]
-        public string Username { get; set; } = string.Empty; // <-- Tambahkan ini
+        public string Username { get; set; } = string.Empty;
 
         [Column("email")]
-        public string Email { get; set; } = string.Empty; // <-- Tambahkan ini
+        public string Email { get; set; } = string.Empty;
+
+        [Column("is_admin")]
+        public bool IsAdmin { get; set; } = false; // Default false untuk regular user
     }
 }
