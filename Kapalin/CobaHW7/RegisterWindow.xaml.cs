@@ -19,84 +19,23 @@ namespace CobaHW7
 
         private async void SignUpButton_Click(object sender, RoutedEventArgs e)
         {
-
-            //var name = NameTextBox.Text;
-            //var email = EmailTextBox.Text;
-            //var password = PasswordBox.Password;
-            //var confirmPassword = ConfirmPasswordBox.Password;
-
-            //// 2. Lakukan validasi sederhana
-            //if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(name))
-            //{
-            //    MessageBox.Show("Nama, email, dan password tidak boleh kosong.", "Validasi Gagal", MessageBoxButton.OK, MessageBoxImage.Warning);
-            //    return;
-            //}
-
-            //if (password != confirmPassword)
-            //{
-            //    MessageBox.Show("Password dan Konfirmasi Password tidak cocok.", "Validasi Gagal", MessageBoxButton.OK, MessageBoxImage.Warning);
-            //    return;
-            //}
-
-            //// Nonaktifkan tombol untuk mencegah klik ganda
-            //SignUpButton.IsEnabled = false;
-            //SignUpButton.Content = "Mendaftar...";
-
-            //try
-            //{
-
-            //    // 3. Panggil Supabase untuk mendaftarkan pengguna (Authentication)
-            //    var session = await SupabaseService.Client.Auth.SignUp(email, password);
-
-            //    // Jika pendaftaran Auth berhasil, `session` tidak akan null
-            //    if (session?.User != null)
-            //    {
-            //        // 4. Masukkan data profil tambahan (seperti nama) ke tabel 'users' Anda
-            //        var newUserProfile = new UserModel // Menggunakan model User.cs Anda
-            //        {
-
-            //            Username = name,
-            //            Email = email
-            //            // Isi properti lain jika ada
-            //        };
-
-            //        await SupabaseService.Client.From<UserModel>().Insert(newUserProfile);
-
-            //        MessageBox.Show("Pendaftaran berhasil! Silakan login.", "Sukses", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            //        // Arahkan ke halaman login
-            //        MainWindow loginWindow = new MainWindow();
-            //        loginWindow.Show();
-            //        this.Close();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    // Tangani error, misalnya jika email sudah terdaftar
-            //    MessageBox.Show($"Pendaftaran gagal: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
-            //finally
-            //{
-            //    // Aktifkan kembali tombol setelah proses selesai
-            //    SignUpButton.IsEnabled = true;
-            //    SignUpButton.Content = "Sign Up";
-            //}
-
             var name = NameTextBox.Text;
             var email = EmailTextBox.Text;
             var password = PasswordBox.Password;
             var confirmPassword = ConfirmPasswordBox.Password;
 
-            // 2. Lakukan validasi sederhana
+            // Validasi sederhana
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(name))
             {
-                MessageBox.Show("Nama, email, dan password tidak boleh kosong.", "Validasi Gagal", MessageBoxButton.OK, MessageBoxImage.Warning);
+                var alert = new AlertWindow("Validasi Gagal", "Nama, email, dan password tidak boleh kosong.", AlertWindow.AlertType.Warning);
+                alert.ShowDialog();
                 return;
             }
 
             if (password != confirmPassword)
             {
-                MessageBox.Show("Password dan Konfirmasi Password tidak cocok.", "Validasi Gagal", MessageBoxButton.OK, MessageBoxImage.Warning);
+                var alert = new AlertWindow("Validasi Gagal", "Password dan Konfirmasi Password tidak cocok.", AlertWindow.AlertType.Warning);
+                alert.ShowDialog();
                 return;
             }
 
@@ -106,15 +45,15 @@ namespace CobaHW7
 
             try
             {
-
-                // 3. Panggil Supabase untuk mendaftarkan pengguna (Authentication)
+                // Panggil Supabase untuk mendaftarkan pengguna (Authentication)
                 var session = await SupabaseService.Client.Auth.SignUp(email, password);
 
                 // Jika pendaftaran Auth berhasil, `session` tidak akan null
                 if (session != null)
                 {
+                    var alert = new AlertWindow("Pendaftaran Berhasil!", "Akun Anda telah dibuat. Silakan login dengan email dan password Anda.", AlertWindow.AlertType.Success);
+                    alert.ShowDialog();
 
-                    MessageBox.Show("Pendaftaran berhasil! Silakan login.", "Sukses", MessageBoxButton.OK, MessageBoxImage.Information);
                     // Arahkan ke halaman login
                     MainWindow loginWindow = new MainWindow();
                     loginWindow.Show();
@@ -123,8 +62,9 @@ namespace CobaHW7
             }
             catch (Exception ex)
             {
-                // Tangani error, misalnya jika email sudah terdaftar
-                MessageBox.Show($"Pendaftaran gagal: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Tangani error
+                var alert = new AlertWindow("Pendaftaran Gagal", $"Terjadi kesalahan: {ex.Message}", AlertWindow.AlertType.Error);
+                alert.ShowDialog();
             }
             finally
             {
