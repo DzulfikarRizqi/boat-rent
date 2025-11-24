@@ -22,13 +22,29 @@ namespace CobaHW7
 
         private void SelectBoat_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button btn && btn.Tag is Boat boat)
+            try
             {
-                var win = new BookingWindow
+                if (sender is Button btn)
                 {
-                    Owner = this
-                };
-                win.ShowDialog();
+                    // Debugging: cek apa yang ada di Tag
+                    if (btn.Tag is Boat boat)
+                    {
+                        var rentalWindow = new RentalBookingWindow(boat);
+                        rentalWindow.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Tag is not a Boat. Tag type: {btn.Tag?.GetType().Name ?? "null"}", "Debug");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Sender is not a Button", "Debug");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}\n{ex.StackTrace}", "Error in SelectBoat_Click");
             }
         }
 

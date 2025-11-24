@@ -149,7 +149,8 @@
                                             <Run Text="IDR "/><Run Text="{Binding PricePerDay, StringFormat=N0}"/><Run Text="/hari"/>
                                         </TextBlock>
                                         <Button DockPanel.Dock="Right" Content="Pilih Kapal Ini" Padding="10,6"
-                                                Tag="{Binding}" Click="SelectBoat_Click"/>
+                                                Command="{Binding DataContext.SelectBoatCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                CommandParameter="{Binding}"/>
                                     </DockPanel>
                                 </Grid>
                             </Border>
