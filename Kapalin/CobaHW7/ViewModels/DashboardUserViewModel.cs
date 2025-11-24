@@ -58,12 +58,16 @@ namespace CobaHW7.ViewModels
                     return;
                 }
 
-                // DI SINI LOGIKA BOOKING AKAN DIMULAI
-                // Contoh: Membuka window Booking baru
-                // BookingWindow bookingWindow = new BookingWindow(selectedBoat);
-                // bookingWindow.Show();
-
-                MessageBox.Show($"Anda memilih kapal: {selectedBoat.Name}\n(Fitur Booking akan segera hadir)", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                // Buka RentalBookingWindow
+                try
+                {
+                    var rentalWindow = new RentalBookingWindow(selectedBoat);
+                    rentalWindow.Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error membuka halaman booking: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
