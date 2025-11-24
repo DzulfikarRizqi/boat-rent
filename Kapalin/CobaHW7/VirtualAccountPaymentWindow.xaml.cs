@@ -1,15 +1,19 @@
 using System;
 using System.Windows;
+using CobaHW7.Class;
+using CobaHW7.Services;
 
 namespace CobaHW7
 {
     public partial class VirtualAccountPaymentWindow : Window
     {
         public bool IsConfirmed { get; private set; } = false;
+        private dynamic bookingData;
 
-        public VirtualAccountPaymentWindow(decimal amount)
+        public VirtualAccountPaymentWindow(decimal amount, dynamic bookingData = null)
         {
             InitializeComponent();
+            this.bookingData = bookingData;
             LoadPaymentDetails(amount);
         }
 
@@ -77,10 +81,62 @@ namespace CobaHW7
             this.Close();
         }
 
-        private void Confirm_Click(object sender, RoutedEventArgs e)
+        private async void Confirm_Click(object sender, RoutedEventArgs e)
         {
-            IsConfirmed = true;
-            this.Close();
+            try
+            {
+                // Disable button saat processing
+                var confirmBtn = sender as Button;
+                if (confirmBtn != null)
+                    confirmBtn.IsEnabled = false;
+
+                // Show processing alert
+                var processingAlert = new AlertWindow("Pesanan Sedang Diproses",
+                    "Pesanan Anda sedang kami proses. Harap tunggu sebentar...",
+                    AlertWindow.AlertType.Info);
+                processingAlert.ShowDialog();
+
+                // Create booking object
+                var booking = new Booking
+                {
+                    BoatId = bookingData.BoatId,
+                    StartDate = bookingData.StartDate,
+                    EndDate = bookingData.EndDate,
+                    TotalAmount = bookingData.TotalAmount,
+                    PaymentMethod = "Transfer Virtual Account",
+                    Status = "Menunggu Pembayaran"
+                };
+
+                // Save to Supabase
+                try
+                {
+                    var result = await SupabaseService.Client.From<Booking>().Insert(booking);
+
+                    // Show success message
+                    var successAlert = new AlertWindow("Pemesanan Berhasil!",
+                        $"Pesanan Anda untuk {bookingData.BoatName} telah dibuat.\n\nTotal: Rp {bookingData.TotalAmount:N0}\nMetode Pembayaran: Transfer Virtual Account",
+                        AlertWindow.AlertType.Success);
+                    successAlert.ShowDialog();
+
+                    IsConfirmed = true;
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    var errorAlert = new AlertWindow("Gagal Menyimpan Booking",
+                        $"Terjadi kesalahan saat menyimpan pesanan: {ex.Message}",
+                        AlertWindow.AlertType.Error);
+                    errorAlert.ShowDialog();
+
+                    if (confirmBtn != null)
+                        confirmBtn.IsEnabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                var alert = new AlertWindow("Error", $"Terjadi kesalahan: {ex.Message}", AlertWindow.AlertType.Error);
+                alert.ShowDialog();
+            }
         }
     }
 }

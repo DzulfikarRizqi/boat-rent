@@ -159,6 +159,17 @@ namespace CobaHW7
             int days = (int)(endDate - startDate).TotalDays;
             decimal total = pricePerDay * days;
 
+            // Store booking data untuk digunakan di payment window
+            var bookingData = new
+            {
+                BoatId = selectedBoat.ID,
+                BoatName = selectedBoat.Name,
+                StartDate = startDate,
+                EndDate = endDate,
+                TotalAmount = total,
+                PaymentMethod = paymentMethod
+            };
+
             try
             {
                 // Open payment window based on selected payment method
@@ -166,64 +177,22 @@ namespace CobaHW7
 
                 if (paymentMethod == "QRIS")
                 {
-                    QrisPaymentWindow qrisWindow = new QrisPaymentWindow(total);
+                    QrisPaymentWindow qrisWindow = new QrisPaymentWindow(total, bookingData);
                     qrisWindow.ShowDialog();
                     paymentConfirmed = qrisWindow.IsConfirmed;
                 }
                 else
                 {
-                    VirtualAccountPaymentWindow vaWindow = new VirtualAccountPaymentWindow(total);
+                    VirtualAccountPaymentWindow vaWindow = new VirtualAccountPaymentWindow(total, bookingData);
                     vaWindow.ShowDialog();
                     paymentConfirmed = vaWindow.IsConfirmed;
                 }
 
-                // Jika pembayaran dikonfirmasi, simpan booking
+                // Jika pembayaran dikonfirmasi, kembali ke dashboard
                 if (paymentConfirmed)
                 {
-                    // Disable button saat processing
-                    BookNowButton.IsEnabled = false;
-                    BookNowButton.Content = "Memproses...";
-
-                    try
-                    {
-                        // Show processing alert
-                        var processingAlert = new AlertWindow("Pesanan Sedang Diproses",
-                            "Pesanan Anda sedang kami proses. Harap tunggu sebentar...",
-                            AlertWindow.AlertType.Info);
-                        processingAlert.ShowDialog();
-
-                        // Create booking object
-                        var booking = new Booking
-                        {
-                            BoatId = selectedBoat.ID,
-                            StartDate = startDate,
-                            EndDate = endDate,
-                            TotalAmount = total,
-                            PaymentMethod = paymentMethod,
-                            Status = "Menunggu Pembayaran"
-                        };
-
-                        // TODO: Save to Supabase
-                        // var result = await SupabaseService.Client.From<Booking>().Insert(booking);
-
-                        // Simulate processing delay
-                        await Task.Delay(1500);
-
-                        // Show success message
-                        var successAlert = new AlertWindow("Pemesanan Berhasil!",
-                            $"Pesanan Anda untuk {selectedBoat.Name} telah dibuat.\n\nTotal: Rp {total:N0}\nMetode Pembayaran: {paymentMethod}",
-                            AlertWindow.AlertType.Success);
-                        successAlert.ShowDialog();
-
-                        // Close this window and go back to dashboard
-                        this.Close();
-                    }
-                    finally
-                    {
-                        // Re-enable button in case of error
-                        BookNowButton.IsEnabled = true;
-                        BookNowButton.Content = "Pesan Sekarang";
-                    }
+                    // Close this window and go back to dashboard
+                    this.Close();
                 }
             }
             catch (Exception ex)
