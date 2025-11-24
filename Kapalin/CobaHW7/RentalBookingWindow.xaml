@@ -1,0 +1,168 @@
+<Window x:Class="CobaHW7.RentalBookingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Pemesanan Rental Kapal" Height="900" Width="1400"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F5F5">
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid Margin="40">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <TextBlock Grid.Row="0" Text="Pemesanan Rental Kapal"
+                           FontSize="28" FontWeight="Bold" Foreground="#333"
+                           Margin="0,0,0,30"/>
+
+                <!-- Boat Details Section -->
+                <Border Grid.Row="1" Background="White" CornerRadius="10" Padding="25" Margin="0,0,0,30">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>
+                    </Border.Effect>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Boat Image -->
+                        <Border Grid.Column="0" CornerRadius="8" ClipToBounds="True" Margin="0,0,30,0">
+                            <Image x:Name="BoatImage" Stretch="UniformToFill" Source="Assets/ferry.jpeg"/>
+                        </Border>
+
+                        <!-- Boat Info -->
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock x:Name="BoatNameText" FontSize="24" FontWeight="Bold" Foreground="#333" Margin="0,0,0,15"/>
+
+                            <Grid Margin="0,0,0,20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Tahun Keluaran:" FontWeight="SemiBold" Foreground="#666"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" x:Name="BoatYearText" Foreground="#333"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Harga per Hari:" FontWeight="SemiBold" Foreground="#666" Margin="0,10,0,0"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="BoatPriceText" Foreground="#007ACC" FontWeight="Bold" FontSize="16" Margin="0,10,0,0"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Kapasitas:" FontWeight="SemiBold" Foreground="#666" Margin="0,10,0,0"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" x:Name="BoatCapacityText" Foreground="#333" Margin="0,10,0,0"/>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Booking Details Section -->
+                <Border Grid.Row="2" Background="White" CornerRadius="10" Padding="25" Margin="0,0,0,30">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>
+                    </Border.Effect>
+
+                    <StackPanel>
+                        <TextBlock Text="Detail Pemesanan" FontSize="18" FontWeight="Bold" Foreground="#333" Margin="0,0,0,20"/>
+
+                        <!-- Dates Section -->
+                        <Grid Margin="0,0,0,25">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Start Date -->
+                            <StackPanel Grid.Column="0" Margin="0,0,15,0">
+                                <TextBlock Text="Tanggal Mulai" FontWeight="SemiBold" Foreground="#666" Margin="0,0,0,8"/>
+                                <DatePicker x:Name="StartDatePicker" Padding="12" BorderThickness="1" BorderBrush="#DDD"
+                                           Background="White" SelectedDateChanged="StartDatePicker_SelectedDateChanged"/>
+                            </StackPanel>
+
+                            <!-- End Date -->
+                            <StackPanel Grid.Column="1" Margin="15,0,0,0">
+                                <TextBlock Text="Tanggal Selesai" FontWeight="SemiBold" Foreground="#666" Margin="0,0,0,8"/>
+                                <DatePicker x:Name="EndDatePicker" Padding="12" BorderThickness="1" BorderBrush="#DDD"
+                                           Background="White" SelectedDateChanged="EndDatePicker_SelectedDateChanged"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Payment Method Section -->
+                        <TextBlock Text="Metode Pembayaran" FontWeight="SemiBold" Foreground="#666" Margin="0,0,0,12"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,25">
+                            <RadioButton x:Name="QrisRadio" Content="QRIS" FontSize="14" Margin="0,0,30,0"
+                                        IsChecked="True" Click="PaymentMethod_Changed"/>
+                            <RadioButton x:Name="VirtualAccountRadio" Content="Transfer Virtual Account" FontSize="14"
+                                        Click="PaymentMethod_Changed"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Total Section -->
+                <Border Grid.Row="3" Background="White" CornerRadius="10" Padding="25" Margin="0,0,0,30">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>
+                    </Border.Effect>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="Total Harga:" FontSize="14" Foreground="#666" Margin="0,0,0,8"/>
+                            <TextBlock x:Name="TotalText" FontSize="24" FontWeight="Bold" Foreground="#007ACC"/>
+                        </StackPanel>
+
+                        <TextBlock Grid.Column="1" x:Name="DaysText" FontSize="14" Foreground="#999"
+                                  VerticalAlignment="Center" TextAlignment="Right" Margin="20,0,0,0"/>
+                    </Grid>
+                </Border>
+
+                <!-- Action Buttons -->
+                <Grid Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" Content="Batal" Width="120" Height="40"
+                            Background="#E0E0E0" Foreground="#333" FontSize="14" FontWeight="SemiBold"
+                            Cursor="Hand" Margin="0,0,15,0" Click="CancelButton_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="6"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <Button Grid.Column="1" Content="Pesan Sekarang" Width="150" Height="40"
+                            Background="#007ACC" Foreground="White" FontSize="14" FontWeight="SemiBold"
+                            Cursor="Hand" Click="BookNowButton_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="6"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>
