@@ -16,7 +16,7 @@ namespace CobaHW7.Class
         public long BoatId { get; set; } // int8 (bigint) - Foreign Key ke Boats(id)
 
         [Column("UserId")]
-        public long UserId { get; set; } // Asumsi ini juga int8 (bigint)
+        public string UserId { get; set; } = ""; // UUID dari users table
 
         [Column("StartDate")]
         public DateTime StartDate { get; set; } // 'date' atau 'timestamp' di Supabase

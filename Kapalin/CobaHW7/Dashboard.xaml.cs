@@ -55,10 +55,9 @@ namespace CobaHW7
                 }
 
                 // Ambil booking dari user ini
-                long userId = long.Parse(user.Id);
                 var bookings = await SupabaseService.Client
                     .From<Booking>()
-                    .Where(b => b.UserId == userId)
+                    .Where(b => b.UserId == user.Id)
                     .Get();
 
                 if (bookings.Models.Count == 0)
