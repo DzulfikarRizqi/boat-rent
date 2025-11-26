@@ -5,21 +5,131 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CobaHW7"
         mc:Ignorable="d"
-        Title="BookingWindow" Height="450" Width="800" Background="#f5f5f5">
-    <Grid Margin="10">
-        <TextBlock Text="Daftar Kapal yang Dipesan"
-                   FontSize="20" FontWeight="Bold"
-                   Margin="0,0,0,10"/>
+        Title="Daftar Pesanan" Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F7FB">
 
-        <ListView x:Name="BookingList" Margin="0,40,0,0">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="50"/>
-                    <GridViewColumn Header="Nama Kapal" DisplayMemberBinding="{Binding Model}" Width="150"/>
-                    <GridViewColumn Header="Harga" DisplayMemberBinding="{Binding Price}" Width="150"/>
-                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+    <Window.Resources>
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#1976D2"/>
+        <SolidColorBrush x:Key="CardBorder" Color="#E2E8F0"/>
+        <SolidColorBrush x:Key="HeaderGray" Color="#F0F0F0"/>
+        <SolidColorBrush x:Key="TextDark" Color="#0F172A"/>
+
+        <Style x:Key="ModernDataGrid" TargetType="DataGrid">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="RowBackground" Value="White"/>
+            <Setter Property="Foreground" Value="{StaticResource TextDark}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource CardBorder}"/>
+            <Setter Property="GridLinesVisibility" Value="All"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#E6E6E6"/>
+            <Setter Property="VerticalGridLinesBrush" Value="#E6E6E6"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="RowHeaderWidth" Value="0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="ColumnHeaderHeight" Value="40"/>
+            <Setter Property="RowHeight" Value="50"/>
+            <Setter Property="ColumnHeaderStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="{StaticResource HeaderGray}"/>
+                        <Setter Property="Foreground" Value="{StaticResource TextDark}"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource CardBorder}"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                        <Setter Property="Padding" Value="12,0,12,0"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="RowStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Foreground" Value="{StaticResource TextDark}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#E6F2FF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CloseButton" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Background="{StaticResource PrimaryBrush}" Padding="24,16">
+            <TextBlock Text="Riwayat Pesanan Anda"
+                       FontSize="24" FontWeight="Bold"
+                       Foreground="White"/>
+        </Border>
+
+        <!-- Content -->
+        <Grid Grid.Row="1" Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Daftar kapal yang telah Anda pesan:"
+                       FontSize="14" FontWeight="SemiBold"
+                       Foreground="{StaticResource TextDark}"
+                       Margin="0,0,0,16"/>
+
+            <Border Grid.Row="1" Background="White" CornerRadius="12"
+                    BorderBrush="{StaticResource CardBorder}" BorderThickness="1" Padding="0">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.1"/>
+                </Border.Effect>
+
+                <DataGrid x:Name="BookingList"
+                          Style="{StaticResource ModernDataGrid}"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID Pesanan" Binding="{Binding BookingId}" Width="100"/>
+                        <DataGridTextColumn Header="ID Kapal" Binding="{Binding BoatId}" Width="80"/>
+                        <DataGridTextColumn Header="Tanggal Mulai" Binding="{Binding StartDate, StringFormat=\{0:dd MMM yyyy\}}" Width="140"/>
+                        <DataGridTextColumn Header="Tanggal Selesai" Binding="{Binding EndDate, StringFormat=\{0:dd MMM yyyy\}}" Width="140"/>
+                        <DataGridTextColumn Header="Total" Binding="{Binding TotalAmount, StringFormat='Rp {0:N0}'}" Width="140"/>
+                        <DataGridTextColumn Header="Metode Pembayaran" Binding="{Binding PaymentMethod}" Width="160"/>
+                        <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="120"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </Grid>
+
+        <!-- Footer dengan Tombol -->
+        <Border Grid.Row="2" Background="White" Padding="24" BorderBrush="{StaticResource CardBorder}" BorderThickness="0,1,0,0">
+            <StackPanel HorizontalAlignment="Right">
+                <Button Content="Tutup" Style="{StaticResource CloseButton}" Width="100" Height="40" Click="CloseButton_Click"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
