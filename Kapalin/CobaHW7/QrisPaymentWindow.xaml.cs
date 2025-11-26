@@ -20,10 +20,8 @@ namespace CobaHW7
 
         private void LoadPaymentDetails(decimal amount)
         {
-            // Display nominal
             NominalText.Text = $"Rp {amount:N0}";
 
-            // Generate reference number (format: QRIS-YYYYMMDD-HHMMSS-RANDOM)
             string referenceNumber = $"QRIS-{DateTime.Now:yyyyMMdd-HHmmss}-{Guid.NewGuid().ToString().Substring(0, 8).ToUpper()}";
             ReferenceText.Text = referenceNumber;
         }
@@ -38,20 +36,30 @@ namespace CobaHW7
         {
             try
             {
-                // Disable button saat processing
                 var confirmBtn = sender as Button;
                 if (confirmBtn != null)
                     confirmBtn.IsEnabled = false;
 
-                // Show processing alert
                 var processingAlert = new AlertWindow("Pesanan Sedang Diproses",
                     "Pesanan Anda sedang kami proses. Harap tunggu sebentar...",
                     AlertWindow.AlertType.Info);
                 processingAlert.ShowDialog();
 
-                // Create booking object
+                var currentUser = SupabaseService.Client.Auth.CurrentUser;
+                if (currentUser == null)
+                {
+                    var errorAlert = new AlertWindow("Error",
+                        "User tidak ditemukan. Silakan login kembali.",
+                        AlertWindow.AlertType.Error);
+                    errorAlert.ShowDialog();
+                    if (confirmBtn != null)
+                        confirmBtn.IsEnabled = true;
+                    return;
+                }
+
                 var booking = new Booking
                 {
+                    UserId = currentUser.Id,
                     BoatId = bookingData.BoatId,
                     StartDate = bookingData.StartDate,
                     EndDate = bookingData.EndDate,
@@ -60,12 +68,10 @@ namespace CobaHW7
                     Status = "Menunggu Pembayaran"
                 };
 
-                // Save to Supabase
                 try
                 {
                     var result = await SupabaseService.Client.From<Booking>().Insert(booking);
 
-                    // Show success message
                     var successAlert = new AlertWindow("Pemesanan Berhasil!",
                         $"Pesanan Anda untuk {bookingData.BoatName} telah dibuat.\n\nTotal: Rp {bookingData.TotalAmount:N0}\nMetode Pembayaran: QRIS",
                         AlertWindow.AlertType.Success);
