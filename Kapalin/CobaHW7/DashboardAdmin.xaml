@@ -135,6 +135,10 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="BookingGrid" TargetType="DataGrid" BasedOn="{StaticResource ModernGrid}">
+            <Setter Property="RowHeight" Value="50"/>
+        </Style>
     </Window.Resources>
 
     <Window.DataContext>
@@ -257,63 +261,76 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <DockPanel Grid.Row="0" Margin="0,0,0,12">
-                                <TextBlock Text="Kelola booking (Konfirmasi / Batalkan)"
-                                           FontWeight="SemiBold" Foreground="{StaticResource TextDark}"/>
+                            <DockPanel Grid.Row="0" LastChildFill="True" Margin="0,0,0,12">
+                                <TextBlock Text="Kelola Pemesanan" FontWeight="SemiBold" FontSize="14" Foreground="{StaticResource TextDark}" VerticalAlignment="Center" DockPanel.Dock="Left"/>
                             </DockPanel>
 
                             <Border CornerRadius="10" BorderBrush="{StaticResource CardBorder}" BorderThickness="1" Grid.Row="1">
                                 <DataGrid ItemsSource="{Binding Bookings}"
-                                          Style="{StaticResource ModernGrid}"
+                                          Style="{StaticResource BookingGrid}"
                                           AutoGenerateColumns="False"
                                           CanUserAddRows="False"
                                           CanUserDeleteRows="False"
                                           IsReadOnly="True">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="BookingId" Binding="{Binding BookingId}" Width="90" />
-                                        <DataGridTextColumn Header="BoatId"    Binding="{Binding BoatId}" Width="70" />
-                                        <DataGridTextColumn Header="UserId"    Binding="{Binding UserId}" Width="70" />
-                                        <DataGridTextColumn Header="Mulai"     Binding="{Binding StartDate, StringFormat=\{0:yyyy-MM-dd\}}" Width="110" />
-                                        <DataGridTextColumn Header="Selesai"   Binding="{Binding EndDate, StringFormat=\{0:yyyy-MM-dd\}}" Width="110" />
-                                        <DataGridTextColumn Header="Total (IDR)" Binding="{Binding TotalAmount, StringFormat=N0}" Width="110" />
-                                        <DataGridTextColumn Header="Metode"    Binding="{Binding PaymentMethod}" Width="100" />
+                                        <DataGridTextColumn Header="ID Pesanan" Binding="{Binding BookingId}" Width="100" />
+                                        <DataGridTextColumn Header="ID Kapal" Binding="{Binding BoatId}" Width="80" />
+                                        <DataGridTextColumn Header="Tanggal Mulai" Binding="{Binding StartDate, StringFormat=\{0:dd MMM yyyy\}}" Width="140" />
+                                        <DataGridTextColumn Header="Tanggal Selesai" Binding="{Binding EndDate, StringFormat=\{0:dd MMM yyyy\}}" Width="140" />
+                                        <DataGridTextColumn Header="Total" Binding="{Binding TotalAmount, StringFormat='Rp {0:N0}'}" Width="140" />
+                                        <DataGridTextColumn Header="Metode Pembayaran" Binding="{Binding PaymentMethod}" Width="160" />
 
-                                        <DataGridTemplateColumn Header="Status" Width="120">
+                                        <DataGridTemplateColumn Header="Status" Width="160">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <Border CornerRadius="10" Padding="8,2" BorderThickness="1">
+                                                    <Border CornerRadius="6" Padding="8,4" BorderThickness="1" HorizontalAlignment="Center">
                                                         <Border.Style>
                                                             <Style TargetType="Border">
                                                                 <Setter Property="Background" Value="#E2E8F0"/>
-                                                                <Setter Property="BorderBrush" Value="#E2E8F0"/>
+                                                                <Setter Property="BorderBrush" Value="#94A3B8"/>
                                                                 <Style.Triggers>
                                                                     <DataTrigger Binding="{Binding Status}" Value="Confirmed">
-                                                                        <Setter Property="Background" Value="#E6F7EE"/>
-                                                                        <Setter Property="BorderBrush" Value="#A5D6A7"/>
+                                                                        <Setter Property="Background" Value="#DCFCE7"/>
+                                                                        <Setter Property="BorderBrush" Value="#86EFAC"/>
                                                                     </DataTrigger>
-                                                                    <DataTrigger Binding="{Binding Status}" Value="Pending">
-                                                                        <Setter Property="Background" Value="#FFF8E1"/>
-                                                                        <Setter Property="BorderBrush" Value="#FFE082"/>
+                                                                    <DataTrigger Binding="{Binding Status}" Value="Menunggu Pembayaran">
+                                                                        <Setter Property="Background" Value="#FEF3C7"/>
+                                                                        <Setter Property="BorderBrush" Value="#FCD34D"/>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Status}" Value="Cancelled">
-                                                                        <Setter Property="Background" Value="#FFEBEE"/>
-                                                                        <Setter Property="BorderBrush" Value="#EF9A9A"/>
+                                                                        <Setter Property="Background" Value="#FEE2E2"/>
+                                                                        <Setter Property="BorderBrush" Value="#FECACA"/>
                                                                     </DataTrigger>
                                                                 </Style.Triggers>
                                                             </Style>
                                                         </Border.Style>
-                                                        <TextBlock Text="{Binding Status}" FontWeight="SemiBold" Foreground="{StaticResource TextDark}" />
+                                                        <TextBlock Text="{Binding Status}" FontWeight="SemiBold" Foreground="{StaticResource TextDark}" FontSize="12" />
                                                     </Border>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
 
-                                        <DataGridTemplateColumn Header="Aksi" Width="200">
+                                        <DataGridTemplateColumn Header="Aksi" Width="240">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <Button Content="Konfirmasi" Style="{StaticResource PrimaryButton}" Padding="8,4" Margin="0,0,8,0" Tag="{Binding}"/>
-                                                        <Button Content="Batalkan"   Style="{StaticResource DangerButton}" Padding="8,4" Tag="{Binding}"/>
+                                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                        <Button Content="✓ Konfirmasi"
+                                                                Style="{StaticResource PrimaryButton}"
+                                                                Width="110"
+                                                                Height="40"
+                                                                Padding="8,6"
+                                                                Margin="0,0,8,0"
+                                                                FontSize="12"
+                                                                Command="{Binding DataContext.ConfirmBookingCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                                CommandParameter="{Binding}"/>
+                                                        <Button Content="✕ Batalkan"
+                                                                Style="{StaticResource DangerButton}"
+                                                                Width="100"
+                                                                Height="40"
+                                                                Padding="8,6"
+                                                                FontSize="12"
+                                                                Command="{Binding DataContext.CancelBookingCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                                CommandParameter="{Binding}"/>
                                                     </StackPanel>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
