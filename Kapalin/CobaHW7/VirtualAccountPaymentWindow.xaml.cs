@@ -20,14 +20,10 @@ namespace CobaHW7
 
         private void LoadPaymentDetails(decimal amount)
         {
-            // Set default bank selection
             BankComboBox.SelectedIndex = 0;
 
-            // Display nominal
             NominalText.Text = $"Rp {amount:N0}";
 
-            // Generate Virtual Account Number
-            // Format: BANK CODE + USER ID + BOOKING ID (simulated)
             GenerateVANumber();
         }
 
@@ -52,7 +48,6 @@ namespace CobaHW7
 
         private string FormatVANumber(string number)
         {
-            // Format: XXX XXXX XXXX XXXX
             if (number.Length >= 16)
             {
                 return $"{number.Substring(0, 3)} {number.Substring(3, 4)} {number.Substring(7, 4)} {number.Substring(11)}";
@@ -86,20 +81,30 @@ namespace CobaHW7
         {
             try
             {
-                // Disable button saat processing
                 var confirmBtn = sender as Button;
                 if (confirmBtn != null)
                     confirmBtn.IsEnabled = false;
 
-                // Show processing alert
                 var processingAlert = new AlertWindow("Pesanan Sedang Diproses",
                     "Pesanan Anda sedang kami proses. Harap tunggu sebentar...",
                     AlertWindow.AlertType.Info);
                 processingAlert.ShowDialog();
 
-                // Create booking object
+                var currentUser = SupabaseService.Client.Auth.CurrentUser;
+                if (currentUser == null)
+                {
+                    var errorAlert = new AlertWindow("Error",
+                        "User tidak ditemukan. Silakan login kembali.",
+                        AlertWindow.AlertType.Error);
+                    errorAlert.ShowDialog();
+                    if (confirmBtn != null)
+                        confirmBtn.IsEnabled = true;
+                    return;
+                }
+
                 var booking = new Booking
                 {
+                    UserId = currentUser.Id,
                     BoatId = bookingData.BoatId,
                     StartDate = bookingData.StartDate,
                     EndDate = bookingData.EndDate,
@@ -108,7 +113,6 @@ namespace CobaHW7
                     Status = "Menunggu Pembayaran"
                 };
 
-                // Save to Supabase
                 try
                 {
                     var result = await SupabaseService.Client.From<Booking>().Insert(booking);
