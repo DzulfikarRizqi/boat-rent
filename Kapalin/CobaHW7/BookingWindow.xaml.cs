@@ -15,9 +15,6 @@ using CobaHW7.Class;
 
 namespace CobaHW7
 {
-    /// <summary>
-    /// Interaction logic for BookingWindow.xaml
-    /// </summary>
     public partial class BookingWindow : Window
     {
         public BookingWindow(List<Booking> bookings = null)
@@ -45,15 +42,20 @@ namespace CobaHW7
                 {
                     BookingId = b.BookingId,
                     BoatId = b.BoatId,
-                    StartDate = b.StartDate.ToString("yyyy-MM-dd"),
-                    EndDate = b.EndDate.ToString("yyyy-MM-dd"),
-                    TotalAmount = $"Rp {b.TotalAmount:N0}",
+                    StartDate = b.StartDate,
+                    EndDate = b.EndDate,
+                    TotalAmount = b.TotalAmount,
                     PaymentMethod = b.PaymentMethod,
                     Status = b.Status
                 }).ToList();
 
                 BookingList.ItemsSource = displayBookings;
             }
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
