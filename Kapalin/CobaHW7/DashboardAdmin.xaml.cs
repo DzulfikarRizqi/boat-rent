@@ -18,8 +18,6 @@ namespace CobaHW7
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            // Cek apakah mouse sedang berada di atas tabel atau tidak
-            // Jika TIDAK (!), maka kita hapus seleksinya
             if (!BoatsDataGrid.IsMouseOver)
             {
                 BoatsDataGrid.UnselectAll();
