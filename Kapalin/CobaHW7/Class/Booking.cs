@@ -4,33 +4,32 @@ using System;
 
 namespace CobaHW7.Class
 {
-    // Nama tabel "Bookings" harus sama persis dengan yang Anda buat di Supabase
     [Table("Bookings")]
     public partial class Booking : BaseModel
     {
         [PrimaryKey("BookingId", false)]
         [Column("BookingId")]
-        public long BookingId { get; set; } // int8 (bigint)
+        public long BookingId { get; set; }
 
         [Column("BoatId")]
-        public long BoatId { get; set; } // int8 (bigint) - Foreign Key ke Boats(id)
+        public long BoatId { get; set; }
 
-        [Column("UserId")]
-        public string UserId { get; set; } = ""; // UUID dari users table
+        [Column("UserID")]
+        public string UserId { get; set; } = "";
 
         [Column("StartDate")]
-        public DateTime StartDate { get; set; } // 'date' atau 'timestamp' di Supabase
+        public DateTime StartDate { get; set; }
 
         [Column("EndDate")]
-        public DateTime EndDate { get; set; } // 'date' atau 'timestamp' di Supabase
+        public DateTime EndDate { get; set; }
 
         [Column("TotalAmount")]
-        public decimal TotalAmount { get; set; } // 'numeric'
+        public decimal TotalAmount { get; set; }
 
         [Column("PaymentMethod")]
-        public string PaymentMethod { get; set; } = ""; // Inisialisasi default
+        public string PaymentMethod { get; set; } = "";
 
         [Column("Status")]
-        public string Status { get; set; } = ""; // Inisialisasi default
+        public string Status { get; set; } = "";
     }
 }
