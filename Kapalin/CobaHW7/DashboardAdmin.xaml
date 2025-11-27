@@ -181,15 +181,24 @@
                             </Grid.RowDefinitions>
 
                             <DockPanel Grid.Row="0" LastChildFill="True" Margin="0,0,0,12">
-                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                                    <Button Content="Tambah Kapal" 
-                                            Style="{StaticResource PrimaryButton}" 
+                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Center">
+                                    <Button Content="+ Tambah Kapal"
+                                            Style="{StaticResource PrimaryButton}"
                                             Command="{Binding AddBoatCommand}"
-                                            Width="120" 
-                                            Height="40"
-                                            Padding="20,10" 
-                                            FontSize="16"
-                                            Margin="0,0,10,0"/>
+                                            Height="38"
+                                            Padding="18,8"
+                                            FontSize="13"
+                                            FontWeight="SemiBold"
+                                            Margin="0,0,10,0"
+                                            Cursor="Hand">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="8" Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
                                 </StackPanel>
                             </DockPanel>
 
@@ -235,23 +244,53 @@
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal"
-                                                                HorizontalAlignment="Center" 
+                                                                HorizontalAlignment="Center"
                                                                 VerticalAlignment="Center">
 
-                                                        <Button Content="Edit" 
-                                                                Width="80" 
-                                                                Height="60"
+                                                        <Button Content="✎ Edit"
+                                                                Height="36"
+                                                                Padding="12,8"
+                                                                FontSize="12"
+                                                                FontWeight="SemiBold"
+                                                                Margin="0,0,8,0"
                                                                 Style="{StaticResource SecondaryButton}"
-                                                                Padding="8,4" Margin="0,0,20,0"
                                                                 Command="{Binding DataContext.EditBoatCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                                CommandParameter="{Binding}"/>
-                                                        <Button Content="Hapus" 
-                                                                Width="100" 
-                                                                Height="60"
+                                                                CommandParameter="{Binding}">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                            <Setter Property="Background" Value="#D5E3F5"/>
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                        </Button>
+
+                                                        <Button Content="🗑 Hapus"
+                                                                Height="36"
+                                                                Padding="12,8"
+                                                                FontSize="12"
+                                                                FontWeight="SemiBold"
                                                                 Style="{StaticResource DangerButton}"
-                                                                Padding="8,4" Margin="0" 
-                                                                Command="{Binding DataContext.BoatCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                                CommandParameter="{Binding}" />
+                                                                Command="{Binding DataContext.DeleteBoatCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                                CommandParameter="{Binding}">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                            <Setter Property="Background" Value="#F4511E"/>
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                        </Button>
 
                                                     </StackPanel>
                                                 </DataTemplate>

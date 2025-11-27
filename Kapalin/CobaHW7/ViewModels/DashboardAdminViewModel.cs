@@ -165,26 +165,29 @@ namespace CobaHW7.ViewModels
         {
             if (parameter is Boat boatToDelete)
             {
-                var result = MessageBox.Show(
-                    $"Apakah Anda yakin ingin menghapus kapal '{boatToDelete.Name}'?\nData yang dihapus tidak dapat dikembalikan.",
-                    "Konfirmasi Hapus",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Warning);
+                var confirmDialog = new BookingConfirmationWindow(
+                    "Hapus Kapal",
+                    $"Apakah Anda yakin ingin menghapus kapal '{boatToDelete.Name}'?\n\nData yang dihapus tidak dapat dikembalikan.",
+                    BookingConfirmationWindow.ConfirmationType.Cancel);
+                confirmDialog.Owner = Application.Current.MainWindow;
+                confirmDialog.ShowDialog();
 
-                if (result == MessageBoxResult.Yes)
+                if (confirmDialog.IsConfirmed)
                 {
                     try
                     {
                         await SupabaseService.DeleteBoatAsync(boatToDelete.ID);
 
                         _allBoats.Remove(boatToDelete);
-
-                        MessageBox.Show("Data berhasil dihapus.", "Sukses", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Gagal menghapus data. Pastikan kapal tidak memiliki riwayat booking.\nError: {ex.Message}",
-                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        var errorDialog = new BookingConfirmationWindow(
+                            "Error",
+                            $"Gagal menghapus data. Pastikan kapal tidak memiliki riwayat booking.\n\nError: {ex.Message}",
+                            BookingConfirmationWindow.ConfirmationType.Cancel);
+                        errorDialog.Owner = Application.Current.MainWindow;
+                        errorDialog.ShowDialog();
                     }
                 }
             }
