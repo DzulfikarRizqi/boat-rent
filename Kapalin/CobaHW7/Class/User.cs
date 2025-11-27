@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Postgrest.Attributes; // Dari supabase-csharp
-using Postgrest.Models;    // Dari supabase-csharp
+using Postgrest.Attributes;
+using Postgrest.Models;    
 
 namespace CobaHW7.Class
 {
@@ -42,10 +42,10 @@ namespace CobaHW7.Class
     //    public List<Booking> GetUserBookings(int userId, int page, int size) => new();
     //}
 
-    [Table("users")] // Nama tabel di Supabase
+    [Table("users")]
     public class User : BaseModel
     {
-        [PrimaryKey("id", false)] // 'false' berarti ID tidak di-auto-increment oleh Postgrest
+        [PrimaryKey("id", false)]
         public string Id { get; set; }
 
         [Column("username")]
@@ -55,6 +55,6 @@ namespace CobaHW7.Class
         public string Email { get; set; } = string.Empty;
 
         [Column("is_admin")]
-        public bool IsAdmin { get; set; } = false; // Default false untuk regular user
+        public bool IsAdmin { get; set; } = false;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace CobaHW7.Class
 {
-    // Rentang tanggal (End eksklusif) untuk cek bentrok booking.
     public class DateRange
     {
         public DateTime Start { get; set; }
@@ -16,7 +15,6 @@ namespace CobaHW7.Class
 
         public bool Overlaps(DateTime start, DateTime end)
         {
-            // true bila [start,end) bertumpuk dengan [Start,End)
             return !(end <= Start || start >= End);
         }
     }

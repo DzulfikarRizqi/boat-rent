@@ -1,45 +1,41 @@
 using Postgrest.Attributes;
-using Postgrest.Models; // Penting untuk BaseModel
+using Postgrest.Models;
 using System;
 
 namespace CobaHW7.Class
 {
-    // [Table("NamaTabelDiSupabase")]
-    // Nama tabel "Boats" harus sama persis dengan yang Anda buat di Supabase
     [Table("Boats")]
     public class Boat : BaseModel
     {
-        // [PrimaryKey("nama_kolom_pk", false)]
-        // 'false' berarti database yang mengatur nilainya (seperti auto-increment)
         [PrimaryKey("id", false)]
         [Column("id")]
-        public long ID { get; set; } // int8 (bigint) di Supabase adalah 'long' di C#
+        public long ID { get; set; }
 
         [Column("Name")]
-        public string Name { get; set; } = ""; // Inisialisasi default untuk atasi CS8618
+        public string Name { get; set; } = "";
 
         [Column("Model")]
-        public string Model { get; set; } = ""; // Inisialisasi default
+        public string Model { get; set; } = "";
 
         [Column("Location")]
-        public string Location { get; set; } = ""; // Inisialisasi default
+        public string Location { get; set; } = "";
 
         [Column("Capacity")]
-        public int Capacity { get; set; } // int4 (integer)
+        public int Capacity { get; set; }
 
         [Column("Year")]
-        public int Year { get; set; } // int4 (integer)
+        public int Year { get; set; }
 
         [Column("Rating")]
-        public double Rating { get; set; } // float8 (double)
+        public double Rating { get; set; }
 
         [Column("PricePerDay")]
-        public decimal PricePerDay { get; set; } // 'numeric' di Supabase adalah 'decimal' di C#
+        public decimal PricePerDay { get; set; }
 
         [Column("Available")]
-        public bool? Available { get; set; } // bool
+        public bool? Available { get; set; }
 
         [Column("ThumbnailPath")]
-        public string ThumbnailPath { get; set; } = ""; // Inisialisasi default
+        public string ThumbnailPath { get; set; } = "";
     }
 }

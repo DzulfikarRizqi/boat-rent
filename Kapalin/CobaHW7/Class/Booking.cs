@@ -7,7 +7,7 @@ namespace CobaHW7.Class
     [Table("Bookings")]
     public partial class Booking : BaseModel
     {
-        [PrimaryKey("BookingId", false)]
+        [PrimaryKey("BookingId", true)]
         [Column("BookingId")]
         public long BookingId { get; set; }
 
@@ -18,7 +18,7 @@ namespace CobaHW7.Class
         public string UserId { get; set; } = "";
 
         [Column("StartDate")]
-        public DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; } 
 
         [Column("EndDate")]
         public DateTime EndDate { get; set; }
