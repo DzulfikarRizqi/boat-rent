@@ -32,12 +32,12 @@
                     </StackPanel>
                 </StackPanel>
 
-                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
                     <Button Width="96" Height="32" Content="OK" Click="Ok_Click"
                             Background="#2979FF" Foreground="White" FontWeight="SemiBold"
                             BorderBrush="{x:Null}" Cursor="Hand">
                         <Button.Template>
-                            <ControlTemplate TargetType="Button">
+                            <ControlTemplate TargetType="{x:Type Button}">
                                 <Border Background="{TemplateBinding Background}" CornerRadius="8">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
