@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using CobaHW7.Class;
@@ -70,7 +71,17 @@ namespace CobaHW7
 
                 try
                 {
-                    var result = await SupabaseService.Client.From<Booking>().Insert(booking);
+                    //Supabase RPC function insert booking (repot brbrbr)
+                    var result = await SupabaseService.Client.Rpc("insert_booking", new Dictionary<string, object>
+                    {
+                        { "p_user_id", booking.UserId },
+                        { "p_boat_id", booking.BoatId },
+                        { "p_start_date", booking.StartDate },
+                        { "p_end_date", booking.EndDate },
+                        { "p_total_amount", booking.TotalAmount },
+                        { "p_payment_method", booking.PaymentMethod },
+                        { "p_status", booking.Status }
+                    });
 
                     var successAlert = new AlertWindow("Pemesanan Berhasil!",
                         $"Pesanan Anda untuk {bookingData.BoatName} telah dibuat.\n\nTotal: Rp {bookingData.TotalAmount:N0}\nMetode Pembayaran: QRIS",
