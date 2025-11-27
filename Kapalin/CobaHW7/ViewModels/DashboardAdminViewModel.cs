@@ -194,13 +194,14 @@ namespace CobaHW7.ViewModels
         {
             if (parameter is Booking booking)
             {
-                var result = MessageBox.Show(
-                    $"Apakah Anda yakin ingin mengkonfirmasi pesanan #{booking.BookingId}?",
+                var confirmDialog = new BookingConfirmationWindow(
                     "Konfirmasi Pesanan",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question);
+                    $"Apakah Anda yakin ingin mengkonfirmasi pesanan #{booking.BookingId}?",
+                    BookingConfirmationWindow.ConfirmationType.Confirm);
+                confirmDialog.Owner = Application.Current.MainWindow;
+                confirmDialog.ShowDialog();
 
-                if (result == MessageBoxResult.Yes)
+                if (confirmDialog.IsConfirmed)
                 {
                     try
                     {
@@ -209,13 +210,16 @@ namespace CobaHW7.ViewModels
                             .From<Booking>()
                             .Update(booking);
 
-                        MessageBox.Show("Pesanan berhasil dikonfirmasi!", "Sukses", MessageBoxButton.OK, MessageBoxImage.Information);
-
                         LoadDataAsync();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Gagal mengkonfirmasi pesanan: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        var errorDialog = new BookingConfirmationWindow(
+                            "Error",
+                            $"Gagal mengkonfirmasi pesanan: {ex.Message}",
+                            BookingConfirmationWindow.ConfirmationType.Cancel);
+                        errorDialog.Owner = Application.Current.MainWindow;
+                        errorDialog.ShowDialog();
                     }
                 }
             }
@@ -225,13 +229,14 @@ namespace CobaHW7.ViewModels
         {
             if (parameter is Booking booking)
             {
-                var result = MessageBox.Show(
-                    $"Apakah Anda yakin ingin membatalkan pesanan #{booking.BookingId}?",
+                var cancelDialog = new BookingConfirmationWindow(
                     "Batalkan Pesanan",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Warning);
+                    $"Apakah Anda yakin ingin membatalkan pesanan #{booking.BookingId}?",
+                    BookingConfirmationWindow.ConfirmationType.Cancel);
+                cancelDialog.Owner = Application.Current.MainWindow;
+                cancelDialog.ShowDialog();
 
-                if (result == MessageBoxResult.Yes)
+                if (cancelDialog.IsConfirmed)
                 {
                     try
                     {
@@ -240,13 +245,16 @@ namespace CobaHW7.ViewModels
                             .From<Booking>()
                             .Update(booking);
 
-                        MessageBox.Show("Pesanan berhasil dibatalkan.", "Sukses", MessageBoxButton.OK, MessageBoxImage.Information);
-
                         LoadDataAsync();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Gagal membatalkan pesanan: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        var errorDialog = new BookingConfirmationWindow(
+                            "Error",
+                            $"Gagal membatalkan pesanan: {ex.Message}",
+                            BookingConfirmationWindow.ConfirmationType.Cancel);
+                        errorDialog.Owner = Application.Current.MainWindow;
+                        errorDialog.ShowDialog();
                     }
                 }
             }
@@ -282,7 +290,6 @@ namespace CobaHW7.ViewModels
 
             if (item is Boat boat)
             {
-                // Cek untuk menghindari crash
                 string name = boat.Name ?? "";
                 string location = boat.Location ?? "";
 
