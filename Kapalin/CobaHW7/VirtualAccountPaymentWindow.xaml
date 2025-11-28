@@ -6,13 +6,13 @@
         mc:Ignorable="d"
         Title="Pembayaran Virtual Account" Height="750" Width="500"
         WindowStartupLocation="CenterScreen"
-        Background="#F5F5F5"
+        Background="#F0F6FF"
         WindowStyle="SingleBorderWindow">
 
     <Grid>
         <StackPanel Margin="40" VerticalAlignment="Center">
             <!-- Header -->
-            <TextBlock Text="Pembayaran Virtual Account" FontSize="24" FontWeight="Bold" Foreground="#333"
+            <TextBlock Text="Pembayaran Virtual Account" FontSize="24" FontWeight="Bold" Foreground="#0D47A1"
                        Margin="0,0,0,30" TextAlignment="Center"/>
 
             <!-- Bank Info Container -->
@@ -21,7 +21,7 @@
                     <CornerRadius TopLeft="15" TopRight="15" BottomLeft="15" BottomRight="15"/>
                 </Border.CornerRadius>
                 <Border.Effect>
-                    <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>
+                    <DropShadowEffect BlurRadius="20" Opacity="0.30" ShadowDepth="2" Color="#88A8FF"/>
                 </Border.Effect>
 
                 <StackPanel>
@@ -40,6 +40,10 @@
                         <Border.CornerRadius>
                             <CornerRadius TopLeft="8" TopRight="8" BottomLeft="8" BottomRight="8"/>
                         </Border.CornerRadius>
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="20" Opacity="0.30" ShadowDepth="2" Color="#88A8FF"/>
+                        </Border.Effect>
+
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -65,6 +69,9 @@
                         <Border.CornerRadius>
                             <CornerRadius TopLeft="8" TopRight="8" BottomLeft="8" BottomRight="8"/>
                         </Border.CornerRadius>
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="20" Opacity="0.30" ShadowDepth="2" Color="#88A8FF"/>
+                        </Border.Effect>
                         <StackPanel>
                             <TextBlock Text="Nominal Pembayaran" FontSize="12" Foreground="#999" Margin="0,0,0,8"/>
                             <TextBlock x:Name="NominalText" FontSize="24" FontWeight="Bold" Foreground="#FF9800"/>
@@ -81,8 +88,14 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Content="Batalkan" Width="120" Height="45"
-                        Background="#E0E0E0" Foreground="#333" FontSize="14" FontWeight="SemiBold"
+                <Button Grid.Column="0" Content="Batalkan"                              
+                            Width="120" 
+                            Height="40"
+                            Background="#E3E9F7"
+                            BorderBrush="#C2CCEC"
+                            Foreground="#0A2A65"
+                            FontSize="14" 
+                            FontWeight="SemiBold"
                         Cursor="Hand" Click="Cancel_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -91,8 +104,14 @@
                     </Button.Resources>
                 </Button>
 
-                <Button Grid.Column="2" Content="Konfirmasi Pembayaran" Width="180" Height="45"
-                        Background="#007ACC" Foreground="White" FontSize="14" FontWeight="SemiBold"
+                <Button Grid.Column="2" Content="Konfirmasi Pembayaran"                             
+                            Width="150" 
+                            Height="40"
+                            Background="#1E63E9"
+                            Foreground="White"
+                            BorderBrush="#1649B2" 
+                            FontSize="14" 
+                            FontWeight="SemiBold"
                         Cursor="Hand" Click="Confirm_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
