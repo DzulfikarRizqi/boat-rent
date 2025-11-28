@@ -64,6 +64,52 @@ namespace CobaHW7.Services
             }
         }
 
+        public static async Task<(bool available, string message)> CheckBoatAvailabilityAsync(long boatId, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var allBookings = await GetBookingsAsync();
+                var boatBookings = allBookings.Where(b => b.BoatId == boatId).ToList();
+
+                Debug.WriteLine($"[CheckAvailability] Boat {boatId}: Found {boatBookings.Count} bookings");
+
+                int overlappingCount = 0;
+                DateTime? firstOverlapStart = null;
+                DateTime? firstOverlapEnd = null;
+
+                foreach (var booking in boatBookings)
+                {
+                    if (startDate < booking.EndDate && endDate > booking.StartDate)
+                    {
+                        overlappingCount++;
+
+                        if (overlappingCount == 1)
+                        {
+                            firstOverlapStart = booking.StartDate;
+                            firstOverlapEnd = booking.EndDate;
+                        }
+
+                        Debug.WriteLine($"[CheckAvailability] Overlap found: {booking.StartDate} - {booking.EndDate}");
+                    }
+                }
+
+                Debug.WriteLine($"[CheckAvailability] Overlapping bookings: {overlappingCount}");
+
+                if (overlappingCount >= 2)
+                {
+                    string dateRange = $"{firstOverlapStart?.ToString("dd/MM/yyyy")} hingga {firstOverlapEnd?.ToString("dd/MM/yyyy")}";
+                    return (false, $"Kapal tidak tersedia pada tanggal {dateRange}. Sudah ada 2 pesanan lain pada periode ini.");
+                }
+
+                return (true, "Kapal tersedia");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[CheckAvailability] Error: {ex.Message}");
+                throw;
+            }
+        }
+
         public static async Task<Boat> AddBoatAsync(Boat newBoat)
         {
             try

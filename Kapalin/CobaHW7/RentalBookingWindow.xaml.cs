@@ -1,6 +1,7 @@
 using System;
 using System.Windows;
 using CobaHW7.Class;
+using CobaHW7.Services;
 
 namespace CobaHW7
 {
@@ -21,30 +22,23 @@ namespace CobaHW7
         {
             if (selectedBoat == null) return;
 
-            // Load boat information
             BoatNameText.Text = selectedBoat.Name;
             BoatYearText.Text = selectedBoat.Year.ToString();
             BoatCapacityText.Text = $"{selectedBoat.Capacity} orang";
             pricePerDay = selectedBoat.PricePerDay;
-
-            // Format price
             BoatPriceText.Text = $"Rp {pricePerDay:N0} / hari";
 
-            // Set image path
             if (!string.IsNullOrEmpty(selectedBoat.ThumbnailPath))
             {
                 try
                 {
-                    // Cek apakah path adalah URL atau local path
                     if (selectedBoat.ThumbnailPath.StartsWith("http://") || selectedBoat.ThumbnailPath.StartsWith("https://"))
                     {
-                        // Dari Supabase atau URL lain
                         BoatImage.Source = new System.Windows.Media.Imaging.BitmapImage(
                             new Uri(selectedBoat.ThumbnailPath));
                     }
                     else
                     {
-                        // Local path
                         BoatImage.Source = new System.Windows.Media.Imaging.BitmapImage(
                             new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, selectedBoat.ThumbnailPath)));
                     }
@@ -52,17 +46,13 @@ namespace CobaHW7
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.WriteLine($"Error loading image: {ex.Message}");
-                    // Jika gagal, gunakan placeholder atau biarkan kosong
                 }
             }
-
-            // Initialize total display
             UpdateTotal();
         }
 
         private void SetDatePickerConstraints()
         {
-            // Set minimum date to today
             StartDatePicker.DisplayDateStart = DateTime.Today;
             StartDatePicker.SelectedDate = DateTime.Today;
 
@@ -112,19 +102,14 @@ namespace CobaHW7
             {
                 days = 1;
             }
-
-            // Calculate total
             decimal total = pricePerDay * days;
-
-            // Update display
             TotalText.Text = $"Rp {total:N0}";
             DaysText.Text = $"({days} {(days == 1 ? "hari" : "hari")})";
         }
 
         private void PaymentMethod_Changed(object sender, RoutedEventArgs e)
         {
-            // Method untuk handle perubahan metode pembayaran
-            // Bisa digunakan untuk update UI atau validasi tertentu
+
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -134,7 +119,6 @@ namespace CobaHW7
 
         private async void BookNowButton_Click(object sender, RoutedEventArgs e)
         {
-            // Validasi input
             if (!StartDatePicker.SelectedDate.HasValue || !EndDatePicker.SelectedDate.HasValue)
             {
                 var alert = new AlertWindow("Validasi Gagal", "Silakan pilih tanggal mulai dan tanggal selesai.", AlertWindow.AlertType.Warning);
@@ -152,26 +136,33 @@ namespace CobaHW7
                 return;
             }
 
-            // Get payment method
             string paymentMethod = QrisRadio.IsChecked == true ? "QRIS" : "Transfer Virtual Account";
-
-            // Calculate total
             int days = (int)(endDate - startDate).TotalDays;
             decimal total = pricePerDay * days;
 
-            // Store booking data untuk digunakan di payment window
-            var bookingData = new
-            {
-                BoatId = selectedBoat.ID,
-                BoatName = selectedBoat.Name,
-                StartDate = startDate,
-                EndDate = endDate,
-                TotalAmount = total,
-                PaymentMethod = paymentMethod
-            };
-
             try
             {
+                // Check ketersediaan kapal - apakah sudah ada 2 booking dengan overlap tanggal
+                var (available, message) = await SupabaseService.CheckBoatAvailabilityAsync(selectedBoat.ID.Value, startDate, endDate);
+
+                if (!available)
+                {
+                    var alert = new AlertWindow("Kapal Tidak Tersedia", message, AlertWindow.AlertType.Warning);
+                    alert.ShowDialog();
+                    return;
+                }
+
+                // Store booking data untuk digunakan di payment window
+                var bookingData = new
+                {
+                    BoatId = selectedBoat.ID,
+                    BoatName = selectedBoat.Name,
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    TotalAmount = total,
+                    PaymentMethod = paymentMethod
+                };
+
                 // Open payment window based on selected payment method
                 bool paymentConfirmed = false;
 
@@ -188,10 +179,8 @@ namespace CobaHW7
                     paymentConfirmed = vaWindow.IsConfirmed;
                 }
 
-                // Jika pembayaran dikonfirmasi, kembali ke dashboard
                 if (paymentConfirmed)
                 {
-                    // Close this window and go back to dashboard
                     this.Close();
                 }
             }
