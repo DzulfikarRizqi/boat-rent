@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="Pemesanan Rental Kapal" Height="900" Width="1400"
         WindowStartupLocation="CenterScreen"
-        Background="#F5F5F5">
+        Background="#F0F6FF">
 
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -22,13 +22,13 @@
 
                 <!-- Header -->
                 <TextBlock Grid.Row="0" Text="Pemesanan Rental Kapal"
-                           FontSize="28" FontWeight="Bold" Foreground="#333"
+                           FontSize="28" FontWeight="Bold" Foreground="#0D47A1"
                            Margin="0,0,0,30"/>
 
                 <!-- Boat Details Section -->
                 <Border Grid.Row="1" Background="White" CornerRadius="10" Padding="25" Margin="0,0,0,30">
                     <Border.Effect>
-                        <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>
+                        <DropShadowEffect BlurRadius="20" Opacity="0.30" ShadowDepth="2" Color="#88A8FF"/>
                     </Border.Effect>
 
                     <Grid>
@@ -73,7 +73,7 @@
                 <!-- Booking Details Section -->
                 <Border Grid.Row="2" Background="White" CornerRadius="10" Padding="25" Margin="0,0,0,30">
                     <Border.Effect>
-                        <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>
+                        <DropShadowEffect BlurRadius="20" Opacity="0.30" ShadowDepth="2" Color="#88A8FF"/>
                     </Border.Effect>
 
                     <StackPanel>
@@ -114,9 +114,9 @@
                 </Border>
 
                 <!-- Total Section -->
-                <Border Grid.Row="3" Background="White" CornerRadius="10" Padding="25" Margin="0,0,0,30">
+                <Border Grid.Row="3" Background="#E4EDFF" BorderBrush="#9EBEFF" CornerRadius="10" Padding="25" Margin="0,0,0,30">
                     <Border.Effect>
-                        <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>
+                        <DropShadowEffect BlurRadius="20" Opacity="0.30" ShadowDepth="2" Color="#88A8FF"/>
                     </Border.Effect>
 
                     <Grid>
@@ -126,8 +126,8 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                            <TextBlock Text="Total Harga:" FontSize="14" Foreground="#666" Margin="0,0,0,8"/>
-                            <TextBlock x:Name="TotalText" FontSize="24" FontWeight="Bold" Foreground="#007ACC"/>
+                            <TextBlock Text="Total Harga:" FontSize="20" FontWeight ="Bold" Foreground="#0D47A1" Margin="0,0,0,8"/>
+                            <TextBlock x:Name="TotalText" FontSize="24" FontWeight="Bold" Foreground="#333"/>
                         </StackPanel>
 
                         <TextBlock Grid.Column="1" x:Name="DaysText" FontSize="14" Foreground="#999"
@@ -142,9 +142,18 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Content="Batal" Width="120" Height="40"
-                            Background="#E0E0E0" Foreground="#333" FontSize="14" FontWeight="SemiBold"
-                            Cursor="Hand" Margin="0,0,15,0" Click="CancelButton_Click">
+                    <Button Grid.Column="0" 
+                            Content="Batal" 
+                            Width="120" 
+                            Height="40"
+                            Background="#E3E9F7"
+                            BorderBrush="#C2CCEC"
+                            Foreground="#0A2A65"
+                            FontSize="14" 
+                            FontWeight="SemiBold"
+                            Cursor="Hand" 
+                            Margin="0,0,15,0" 
+                            Click="CancelButton_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="6"/>
@@ -152,9 +161,17 @@
                         </Button.Resources>
                     </Button>
 
-                    <Button x:Name="BookNowButton" Grid.Column="1" Content="Pesan Sekarang" Width="150" Height="40"
-                            Background="#007ACC" Foreground="White" FontSize="14" FontWeight="SemiBold"
-                            Cursor="Hand" Click="BookNowButton_Click">
+                    <Button x:Name="BookNowButton" 
+                            Grid.Column="1" 
+                            Content="Pesan Sekarang" 
+                            Width="150" Height="40"
+                            Background="#1E63E9"
+                            Foreground="White"
+                            BorderBrush="#1649B2" 
+                            FontSize="14" 
+                            FontWeight="SemiBold"
+                            Cursor="Hand" 
+                            Click="BookNowButton_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="6"/>
