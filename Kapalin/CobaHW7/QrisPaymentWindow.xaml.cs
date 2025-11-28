@@ -66,7 +66,7 @@ namespace CobaHW7
                     EndDate = bookingData.EndDate,
                     TotalAmount = bookingData.TotalAmount,
                     PaymentMethod = "QRIS",
-                    Status = "Menunggu Pembayaran"
+                    Status = "Menunggu Konfirmasi"
                 };
 
                 try

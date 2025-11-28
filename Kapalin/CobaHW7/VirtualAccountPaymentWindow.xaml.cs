@@ -111,7 +111,7 @@ namespace CobaHW7
                     EndDate = bookingData.EndDate,
                     TotalAmount = bookingData.TotalAmount,
                     PaymentMethod = "Transfer Virtual Account",
-                    Status = "Menunggu Pembayaran"
+                    Status = "Menunggu Konfirmasi"
                 };
 
                 try
