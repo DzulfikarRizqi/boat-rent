@@ -13,6 +13,7 @@ namespace CobaHW7
 {
     public partial class Dashboard : Window
     {
+        private bool isSidebarVisible = false;
         public Dashboard()
         {
             InitializeComponent();
@@ -82,6 +83,74 @@ namespace CobaHW7
                 var button = sender as Button;
                 if (button != null) button.IsEnabled = true;
             }
+        }
+        private void Overlay_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            // Tutup sidebar dengan animasi halus
+            var animation = new System.Windows.Media.Animation.DoubleAnimation
+            {
+                From = 0,
+                To = -220,
+                Duration = TimeSpan.FromMilliseconds(300),
+                EasingFunction = new System.Windows.Media.Animation.QuadraticEase()
+            };
+
+            SidebarTransform.BeginAnimation(System.Windows.Media.TranslateTransform.XProperty, animation);
+
+            // Sembunyikan overlay setelah sidebar tertutup
+            Overlay.Visibility = Visibility.Collapsed;
+            isSidebarVisible = false;
+        }
+        private void ToggleSidebar_Click(object sender, RoutedEventArgs e)
+        {
+            double from = isSidebarVisible ? 0 : -220;
+            double to = isSidebarVisible ? -220 : 0;
+
+            var animation = new System.Windows.Media.Animation.DoubleAnimation
+            {
+                From = from,
+                To = to,
+                Duration = TimeSpan.FromMilliseconds(300),
+                EasingFunction = new System.Windows.Media.Animation.QuadraticEase()
+            };
+
+            SidebarTransform.BeginAnimation(System.Windows.Media.TranslateTransform.XProperty, animation);
+
+            // Tampilkan / sembunyikan overlay
+            if (!isSidebarVisible)
+            {
+                Overlay.Visibility = Visibility.Visible; // tampilkan overlay
+            }
+            else
+            {
+                Overlay.Visibility = Visibility.Collapsed; // sembunyikan overlay
+            }
+
+            isSidebarVisible = !isSidebarVisible;
+        }
+        private void AboutUsSection_Click(object sender, RoutedEventArgs e)
+        {
+            MainScroll.ScrollToVerticalOffset(
+                AboutUsPanel.TransformToVisual(MainScroll).Transform(new Point(0, 0)).Y);
+
+            ToggleSidebar_Click(sender, e);
+        }
+
+        private void WhyUsSection_Click(object sender, RoutedEventArgs e)
+        {
+            MainScroll.ScrollToVerticalOffset(
+                WhyUsPanel.TransformToVisual(MainScroll).Transform(new Point(0, 0)).Y);
+
+            ToggleSidebar_Click(sender, e);
+        }
+
+        private void RentalSection_Click(object sender, RoutedEventArgs e)
+        {
+            MainScroll.ScrollToVerticalOffset(BoatPanel.TransformToVisual(MainScroll)
+                .Transform(new Point(0, 0)).Y);
+
+            // Tutup sidebar setelah klik
+            ToggleSidebar_Click(sender, e);
         }
 
         private void BtnLogout_Click(object sender, RoutedEventArgs e)
