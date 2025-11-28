@@ -3,13 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        
+        xmlns:local="clr-namespace:CobaHW7"
         xmlns:vm="clr-namespace:CobaHW7.ViewModels"
         mc:Ignorable="d"
-        Title="Dashboard" 
+        Title="Dashboard"
         Height="1080" Width="1920"
         WindowStartupLocation="CenterScreen"
         Background="#F5F7FB">
+
+    <Window.Resources>
+        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <local:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+    </Window.Resources>
 
     <Window.DataContext>
         <vm:DashboardUserViewModel/>
@@ -17,6 +23,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -33,7 +40,112 @@
             </DockPanel>
         </Border>
 
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="20">
+        <!-- Weather Section -->
+        <Border Grid.Row="1" Background="White" Margin="20,15,20,0" Padding="20" BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="8">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.1" Color="Black"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Location Input -->
+                <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                    <TextBlock Text="Cari Lokasi Pantai/Kota" Foreground="#666" FontSize="12" Margin="0,0,0,8" FontWeight="SemiBold"/>
+                    <TextBox x:Name="LocationTextBox"
+                             Text="{Binding LocationInput, UpdateSourceTrigger=PropertyChanged}"
+                             Padding="12" Height="43"
+                             Background="#F5F7FB" Foreground="#333"
+                             BorderThickness="1" BorderBrush="#E0E0E0"
+                             VerticalContentAlignment="Center" FontSize="13"/>
+                </StackPanel>
+
+                <!-- Buttons Container -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,20,0">
+                    <!-- Search Button -->
+                    <Button Content="Cari Cuaca" Padding="20,10" Width="130" Margin="0,0,10,0"
+                            Command="{Binding SearchWeatherCommand}"
+                            Height="45"
+                            Background="#1976D2" Foreground="White" FontWeight="Bold" BorderThickness="0" Cursor="Hand">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="6"/>
+                            </Style>
+                        </Button.Resources>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Opacity" Value="0.6"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <!-- Forecast Button -->
+                    <Button Content="📊 Forecast" Padding="20,10" Width="130"
+                            Command="{Binding OpenForecastCommand}"
+                            Height="45"
+                            Background="#388E3C" Foreground="White" FontWeight="Bold" BorderThickness="0" Cursor="Hand">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="6"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+
+                <!-- Weather Info Display -->
+                <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                    <!-- Weather Data -->
+                    <StackPanel Visibility="{Binding CurrentWeather, Converter={StaticResource NullToVisibilityConverter}}">
+                        <TextBlock Foreground="#333" FontSize="14" FontWeight="Bold" Margin="0,0,0,6">
+                            <Run Text="{Binding CurrentWeather.Location.Name}"/>
+                            <Run Text=" - "/>
+                            <Run Text="{Binding CurrentWeather.Current.Condition.Text}"/>
+                        </TextBlock>
+                        <TextBlock Foreground="#1976D2" FontSize="28" FontWeight="Bold" Margin="0,0,0,8">
+                            <Run Text="{Binding CurrentWeather.Current.TemperatureCelsius, StringFormat=N0}"/>
+                            <Run Text="°C"/>
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Foreground="#666" FontSize="11" Margin="0,0,20,0">
+                                <Run Text="💨 "/>
+                                <Run Text="{Binding CurrentWeather.Current.WindKph, StringFormat=N0}"/>
+                                <Run Text=" kph"/>
+                            </TextBlock>
+                            <TextBlock Foreground="#666" FontSize="11" Margin="0,0,20,0">
+                                <Run Text="💧 "/>
+                                <Run Text="{Binding CurrentWeather.Current.Humidity}"/>
+                                <Run Text="%"/>
+                            </TextBlock>
+                            <TextBlock Foreground="#666" FontSize="11">
+                                <Run Text="☁ "/>
+                                <Run Text="{Binding CurrentWeather.Current.Cloud}"/>
+                                <Run Text="%"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Error Message -->
+                    <StackPanel Visibility="{Binding HasWeatherError, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock Foreground="#D32F2F" FontSize="12" TextWrapping="Wrap"
+                                  Text="{Binding WeatherErrorMessage}"/>
+                    </StackPanel>
+
+                    <!-- Loading State -->
+                    <StackPanel Visibility="{Binding IsLoadingWeather, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock Foreground="#666" FontSize="12">Loading data cuaca...</TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Padding="20">
             <ItemsControl ItemsSource="{Binding Boats}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
