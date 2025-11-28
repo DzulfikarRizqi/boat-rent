@@ -33,7 +33,6 @@ namespace CobaHW7.Services
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Kesalahan inisialisasi Supabase: {ex.Message}");
-                // Karena ini krusial, mungkin lempar ulang error atau tutup aplikasi
                 throw;
             }
         }
@@ -41,14 +40,13 @@ namespace CobaHW7.Services
         {
             try
             {
-                // Langsung gunakan 'Client' yang static
                 var response = await Client.From<Boat>().Get();
-                return response.Models ?? new List<Boat>(); // Kembalikan list jika Models null
+                return response.Models ?? new List<Boat>();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error fetching boats: {ex.Message}");
-                return new List<Boat>(); // Kembalikan list kosong jika gagal
+                return new List<Boat>();
             }
         }
 
@@ -56,14 +54,13 @@ namespace CobaHW7.Services
         {
             try
             {
-                // Langsung gunakan 'Client' yang static
                 var response = await Client.From<Booking>().Get();
-                return response.Models ?? new List<Booking>(); // Kembalikan list jika Models null
+                return response.Models ?? new List<Booking>();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error fetching bookings: {ex.Message}");
-                return new List<Booking>(); // Kembalikan list kosong jika gagal
+                return new List<Booking>();
             }
         }
 
@@ -71,17 +68,37 @@ namespace CobaHW7.Services
         {
             try
             {
-                // 'Insert' akan mengirim data dan mengembalikan data
-                // yang baru dibuat (termasuk ID barunya)
-                var response = await Client.From<Boat>().Insert(newBoat);
+                Debug.WriteLine($"[AddBoatAsync] Starting - Name: {newBoat.Name}, Price: {newBoat.PricePerDay}");
 
-                // Kembalikan objek kapal yang baru, lengkap dengan ID dari database
-                return response.Models.FirstOrDefault();
+                var response = await Client.Rpc("create_boat", new Dictionary<string, object>
+                {
+                    { "p_name", newBoat.Name },
+                    { "p_model", newBoat.Model },
+                    { "p_location", newBoat.Location },
+                    { "p_capacity", newBoat.Capacity },
+                    { "p_year", newBoat.Year },
+                    { "p_rating", newBoat.Rating },
+                    { "p_price_per_day", newBoat.PricePerDay },
+                    { "p_available", newBoat.Available ?? false },
+                    { "p_thumbnail_path", newBoat.ThumbnailPath }
+                });
+
+                if (long.TryParse(response.Content, out long boatId))
+                {
+                    newBoat.ID = boatId;
+                    Debug.WriteLine($"[AddBoatAsync] Success - Boat ID: {boatId}");
+                    return newBoat;
+                }
+                else
+                {
+                    throw new Exception($"Failed to parse boat ID: {response.Content}");
+                }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error adding boat: {ex.Message}");
-                return null;
+                Debug.WriteLine($"[AddBoatAsync] Error: {ex.Message}");
+                Debug.WriteLine($"[AddBoatAsync] StackTrace: {ex.StackTrace}");
+                throw;
             }
         }
 
@@ -89,31 +106,35 @@ namespace CobaHW7.Services
         {
             try
             {
-                var response = await Client.From<Boat>()
-                                           .Update(updatedBoat);
+                Debug.WriteLine($"[UpdateBoatAsync] Starting - ID: {updatedBoat.ID}, Name: {updatedBoat.Name}");
+                var response = await Client.From<Boat>().Update(updatedBoat);
 
-                return response.Models.FirstOrDefault();
+                Debug.WriteLine($"[UpdateBoatAsync] Success - Boat ID: {updatedBoat.ID}");
+                return updatedBoat;
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error updating boat: {ex.Message}");
+                Debug.WriteLine($"[UpdateBoatAsync] Error: {ex.Message}");
+                Debug.WriteLine($"[UpdateBoatAsync] StackTrace: {ex.StackTrace}");
                 throw;
             }
         }
 
-        public static async Task<bool> DeleteBoatAsync(long boatId)
+        public static async Task<bool> DeleteBoatAsync(long? boatId)
         {
             try
             {
+                if (boatId == null)
+                    throw new ArgumentNullException(nameof(boatId));
+
                 await Client.From<Boat>()
-                            .Where(b => b.ID == boatId) // Asumsi properti ID Anda 'ID'
+                            .Where(b => b.ID == boatId)
                             .Delete();
                 return true;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error deleting boat: {ex.Message}");
-                // Anda mungkin ingin melempar exception di sini agar ViewModel tahu
                 throw;
             }
         }
@@ -128,30 +149,23 @@ namespace CobaHW7.Services
         {
             try
             {
-                // Baca semua data byte dari file
                 var imageBytes = File.ReadAllBytes(localFilePath);
-
-                // Dapatkan klien storage
                 var storage = Client.Storage;
+                var bucket = storage.From("boat-images");
 
-                // Dapatkan referensi ke bucket 'boat-images'
-                var bucket = storage.From("boat-images"); // HARUS SAMA DENGAN NAMA BUCKET
-
-                // Upload file
                 await bucket.Upload(imageBytes, fileNameInStorage, new global::Supabase.Storage.FileOptions
                 {
-                    CacheControl = "3600", // Cache selama 1 jam
-                    Upsert = true // Timpa file jika namanya sama
+                    CacheControl = "3600",
+                    Upsert = true
                 });
 
-                // Dapatkan URL publik
                 var publicUrl = bucket.GetPublicUrl(fileNameInStorage);
                 return publicUrl;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error uploading image: {ex.Message}");
-                throw; // Lempar ulang error agar UI tahu
+                throw;
             }
         }
     }

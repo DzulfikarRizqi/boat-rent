@@ -7,9 +7,9 @@ namespace CobaHW7.Class
     [Table("Boats")]
     public class Boat : BaseModel
     {
-        [PrimaryKey("id", false)]
+        [PrimaryKey("id", true)]
         [Column("id")]
-        public long ID { get; set; }
+        public long? ID { get; set; }
 
         [Column("Name")]
         public string Name { get; set; } = "";
