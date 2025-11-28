@@ -19,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\QRIS.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Remove="DashboardUser.xaml" />
   </ItemGroup>
 
@@ -31,6 +35,12 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\QRIS.jpeg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

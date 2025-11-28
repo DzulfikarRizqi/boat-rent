@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Pembayaran QRIS" Height="800" Width="500"
+        Title="Pembayaran QRIS" Height="850" Width="500"
         WindowStartupLocation="CenterScreen"
         Background="#F5F5F5"
         WindowStyle="SingleBorderWindow">
@@ -25,16 +25,12 @@
                 </Border.Effect>
 
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <!-- QRIS Icon/Placeholder -->
-                    <Border Height="200" Width="200" Background="#F0F0F0" Margin="0,0,0,20" HorizontalAlignment="Center">
+                    <!-- QRIS Image -->
+                    <Border Height="250" Width="250" Background="White" Margin="0,0,0,20" HorizontalAlignment="Center" BorderBrush="#DDD" BorderThickness="1">
                         <Border.CornerRadius>
                             <CornerRadius TopLeft="10" TopRight="10" BottomLeft="10" BottomRight="10"/>
                         </Border.CornerRadius>
-                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock Text="📱" FontSize="64" HorizontalAlignment="Center"/>
-                            <TextBlock Text="QRIS Code" FontSize="14" Foreground="#999"
-                                      HorizontalAlignment="Center" Margin="0,10,0,0"/>
-                        </StackPanel>
+                        <Image Source="pack://application:,,,/Assets/QRIS.jpeg" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
 
                     <!-- Instructions -->
