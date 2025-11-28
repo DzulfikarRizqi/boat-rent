@@ -19,6 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\BekgronKapel.jpeg" />
+    <None Remove="Assets\kapalinLOGO.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Remove="DashboardUser.xaml" />
   </ItemGroup>
 
@@ -31,6 +36,15 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\BekgronKapel.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\kapalinLOGO.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
