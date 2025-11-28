@@ -18,39 +18,28 @@ using CobaHW7.Services;
 
 namespace CobaHW7
 {
-    /// <summary>
-    /// Interaction logic for AddBoatWindow.xaml
-    /// </summary>
     public partial class AddBoatWindow : Window
     {
         public Boat? NewBoat { get; private set; }
-
-        // Menyimpan path file lokal jika user memilih gambar baru
         private string _selectedThumbnailPath = "";
-
-        // Menyimpan URL gambar yang SUDAH ADA (untuk mode Edit)
         private string _existingImageUrl = "";
+        private long? _boatIdForEdit = null;
 
-        // --- CONSTRUCTOR 1: Mode Tambah Baru (Default) ---
         public AddBoatWindow()
         {
             InitializeComponent();
-            Title = "Tambah Kapal Baru"; // Judul Window
+            Title = "Kelola Data Kapal";
+            HeaderTitle.Text = "Tambah Kapal Baru";
+            HeaderSubtitle.Text = "Isi data kapal yang akan ditambahkan ke sistem";
         }
 
-        // --- CONSTRUCTOR 2: Mode Edit (Baru) ---
-        // Dipanggil saat tombol "Edit" diklik di Dashboard
-        public AddBoatWindow(Boat boatToEdit) : this() // Panggil constructor dasar dulu
+        public AddBoatWindow(Boat boatToEdit) : this()
         {
-            Title = "Edit Data Kapal"; // Ubah Judul Window
+            Title = "Kelola Data Kapal";
+            HeaderTitle.Text = "Edit Data Kapal";
+            HeaderSubtitle.Text = "Perbarui informasi kapal yang dipilih";
 
-            // 1. Isi form dengan data yang sudah ada
-            IdTextBox.Text = boatToEdit.ID.ToString();
-
-            // PENTING: Kunci ID agar tidak bisa diubah (Primary Key tidak boleh ganti)
-            IdTextBox.IsReadOnly = true;
-            IdTextBox.Background = Brushes.LightGray;
-
+            _boatIdForEdit = boatToEdit.ID;
             NameTextBox.Text = boatToEdit.Name;
             ModelTextBox.Text = boatToEdit.Model;
             LocationTextBox.Text = boatToEdit.Location;
@@ -60,11 +49,10 @@ namespace CobaHW7
             PriceTextBox.Text = boatToEdit.PricePerDay.ToString();
             AvailableCheckBox.IsChecked = boatToEdit.Available;
 
-            // 2. Simpan URL gambar lama
             if (!string.IsNullOrEmpty(boatToEdit.ThumbnailPath))
             {
                 _existingImageUrl = boatToEdit.ThumbnailPath;
-                ThumbnailTextBox.Text = _existingImageUrl; // Tampilkan URL di kotak teks
+                ThumbnailTextBox.Text = _existingImageUrl;
             }
         }
 
@@ -78,44 +66,37 @@ namespace CobaHW7
 
             if (openFileDialog.ShowDialog() == true)
             {
-                // Simpan path file baru yang dipilih user
                 _selectedThumbnailPath = openFileDialog.FileName;
-                // Tampilkan path di TextBox
                 ThumbnailTextBox.Text = _selectedThumbnailPath;
             }
         }
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            // Validasi sederhana
-            if (string.IsNullOrWhiteSpace(IdTextBox.Text) || string.IsNullOrWhiteSpace(NameTextBox.Text) ||
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text) ||
                 string.IsNullOrWhiteSpace(PriceTextBox.Text))
             {
-                MessageBox.Show("ID, Nama, dan Harga tidak boleh kosong.", "Error Validasi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Nama dan Harga tidak boleh kosong.", "Error Validasi", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             try
             {
-                // Logika Gambar:
-                // Mulai dengan asumsi kita pakai gambar lama (jika sedang edit)
                 string finalThumbnailUrl = _existingImageUrl;
 
-                // Jika user memilih file gambar BARU lewat tombol Browse
                 if (!string.IsNullOrEmpty(_selectedThumbnailPath))
                 {
-                    // Buat nama file unik
                     string extension = System.IO.Path.GetExtension(_selectedThumbnailPath);
-                    string fileNameInStorage = $"boat_{IdTextBox.Text}{extension}";
+                    string fileNameInStorage = _boatIdForEdit != null
+                        ? $"boat_{_boatIdForEdit}{extension}"
+                        : $"boat_{DateTime.Now:yyyyMMddHHmmss}{extension}";
 
-                    // Upload gambar BARU ke Supabase Storage dan dapatkan URL baru
                     finalThumbnailUrl = await SupabaseService.UploadBoatImageAsync(_selectedThumbnailPath, fileNameInStorage);
                 }
 
-                // Buat objek Boat baru (atau update yang lama)
                 NewBoat = new Boat
                 {
-                    ID = long.Parse(IdTextBox.Text),
+                    ID = _boatIdForEdit, 
                     Name = NameTextBox.Text,
                     Model = ModelTextBox.Text,
                     Location = LocationTextBox.Text,
@@ -124,18 +105,15 @@ namespace CobaHW7
                     Rating = double.Parse(RatingTextBox.Text),
                     PricePerDay = decimal.Parse(PriceTextBox.Text),
                     Available = AvailableCheckBox.IsChecked ?? false,
-
-                    // Gunakan URL yang sudah ditentukan (bisa baru, bisa lama)
                     ThumbnailPath = finalThumbnailUrl
                 };
 
-                // Tutup window dan beri tahu sukses
                 this.DialogResult = true;
                 this.Close();
             }
             catch (FormatException)
             {
-                MessageBox.Show("Pastikan ID dan Angka (Kapasitas, Tahun, Rating, Harga) diisi dengan benar.", "Error Format", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Pastikan Angka (Kapasitas, Tahun, Rating, Harga) diisi dengan benar.", "Error Format", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {

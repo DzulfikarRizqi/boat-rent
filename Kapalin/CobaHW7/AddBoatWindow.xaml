@@ -5,67 +5,185 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CobaHW7"
         mc:Ignorable="d"
-        Title="AddBoatWindow" Height="500" Width="400">
-    <Grid Margin="15">
+        Title="Kelola Data Kapal"
+        Height="700" Width="600"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F7FB"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <Style x:Key="InputTextBox" TargetType="TextBox">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#CBD5E1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="#0F172A"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="CaretBrush" Value="#1976D2"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#1976D2"/>
+                    <Setter Property="Background" Value="#F0F4FF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="FormLabel" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="#0F172A"/>
+            <Setter Property="Margin" Value="0,0,0,6"/>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Padding" Value="24,8"/>
+            <Setter Property="Background" Value="#1976D2"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#1E88E5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+            <Setter Property="Background" Value="#E9EEF5"/>
+            <Setter Property="Foreground" Value="#0F172A"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#DFE8F3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="ID Kapal" VerticalAlignment="Center"/>
-        <TextBox x:Name="IdTextBox" Grid.Row="0" Grid.Column="1" Margin="5"/>
-        
-        <Label Grid.Row="1" Grid.Column="0" Content="Nama Kapal" VerticalAlignment="Center"/>
-        <TextBox x:Name="NameTextBox" Grid.Row="1" Grid.Column="1" Margin="5"/>
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#1976D2" Height="60" Padding="24,0">
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock x:Name="HeaderTitle" Text="Tambah Kapal Baru" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                <TextBlock x:Name="HeaderSubtitle" Text="Isi data kapal yang akan ditambahkan ke sistem" FontSize="12" Foreground="#E3F2FD" Margin="0,4,0,0"/>
+            </StackPanel>
+        </Border>
 
-        <Label Grid.Row="2" Grid.Column="0" Content="Model" VerticalAlignment="Center"/>
-        <TextBox x:Name="ModelTextBox" Grid.Row="2" Grid.Column="1" Margin="5"/>
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="30,24,30,24">
 
-        <Label Grid.Row="3" Grid.Column="0" Content="Lokasi" VerticalAlignment="Center"/>
-        <TextBox x:Name="LocationTextBox" Grid.Row="3" Grid.Column="1" Margin="5"/>
+                <!-- Nama Kapal -->
+                <TextBlock Style="{StaticResource FormLabel}" Text="Nama Kapal *"/>
+                <TextBox x:Name="NameTextBox" Style="{StaticResource InputTextBox}" Margin="0,0,0,20"/>
 
-        <Label Grid.Row="4" Grid.Column="0" Content="Kapasitas" VerticalAlignment="Center"/>
-        <TextBox x:Name="CapacityTextBox" Grid.Row="4" Grid.Column="1" Margin="5"/>
+                <!-- Model -->
+                <TextBlock Style="{StaticResource FormLabel}" Text="Model *"/>
+                <TextBox x:Name="ModelTextBox" Style="{StaticResource InputTextBox}" Margin="0,0,0,20"/>
 
-        <Label Grid.Row="5" Grid.Column="0" Content="Tahun" VerticalAlignment="Center"/>
-        <TextBox x:Name="YearTextBox" Grid.Row="5" Grid.Column="1" Margin="5"/>
+                <!-- Lokasi -->
+                <TextBlock Style="{StaticResource FormLabel}" Text="Lokasi *"/>
+                <TextBox x:Name="LocationTextBox" Style="{StaticResource InputTextBox}" Margin="0,0,0,20"/>
 
-        <Label Grid.Row="6" Grid.Column="0" Content="Rating" VerticalAlignment="Center"/>
-        <TextBox x:Name="RatingTextBox" Grid.Row="6" Grid.Column="1" Margin="5"/>
+                <!-- Kapasitas dan Tahun (2 kolom) -->
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="7" Grid.Column="0" Content="Harga per Hari" VerticalAlignment="Center"/>
-        <TextBox x:Name="PriceTextBox" Grid.Row="7" Grid.Column="1" Margin="5"/>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Style="{StaticResource FormLabel}" Text="Kapasitas (orang) *"/>
+                        <TextBox x:Name="CapacityTextBox" Style="{StaticResource InputTextBox}"/>
+                    </StackPanel>
 
-        <Label Grid.Row="8" Grid.Column="0" Content="Aktif" VerticalAlignment="Center"/>
-        <CheckBox x:Name="AvailableCheckBox" Grid.Row="8" Grid.Column="1" Margin="5" VerticalAlignment="Center" IsChecked="True"/>
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Style="{StaticResource FormLabel}" Text="Tahun *"/>
+                        <TextBox x:Name="YearTextBox" Style="{StaticResource InputTextBox}"/>
+                    </StackPanel>
+                </Grid>
 
-        <Label Grid.Row="9" Grid.Column="0" Content="Gambar" VerticalAlignment="Center"/>
-        <Grid Grid.Row="9" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <TextBox x:Name="ThumbnailTextBox" Grid.Column="0" Margin="5,5,0,5" IsReadOnly="True" />
-            <Button x:Name="BrowseButton" Grid.Column="1" Content="Browse..." Margin="5" Click="BrowseButton_Click"/>
-        </Grid>
+                <!-- Rating dan Harga (2 kolom) -->
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="11" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Simpan" Width="80" Margin="0,0,10,0" IsDefault="True" Click="SaveButton_Click"/>
-            <Button Content="Batal" Width="80" IsCancel="True" Click="CancelButton_Click"/>
-        </StackPanel>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Style="{StaticResource FormLabel}" Text="Rating (0-5) *"/>
+                        <TextBox x:Name="RatingTextBox" Style="{StaticResource InputTextBox}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Style="{StaticResource FormLabel}" Text="Harga per Hari (Rp) *"/>
+                        <TextBox x:Name="PriceTextBox" Style="{StaticResource InputTextBox}"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Status Aktif -->
+                <Border Background="#F0F4FF" CornerRadius="8" Padding="16,12" Margin="0,0,0,20">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox x:Name="AvailableCheckBox" IsChecked="True" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Kapal Aktif" FontWeight="SemiBold" FontSize="13" Foreground="#0F172A"/>
+                            <TextBlock Text="Kapal siap disewakan" FontSize="11" Foreground="#64748B" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Gambar -->
+                <TextBlock Style="{StaticResource FormLabel}" Text="Gambar Kapal *"/>
+                <Border BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="6" Background="White" Padding="12" Margin="0,0,0,20">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="ThumbnailTextBox" Grid.Column="0" IsReadOnly="True" Background="Transparent" BorderThickness="0" Foreground="#64748B" Padding="0"/>
+                        <Button x:Name="BrowseButton" Grid.Column="1" Content="Pilih Gambar..." Style="{StaticResource SecondaryButton}" Width="120" Margin="12,0,0,0" Click="BrowseButton_Click" Height="32" Padding="12,6" FontSize="12"/>
+                    </Grid>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer Buttons -->
+        <Border Grid.Row="2" Background="White" BorderBrush="#E2E8F0" BorderThickness="0,1" Padding="30,16">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="CancelButton" Content="Batal" Style="{StaticResource SecondaryButton}" Width="110" Margin="0,0,12,0" Click="CancelButton_Click"/>
+                <Button x:Name="SaveButton" Content="✓ Simpan" Style="{StaticResource PrimaryButton}" Width="110" Click="SaveButton_Click"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
