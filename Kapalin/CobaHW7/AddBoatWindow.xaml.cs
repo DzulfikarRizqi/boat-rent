@@ -18,6 +18,9 @@ using CobaHW7.Services;
 
 namespace CobaHW7
 {
+    /// <summary>
+    /// Interaction logic for AddBoatWindow.xaml
+    /// </summary>
     public partial class AddBoatWindow : Window
     {
         public Boat? NewBoat { get; private set; }
