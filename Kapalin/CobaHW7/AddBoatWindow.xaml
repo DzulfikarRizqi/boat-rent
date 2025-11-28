@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CobaHW7"
         mc:Ignorable="d"
-        Title="AddBoatWindow" Height="500" Width="400">
+        Title="AddBoatWindow" Height="500" Width="400"
+        Background="#F0F6FF">
+    
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -60,12 +62,26 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="ThumbnailTextBox" Grid.Column="0" Margin="5,5,0,5" IsReadOnly="True" />
-            <Button x:Name="BrowseButton" Grid.Column="1" Content="Browse..." Margin="5" Click="BrowseButton_Click"/>
+            <Button x:Name="BrowseButton" Grid.Column="1" Content="Browse..."                            Background="#E3E9F7"
+                           BorderBrush="#C2CCEC"
+                           Foreground="#0A2A65" Margin="5" Click="BrowseButton_Click"/>
         </Grid>
 
         <StackPanel Grid.Row="11" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Simpan" Width="80" Margin="0,0,10,0" IsDefault="True" Click="SaveButton_Click"/>
-            <Button Content="Batal" Width="80" IsCancel="True" Click="CancelButton_Click"/>
+            <Button Content="Simpan"                             Width="80" 
+                            Background="#1E63E9"
+                            Foreground="White"
+                            BorderBrush="#1649B2" 
+                            FontSize="14" 
+                    Margin="0,0,10,0"
+                            FontWeight="SemiBold" IsDefault="True" Click="SaveButton_Click"/>
+            <Button Content="Batal" 
+                           Width="80"
+                           Background="#E3E9F7"
+                           BorderBrush="#C2CCEC"
+                           Foreground="#0A2A65"
+                           FontSize="14" 
+                           FontWeight="SemiBold" IsCancel="True" Click="CancelButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>
