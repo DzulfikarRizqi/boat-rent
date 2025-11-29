@@ -1,8 +1,9 @@
+using CobaHW7.Class;
 using CobaHW7.Services;
 using OxyPlot;
-using OxyPlot.Axes;
 using OxyPlot.Series;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -51,7 +52,7 @@ namespace CobaHW7.ViewModels
                 {
                     _selectedDay = value;
                     OnPropertyChanged(nameof(SelectedDay));
-                    UpdateChart();
+                    UpdateChartData();
                 }
             }
         }
@@ -105,20 +106,6 @@ namespace CobaHW7.ViewModels
         public ICommand SelectPrecipitationTabCommand { get; }
         public ICommand SelectWindTabCommand { get; }
 
-        private PlotModel _chartModel;
-        public PlotModel ChartModel
-        {
-            get => _chartModel;
-            set
-            {
-                if (_chartModel != value)
-                {
-                    _chartModel = value;
-                    OnPropertyChanged(nameof(ChartModel));
-                }
-            }
-        }
-
         private string _selectedChartType = "Temperature";
         public string SelectedChartType
         {
@@ -129,7 +116,62 @@ namespace CobaHW7.ViewModels
                 {
                     _selectedChartType = value;
                     OnPropertyChanged(nameof(SelectedChartType));
-                    UpdateChart();
+                }
+            }
+        }
+
+        private ObservableCollection<DayForecast> _sevenDayForecast;
+        public ObservableCollection<DayForecast> SevenDayForecast
+        {
+            get => _sevenDayForecast;
+            set
+            {
+                if (_sevenDayForecast != value)
+                {
+                    _sevenDayForecast = value;
+                    OnPropertyChanged(nameof(SevenDayForecast));
+                }
+            }
+        }
+
+        private List<ChartPoint> _chartPoints;
+        public List<ChartPoint> ChartPoints
+        {
+            get => _chartPoints;
+            set
+            {
+                if (_chartPoints != value)
+                {
+                    _chartPoints = value;
+                    OnPropertyChanged(nameof(ChartPoints));
+                }
+            }
+        }
+
+        private string _chartColor;
+        public string ChartColor
+        {
+            get => _chartColor;
+            set
+            {
+                if (_chartColor != value)
+                {
+                    _chartColor = value;
+                    OnPropertyChanged(nameof(ChartColor));
+                }
+            }
+        }
+
+        private PlotModel _forecastPlotModel;
+        public PlotModel ForecastPlotModel
+        {
+            get => _forecastPlotModel;
+            set
+            {
+                if (_forecastPlotModel != value)
+                {
+                    _forecastPlotModel = value;
+                    OnPropertyChanged(nameof(ForecastPlotModel));
                 }
             }
         }
@@ -137,11 +179,19 @@ namespace CobaHW7.ViewModels
         public ForecastViewModel()
         {
             ForecastDays = new ObservableCollection<ForecastDay>();
+            SevenDayForecast = new ObservableCollection<DayForecast>();
+            ChartPoints = new List<ChartPoint>();
+            ChartColor = "#FF9800"; // Default orange
             GoBackCommand = new RelayCommand(ExecuteGoBack);
-            SelectTemperatureTabCommand = new RelayCommand(_ => SelectedChartType = "Temperature");
-            SelectPrecipitationTabCommand = new RelayCommand(_ => SelectedChartType = "Precipitation");
-            SelectWindTabCommand = new RelayCommand(_ => SelectedChartType = "Wind");
-            ChartModel = new PlotModel();
+            SelectTemperatureTabCommand = new RelayCommand(_ => SelectTab("Temperature"));
+            SelectPrecipitationTabCommand = new RelayCommand(_ => SelectTab("Precipitation"));
+            SelectWindTabCommand = new RelayCommand(_ => SelectTab("Wind"));
+        }
+
+        private void SelectTab(string tabType)
+        {
+            SelectedChartType = tabType;
+            UpdateChartData();
         }
 
         public async void LoadForecast(string location)
@@ -192,13 +242,81 @@ namespace CobaHW7.ViewModels
         private void UpdateForecastDays()
         {
             ForecastDays.Clear();
+            SevenDayForecast.Clear();
+
             if (ForecastData?.Forecast?.ForecastDays != null)
             {
                 foreach (var day in ForecastData.Forecast.ForecastDays)
                 {
                     ForecastDays.Add(day);
                 }
+                GenerateSevenDayForecast();
             }
+        }
+
+        private void GenerateSevenDayForecast()
+        {
+            if (ForecastDays.Count == 0) return;
+
+            SevenDayForecast.Clear();
+            var dayLabels = GetDynamicDayLabels();
+
+            Debug.WriteLine($"[ForecastViewModel] Total forecast days from API: {ForecastDays.Count}");
+
+            for (int i = 0; i < Math.Min(7, ForecastDays.Count); i++)
+            {
+                var forecastDay = ForecastDays[i];
+                var dayForecast = new DayForecast
+                {
+                    DayLabel = dayLabels[i],
+                    Date = forecastDay.Date,
+                    MinTemp = (int)forecastDay.Day.MinTempC,
+                    MaxTemp = (int)forecastDay.Day.MaxTempC,
+                    WeatherCondition = forecastDay.Day.Condition.Text,
+                    WeatherIcon = GetWeatherIcon(forecastDay.Day.Condition.Code)
+                };
+                SevenDayForecast.Add(dayForecast);
+                Debug.WriteLine($"[ForecastViewModel] Day {i}: {dayLabels[i]} - {forecastDay.Date}");
+            }
+        }
+
+        private List<string> GetDynamicDayLabels()
+        {
+            var labels = new List<string>();
+            var dayNames = new[] { "Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu" };
+            var today = DateTime.Now;
+            var startDayOfWeek = (int)today.DayOfWeek;
+
+            for (int i = 0; i < 7; i++)
+            {
+                var dayIndex = (startDayOfWeek + i) % 7;
+                labels.Add(dayNames[dayIndex]); // Senin, Selasa, Rabu, dll (lengkap)
+            }
+
+            return labels;
+        }
+
+        private string GetWeatherIcon(int conditionCode)
+        {
+            // Weather codes dari weatherapi.com
+            // 1000 = Sunny, 1003 = Partly cloudy, 1006 = Cloudy, 1009 = Overcast
+            // 1183, 1186, 1189 = Light/Moderate/Heavy rain
+            // 1192, 1195 = Heavy rain, 1198, 1201 = Light/Moderate freezing rain
+            // 1243, 1246 = Heavy showers
+            // 1273, 1276, 1279, 1282 = Thunderstorm
+
+            if (conditionCode == 1000)
+                return "☀️"; // Sunny
+            else if (conditionCode >= 1003 && conditionCode <= 1009)
+                return "☁️"; // Cloudy/Overcast
+            else if ((conditionCode >= 1183 && conditionCode <= 1207) || (conditionCode >= 1243 && conditionCode <= 1246))
+                return "🌧️"; // Rainy
+            else if (conditionCode >= 1273 && conditionCode <= 1282)
+                return "⛈️"; // Thunderstorm
+            else if (conditionCode >= 1210 && conditionCode <= 1225)
+                return "❄️"; // Snow
+            else
+                return "☁️"; // Default
         }
 
         private void ExecuteGoBack(object parameter)
@@ -206,78 +324,124 @@ namespace CobaHW7.ViewModels
 
         }
 
-        private void UpdateChart()
+        private void UpdateChartData()
         {
             if (SelectedDay?.Hours == null || SelectedDay.Hours.Count == 0)
             {
-                ChartModel = new PlotModel { Title = "No data available" };
+                ChartPoints = new List<ChartPoint>();
+                ForecastPlotModel = null;
                 return;
             }
 
-            var model = new PlotModel
-            {
-                Title = $"Forecast {SelectedChartType} - {SelectedDay.Date}",
-                TitleFontSize = 16,
-                PlotAreaBackground = OxyColors.White,
-                Background = OxyColors.Transparent
-            };
-
-            // Filter hours - show every 3 hours for better display (8 slots per day)
+            var points = new List<ChartPoint>();
             var filteredHours = SelectedDay.Hours.Where((h, i) => i % 3 == 0).ToList();
-            if (filteredHours.Count == 0)
-                filteredHours = SelectedDay.Hours;
-
-            var lineSeries = new LineSeries
-            {
-                Color = OxyColor.FromRgb(25, 118, 210), // #1976D2
-                StrokeThickness = 3,
-                MarkerType = MarkerType.Circle,
-                MarkerSize = 6,
-                MarkerFill = OxyColor.FromRgb(25, 118, 210),
-                Title = SelectedChartType
-            };
+            var areaSeries = new AreaSeries();
 
             switch (SelectedChartType)
             {
                 case "Temperature":
+                    ChartColor = "#FF9800"; //oren
+                    areaSeries.Fill = OxyColor.FromArgb(100, 255, 152, 0);
+                    areaSeries.Color = OxyColor.FromArgb(255, 255, 152, 0);
                     foreach (var hour in filteredHours)
                     {
-                        lineSeries.Points.Add(new DataPoint(
-                            DateTimeAxis.ToDouble(DateTime.Parse(hour.Time)),
-                            hour.TempC
-                        ));
+                        var timeLabel = hour.Time.Substring(0, 5);
+                        var value = hour.TempC;
+                        points.Add(new ChartPoint { TimeLabel = timeLabel, Value = value });
+                        areaSeries.Points.Add(new DataPoint(filteredHours.IndexOf(hour), value));
                     }
-                    model.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "HH:mm" });
-                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Temperature (°C)" });
                     break;
 
                 case "Precipitation":
+                    ChartColor = "#2196F3"; //bieu
+                    areaSeries.Fill = OxyColor.FromArgb(100, 33, 150, 243);
+                    areaSeries.Color = OxyColor.FromArgb(255, 33, 150, 243);
                     foreach (var hour in filteredHours)
                     {
-                        lineSeries.Points.Add(new DataPoint(
-                            DateTimeAxis.ToDouble(DateTime.Parse(hour.Time)),
-                            hour.ChanceOfRain
-                        ));
+                        var timeLabel = hour.Time.Substring(0, 5);
+                        var value = hour.ChanceOfRain;
+                        points.Add(new ChartPoint { TimeLabel = timeLabel, Value = value });
+                        areaSeries.Points.Add(new DataPoint(filteredHours.IndexOf(hour), value));
                     }
-                    model.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "HH:mm" });
-                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Chance of Rain (%)", Minimum = 0, Maximum = 100 });
                     break;
 
                 case "Wind":
+                    ChartColor = "#4CAF50"; //ijo
+                    areaSeries.Fill = OxyColor.FromArgb(100, 76, 175, 80);
+                    areaSeries.Color = OxyColor.FromArgb(255, 76, 175, 80);
                     foreach (var hour in filteredHours)
                     {
-                        lineSeries.Points.Add(new DataPoint(
-                            DateTimeAxis.ToDouble(DateTime.Parse(hour.Time)),
-                            hour.WindKph
-                        ));
+                        var timeLabel = hour.Time.Substring(0, 5);
+                        var value = hour.WindKph;
+                        points.Add(new ChartPoint { TimeLabel = timeLabel, Value = value });
+                        areaSeries.Points.Add(new DataPoint(filteredHours.IndexOf(hour), value));
                     }
-                    model.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "HH:mm" });
-                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Wind Speed (kph)" });
                     break;
             }
 
-            model.Series.Add(lineSeries);
-            ChartModel = model;
+            ChartPoints = points;
+            var plotModel = new PlotModel { Background = OxyColor.FromArgb(255, 255, 255, 255) };
+            plotModel.Series.Add(areaSeries);
+
+            string yAxisTitle = SelectedChartType switch
+            {
+                "Temperature" => "Suhu (°C)",
+                "Precipitation" => "Kemungkinan Hujan (%)",
+                "Wind" => "Kecepatan Angin (kph)",
+                _ => ""
+            };
+
+            double majorStep = SelectedChartType switch
+            {
+                "Temperature" => 5,      
+                "Precipitation" => 10,  
+                "Wind" => 5,             
+                _ => 10
+            };
+
+            plotModel.Axes.Add(new OxyPlot.Axes.LinearAxis
+            {
+                Position = OxyPlot.Axes.AxisPosition.Left,
+                Title = yAxisTitle,
+                TitleFontSize = 12,
+                MajorStep = majorStep,
+                MajorGridlineStyle = OxyPlot.LineStyle.Solid,
+                MajorGridlineColor = OxyColor.FromArgb(200, 230, 230, 230),
+                MinorTickSize = 0,  
+                StringFormat = "0"   
+            });
+
+            var xAxis = new OxyPlot.Axes.LinearAxis
+            {
+                Position = OxyPlot.Axes.AxisPosition.Bottom,
+                Title = "Waktu (Jam)",
+                TitleFontSize = 12,
+                Minimum = -0.5,
+                Maximum = filteredHours.Count - 0.5,
+                MajorStep = 1,
+                MinorStep = 1,
+                IsZoomEnabled = false,
+                IsPanEnabled = false
+            };
+            plotModel.Axes.Add(xAxis);
+
+            for (int i = 0; i < filteredHours.Count; i++)
+            {
+                var timeLabel = filteredHours[i].Time.Substring(0, 5);
+                var annotation = new OxyPlot.Annotations.TextAnnotation
+                {
+                    Text = timeLabel,
+                    TextPosition = new DataPoint(i, 0),
+                    TextVerticalAlignment = OxyPlot.VerticalAlignment.Top,
+                    TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center,
+                    FontSize = 11,
+                    TextColor = OxyColor.FromArgb(255, 100, 100, 100)
+                };
+                plotModel.Annotations.Add(annotation);
+            }
+
+            ForecastPlotModel = plotModel;
+            Debug.WriteLine($"[ForecastViewModel] Chart updated: {SelectedChartType} with {points.Count} points");
         }
     }
 }

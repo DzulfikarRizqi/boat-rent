@@ -6,11 +6,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:CobaHW7.ViewModels"
         xmlns:local="clr-namespace:CobaHW7"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="Forecast Cuaca" Height="1080" Width="1920"
         WindowStartupLocation="CenterScreen"
-        Background="#F5F7FB"
-        xmlns:oxy="http://oxyplot.org/wpf">
+        Background="#F5F7FB">
 
     <Window.Resources>
         <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
@@ -61,54 +61,52 @@
 
                 <!-- Chart Section -->
                 <StackPanel Visibility="{Binding ForecastData, Converter={StaticResource NullToVisibilityConverter}}"
-                           Margin="0,0,0,20">
+                           Margin="0,0,0,30">
                     <!-- Tab Selection -->
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                        <Button Content="Suhu" Padding="20,10" Width="120" Margin="0,0,10,0"
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <Button Content="Suhu" Padding="20,8"
                                Command="{Binding SelectTemperatureTabCommand}"
                                Foreground="#666" Background="Transparent" BorderThickness="0"
-                               FontWeight="Bold">
+                               FontWeight="Bold" FontSize="13">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding SelectedChartType}" Value="Temperature">
-                                            <Setter Property="Foreground" Value="#1976D2"/>
-                                            <Setter Property="BorderThickness" Value="0,3,0,0"/>
-                                            <Setter Property="BorderBrush" Value="#1976D2"/>
+                                            <Setter Property="Foreground" Value="#FF9800"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </Button.Style>
                         </Button>
 
-                        <Button Content="Presipitasi" Padding="20,10" Width="120" Margin="0,0,10,0"
+                        <Separator Width="1" Margin="10,0" Background="#E0E0E0"/>
+
+                        <Button Content="Presipitasi" Padding="20,8" Margin="10,0,0,0"
                                Command="{Binding SelectPrecipitationTabCommand}"
                                Foreground="#666" Background="Transparent" BorderThickness="0"
-                               FontWeight="Bold">
+                               FontWeight="Bold" FontSize="13">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding SelectedChartType}" Value="Precipitation">
-                                            <Setter Property="Foreground" Value="#1976D2"/>
-                                            <Setter Property="BorderThickness" Value="0,3,0,0"/>
-                                            <Setter Property="BorderBrush" Value="#1976D2"/>
+                                            <Setter Property="Foreground" Value="#2196F3"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </Button.Style>
                         </Button>
 
-                        <Button Content="Angin" Padding="20,10" Width="120"
+                        <Separator Width="1" Margin="10,0" Background="#E0E0E0"/>
+
+                        <Button Content="Angin" Padding="20,8" Margin="10,0,0,0"
                                Command="{Binding SelectWindTabCommand}"
                                Foreground="#666" Background="Transparent" BorderThickness="0"
-                               FontWeight="Bold">
+                               FontWeight="Bold" FontSize="13">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding SelectedChartType}" Value="Wind">
-                                            <Setter Property="Foreground" Value="#1976D2"/>
-                                            <Setter Property="BorderThickness" Value="0,3,0,0"/>
-                                            <Setter Property="BorderBrush" Value="#1976D2"/>
+                                            <Setter Property="Foreground" Value="#4CAF50"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -116,14 +114,66 @@
                         </Button>
                     </StackPanel>
 
-                    <!-- Chart -->
+                    <!-- OxyPlot Chart -->
                     <Border Background="White" BorderBrush="#E0E0E0" BorderThickness="1"
-                           CornerRadius="8" Padding="10" Margin="0,0,0,20" Height="300">
+                           CornerRadius="8" Padding="20" Margin="0,0,0,20" Height="280">
                         <Border.Effect>
-                            <DropShadowEffect BlurRadius="5" ShadowDepth="1" Opacity="0.1"/>
+                            <DropShadowEffect BlurRadius="5" ShadowDepth="1" Opacity="0.08"/>
                         </Border.Effect>
-                        <oxy:PlotView Model="{Binding ChartModel}"/>
+                        <oxy:PlotView Model="{Binding ForecastPlotModel}" Background="White"/>
                     </Border>
+
+                    <!-- Hourly Breakdown (8 slots) -->
+                    <TextBlock Text="Forecast Per 3 Jam" Foreground="#333" FontSize="13"
+                              FontWeight="Bold" Margin="0,0,0,10"/>
+                    <ItemsControl ItemsSource="{Binding SelectedDay.Hours}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Visibility="{Binding RelativeSource={RelativeSource PreviousData}, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=3}">
+                                    <!-- This will show every 3rd hour -->
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
+                <!-- 7-Day Forecast Section -->
+                <StackPanel Visibility="{Binding SevenDayForecast, Converter={StaticResource NullToVisibilityConverter}}"
+                           Margin="0,0,0,0">
+                    <TextBlock Text="Forecast 7 Hari" Foreground="#333" FontSize="14"
+                              FontWeight="Bold" Margin="0,0,0,15"/>
+                    <ItemsControl ItemsSource="{Binding SevenDayForecast}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="White" Padding="12" Margin="0,0,8,0" CornerRadius="6"
+                                       BorderBrush="#E0E0E0" BorderThickness="1" MinWidth="100">
+                                    <Border.Effect>
+                                        <DropShadowEffect BlurRadius="3" ShadowDepth="1" Opacity="0.08"/>
+                                    </Border.Effect>
+                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding DayLabel}" Foreground="#333" FontWeight="Bold"
+                                                  FontSize="12" TextAlignment="Center" Margin="0,0,0,8"/>
+                                        <TextBlock Text="{Binding WeatherIcon}" FontSize="24"
+                                                  HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                                        <TextBlock Foreground="#666" FontSize="11" TextAlignment="Center" Margin="0,0,0,4">
+                                            <Run Text="{Binding MaxTemp}"/>
+                                            <Run Text="°"/><Run Text=" / "/><Run Text="{Binding MinTemp}"/><Run Text="°"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </StackPanel>
 
                 <!-- Day Selection -->
