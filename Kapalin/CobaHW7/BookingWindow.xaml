@@ -114,7 +114,7 @@
                           IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID Pesanan" Binding="{Binding BookingId}" Width="100"/>
-                        <DataGridTextColumn Header="ID Kapal" Binding="{Binding BoatId}" Width="80"/>
+                        <DataGridTextColumn Header="Nama Kapal" Binding="{Binding BoatName}" Width="150"/>
                         <DataGridTextColumn Header="Tanggal Mulai" Binding="{Binding StartDate, StringFormat=\{0:dd MMM yyyy\}}" Width="140"/>
                         <DataGridTextColumn Header="Tanggal Selesai" Binding="{Binding EndDate, StringFormat=\{0:dd MMM yyyy\}}" Width="140"/>
                         <DataGridTextColumn Header="Total" Binding="{Binding TotalAmount, StringFormat='Rp {0:N0}'}" Width="140"/>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CobaHW7.Class;
+using CobaHW7.Services;
 
 namespace CobaHW7
 {
@@ -20,10 +21,10 @@ namespace CobaHW7
         public BookingWindow(List<Booking> bookings = null)
         {
             InitializeComponent();
-            LoadBooking(bookings);
+            LoadBookingAsync(bookings);
         }
 
-        private void LoadBooking(List<Booking> bookings)
+        private async void LoadBookingAsync(List<Booking> bookings)
         {
             if (bookings == null || bookings.Count == 0)
             {
@@ -37,11 +38,18 @@ namespace CobaHW7
             }
             else
             {
-                // Display actual bookings from database
+                // Ambil semua kapal untuk mendapatkan nama berdasarkan ID
+                var boatsResponse = await SupabaseService.Client
+                    .From<Boat>()
+                    .Get();
+
+                var boatDictionary = boatsResponse.Models.ToDictionary(boat => boat.ID, boat => boat.Name);
+
+                // Display actual bookings from database dengan nama kapal
                 var displayBookings = bookings.Select(b => new
                 {
                     BookingId = b.BookingId,
-                    BoatId = b.BoatId,
+                    BoatName = boatDictionary.ContainsKey(b.BoatId) ? boatDictionary[b.BoatId] : "Kapal Tidak Ditemukan",
                     StartDate = b.StartDate,
                     EndDate = b.EndDate,
                     TotalAmount = b.TotalAmount,
