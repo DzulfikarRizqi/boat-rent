@@ -1,7 +1,11 @@
 using CobaHW7.Services;
+using OxyPlot;
+using OxyPlot.Axes;
+using OxyPlot.Series;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Input;
 
 namespace CobaHW7.ViewModels
@@ -47,6 +51,7 @@ namespace CobaHW7.ViewModels
                 {
                     _selectedDay = value;
                     OnPropertyChanged(nameof(SelectedDay));
+                    UpdateChart();
                 }
             }
         }
@@ -96,11 +101,47 @@ namespace CobaHW7.ViewModels
         public string LocationName { get; set; }
 
         public ICommand GoBackCommand { get; }
+        public ICommand SelectTemperatureTabCommand { get; }
+        public ICommand SelectPrecipitationTabCommand { get; }
+        public ICommand SelectWindTabCommand { get; }
+
+        private PlotModel _chartModel;
+        public PlotModel ChartModel
+        {
+            get => _chartModel;
+            set
+            {
+                if (_chartModel != value)
+                {
+                    _chartModel = value;
+                    OnPropertyChanged(nameof(ChartModel));
+                }
+            }
+        }
+
+        private string _selectedChartType = "Temperature";
+        public string SelectedChartType
+        {
+            get => _selectedChartType;
+            set
+            {
+                if (_selectedChartType != value)
+                {
+                    _selectedChartType = value;
+                    OnPropertyChanged(nameof(SelectedChartType));
+                    UpdateChart();
+                }
+            }
+        }
 
         public ForecastViewModel()
         {
             ForecastDays = new ObservableCollection<ForecastDay>();
             GoBackCommand = new RelayCommand(ExecuteGoBack);
+            SelectTemperatureTabCommand = new RelayCommand(_ => SelectedChartType = "Temperature");
+            SelectPrecipitationTabCommand = new RelayCommand(_ => SelectedChartType = "Precipitation");
+            SelectWindTabCommand = new RelayCommand(_ => SelectedChartType = "Wind");
+            ChartModel = new PlotModel();
         }
 
         public async void LoadForecast(string location)
@@ -163,6 +204,80 @@ namespace CobaHW7.ViewModels
         private void ExecuteGoBack(object parameter)
         {
 
+        }
+
+        private void UpdateChart()
+        {
+            if (SelectedDay?.Hours == null || SelectedDay.Hours.Count == 0)
+            {
+                ChartModel = new PlotModel { Title = "No data available" };
+                return;
+            }
+
+            var model = new PlotModel
+            {
+                Title = $"Forecast {SelectedChartType} - {SelectedDay.Date}",
+                TitleFontSize = 16,
+                PlotAreaBackground = OxyColors.White,
+                Background = OxyColors.Transparent
+            };
+
+            // Filter hours - show every 3 hours for better display (8 slots per day)
+            var filteredHours = SelectedDay.Hours.Where((h, i) => i % 3 == 0).ToList();
+            if (filteredHours.Count == 0)
+                filteredHours = SelectedDay.Hours;
+
+            var lineSeries = new LineSeries
+            {
+                Color = OxyColor.FromRgb(25, 118, 210), // #1976D2
+                StrokeThickness = 3,
+                MarkerType = MarkerType.Circle,
+                MarkerSize = 6,
+                MarkerFill = OxyColor.FromRgb(25, 118, 210),
+                Title = SelectedChartType
+            };
+
+            switch (SelectedChartType)
+            {
+                case "Temperature":
+                    foreach (var hour in filteredHours)
+                    {
+                        lineSeries.Points.Add(new DataPoint(
+                            DateTimeAxis.ToDouble(DateTime.Parse(hour.Time)),
+                            hour.TempC
+                        ));
+                    }
+                    model.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "HH:mm" });
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Temperature (°C)" });
+                    break;
+
+                case "Precipitation":
+                    foreach (var hour in filteredHours)
+                    {
+                        lineSeries.Points.Add(new DataPoint(
+                            DateTimeAxis.ToDouble(DateTime.Parse(hour.Time)),
+                            hour.ChanceOfRain
+                        ));
+                    }
+                    model.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "HH:mm" });
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Chance of Rain (%)", Minimum = 0, Maximum = 100 });
+                    break;
+
+                case "Wind":
+                    foreach (var hour in filteredHours)
+                    {
+                        lineSeries.Points.Add(new DataPoint(
+                            DateTimeAxis.ToDouble(DateTime.Parse(hour.Time)),
+                            hour.WindKph
+                        ));
+                    }
+                    model.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "HH:mm" });
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Wind Speed (kph)" });
+                    break;
+            }
+
+            model.Series.Add(lineSeries);
+            ChartModel = model;
         }
     }
 }
