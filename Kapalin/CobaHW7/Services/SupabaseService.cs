@@ -69,7 +69,7 @@ namespace CobaHW7.Services
             try
             {
                 var allBookings = await GetBookingsAsync();
-                var boatBookings = allBookings.Where(b => b.BoatId == boatId).ToList();
+                var boatBookings = allBookings.Where(b => b.BoatId == boatId && b.Status != "Cancelled").ToList();
 
                 Debug.WriteLine($"[CheckAvailability] Boat {boatId}: Found {boatBookings.Count} bookings");
 
