@@ -115,7 +115,7 @@
                         <Setter Property="Foreground" Value="{StaticResource TextDark}"/>
                         <Setter Property="BorderBrush" Value="{StaticResource CardBorder}"/>
                         <Setter Property="FontWeight" Value="SemiBold"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
                         <Setter Property="Padding" Value="8,0,8,0"/>
                     </Style>
                 </Setter.Value>
