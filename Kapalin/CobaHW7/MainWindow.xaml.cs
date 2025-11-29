@@ -56,19 +56,19 @@ namespace CobaHW7
                             }
                             else
                             {
-                                Dashboard dashboard = new Dashboard();
+                                DashboardUser dashboard = new DashboardUser();
                                 dashboard.Show();
                             }
                         }
                         else
                         {
-                            Dashboard dashboard = new Dashboard();
+                            DashboardUser dashboard = new DashboardUser();
                             dashboard.Show();
                         }
                     }
                     catch (Exception ex)
                     {
-                        Dashboard dashboard = new Dashboard();
+                        DashboardUser dashboard = new DashboardUser();
                         dashboard.Show();
                     }
 

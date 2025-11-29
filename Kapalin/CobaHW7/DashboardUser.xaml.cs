@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,9 +11,9 @@ using CobaHW7.Services;
 
 namespace CobaHW7
 {
-    public partial class Dashboard : Window
+    public partial class DashboardUser : Window
     {
-        public Dashboard()
+        public DashboardUser()
         {
             InitializeComponent();
             this.DataContext = new DashboardUserViewModel();
