@@ -11,7 +11,6 @@
   <ItemGroup>
     <Compile Remove="Class\Booking.Payment.cs" />
     <Compile Remove="Class\PaymentMethod.cs" />
-    <Compile Remove="DashboardUser.xaml.cs" />
     <Compile Remove="Data\BoatRepository.cs" />
     <Compile Remove="Data\BookingRepository.cs" />
     <Compile Remove="Data\Db.cs" />
@@ -20,10 +19,6 @@
 
   <ItemGroup>
     <None Remove="Assets\QRIS.jpeg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Remove="DashboardUser.xaml" />
   </ItemGroup>
 
   <ItemGroup>

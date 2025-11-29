@@ -198,7 +198,7 @@ namespace CobaHW7.ViewModels
 
             try
             {
-                var dashboardWindow = System.Windows.Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+                var dashboardWindow = System.Windows.Application.Current.Windows.OfType<DashboardUser>().FirstOrDefault();
                 var forecastWindow = new ForecastWindow(LocationInput, dashboardWindow);
                 forecastWindow.Show();
             }
