@@ -55,16 +55,20 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
                                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Tahun Keluaran:" FontWeight="SemiBold" Foreground="#666"/>
                                 <TextBlock Grid.Row="0" Grid.Column="1" x:Name="BoatYearText" Foreground="#333"/>
 
-                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Harga per Hari:" FontWeight="SemiBold" Foreground="#666" Margin="0,10,0,0"/>
-                                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="BoatPriceText" Foreground="#007ACC" FontWeight="Bold" FontSize="16" Margin="0,10,0,0"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Lokasi Kapal:" FontWeight="SemiBold" Foreground="#666" Margin="0,10,0,0"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="BoatLocationText" Foreground="#D97706" FontWeight="SemiBold" Margin="0,10,0,0"/>
 
-                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Kapasitas:" FontWeight="SemiBold" Foreground="#666" Margin="0,10,0,0"/>
-                                <TextBlock Grid.Row="2" Grid.Column="1" x:Name="BoatCapacityText" Foreground="#333" Margin="0,10,0,0"/>
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Harga per Hari:" FontWeight="SemiBold" Foreground="#666" Margin="0,10,0,0"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" x:Name="BoatPriceText" Foreground="#007ACC" FontWeight="Bold" FontSize="16" Margin="0,10,0,0"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Kapasitas:" FontWeight="SemiBold" Foreground="#666" Margin="0,10,0,0"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" x:Name="BoatCapacityText" Foreground="#333" Margin="0,10,0,0"/>
                             </Grid>
                         </StackPanel>
                     </Grid>

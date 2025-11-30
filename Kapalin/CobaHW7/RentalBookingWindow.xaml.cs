@@ -24,6 +24,7 @@ namespace CobaHW7
 
             BoatNameText.Text = selectedBoat.Name;
             BoatYearText.Text = selectedBoat.Year.ToString();
+            BoatLocationText.Text = selectedBoat.Location;
             BoatCapacityText.Text = $"{selectedBoat.Capacity} orang";
             pricePerDay = selectedBoat.PricePerDay;
             BoatPriceText.Text = $"Rp {pricePerDay:N0} / hari";
@@ -64,11 +65,11 @@ namespace CobaHW7
         {
             if (StartDatePicker.SelectedDate.HasValue)
             {
-                // Set minimum end date to start date + 1 day
+                //set end date = start date + 1
                 DateTime startDate = StartDatePicker.SelectedDate.Value;
                 EndDatePicker.DisplayDateStart = startDate.AddDays(1);
 
-                // If end date is before start date, adjust it
+                //adjust end date kalo > start date + 1
                 if (EndDatePicker.SelectedDate.HasValue && EndDatePicker.SelectedDate < startDate.AddDays(1))
                 {
                     EndDatePicker.SelectedDate = startDate.AddDays(1);
@@ -95,9 +96,7 @@ namespace CobaHW7
             DateTime startDate = StartDatePicker.SelectedDate.Value;
             DateTime endDate = EndDatePicker.SelectedDate.Value;
 
-            // Calculate number of days
             int days = (int)(endDate - startDate).TotalDays;
-
             if (days < 1)
             {
                 days = 1;
@@ -162,8 +161,7 @@ namespace CobaHW7
                     TotalAmount = total,
                     PaymentMethod = paymentMethod
                 };
-
-                // Open payment window based on selected payment method
+                //buka payment window berdasarkan metode pembayaran yg dipilih
                 bool paymentConfirmed = false;
 
                 if (paymentMethod == "QRIS")
