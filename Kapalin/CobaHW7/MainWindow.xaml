@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="WpfApp1 Login" Height="1080" Width="1920"
         WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         WindowStyle="SingleBorderWindow"
         Background="#F0F2F5">
 
