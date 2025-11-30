@@ -44,7 +44,8 @@
 
                     <Button x:Name="YesButton" Grid.Column="0" Content="Ya" FontSize="14" FontWeight="SemiBold"
                             Padding="15,10" Background="#FF9800" Foreground="White" BorderThickness="0"
-                            Click="YesButton_Click" Cursor="Hand">
+                            Click="YesButton_Click" Cursor="Hand"
+                            IsDefault="True">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="8"/>
@@ -54,7 +55,8 @@
 
                     <Button x:Name="NoButton" Grid.Column="2" Content="Tidak" FontSize="14" FontWeight="SemiBold"
                             Padding="15,10" Background="#E0E0E0" Foreground="#333333" BorderThickness="0"
-                            Click="NoButton_Click" Cursor="Hand">
+                            Click="NoButton_Click" Cursor="Hand"
+                            IsCancel="True">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="8"/>
