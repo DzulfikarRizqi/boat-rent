@@ -62,7 +62,11 @@
                              Padding="12" Height="43"
                              Background="#F5F7FB" Foreground="#333"
                              BorderThickness="1" BorderBrush="#E0E0E0"
-                             VerticalContentAlignment="Center" FontSize="13"/>
+                             VerticalContentAlignment="Center" FontSize="13">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding SearchWeatherCommand}"/>
+                        </TextBox.InputBindings>
+                    </TextBox>
                 </StackPanel>
 
                 <!-- Buttons Container -->
