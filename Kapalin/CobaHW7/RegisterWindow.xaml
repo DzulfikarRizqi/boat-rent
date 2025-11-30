@@ -85,7 +85,8 @@
                         <Button x:Name="SignUpButton" Content="Sign Up"
                                 FontSize="16" FontWeight="Bold" Foreground="White" 
                                 Background="#007ACC" BorderThickness="0" Padding="12" 
-                                Cursor="Hand" Click="SignUpButton_Click">
+                                Cursor="Hand" Click="SignUpButton_Click"
+                                IsDefault="True">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5"/>

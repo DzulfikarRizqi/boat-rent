@@ -75,7 +75,8 @@
                         <Button x:Name="SignInButton" Content="Sign In"
                                 FontSize="16" FontWeight="Bold" Foreground="White" 
                                 Background="#007ACC" BorderThickness="0" Padding="12" 
-                                Cursor="Hand" Click="SignInButton_Click">
+                                Cursor="Hand" Click="SignInButton_Click"
+                                IsDefault="True">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5"/>
