@@ -15,12 +15,18 @@ namespace CobaHW7.ViewModels
         // Koleksi kapal untuk ditampilkan di UI
         public ObservableCollection<Boat> Boats { get; private set; }
 
+        // Koleksi kapal original (sebelum filter)
+        private List<Boat> AllBoats { get; set; }
+
         // Command saat tombol "Pilih Kapal Ini" diklik
         public ICommand SelectBoatCommand { get; }
 
         // Weather properties
         public ICommand SearchWeatherCommand { get; }
         public ICommand OpenForecastCommand { get; }
+
+        // Filter & Search commands
+        public ICommand ResetFilterCommand { get; }
 
         private string _locationInput;
         public string LocationInput
@@ -92,12 +98,90 @@ namespace CobaHW7.ViewModels
             }
         }
 
+        // Filter properties
+        private string _searchText = "";
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    OnPropertyChanged(nameof(SearchText));
+                    ApplyFilter();
+                }
+            }
+        }
+
+        private string _selectedCapacity = "Semua";
+        public string SelectedCapacity
+        {
+            get => _selectedCapacity;
+            set
+            {
+                if (_selectedCapacity != value)
+                {
+                    _selectedCapacity = value;
+                    OnPropertyChanged(nameof(SelectedCapacity));
+                    ApplyFilter();
+                }
+            }
+        }
+
+        private string _selectedPrice = "Semua";
+        public string SelectedPrice
+        {
+            get => _selectedPrice;
+            set
+            {
+                if (_selectedPrice != value)
+                {
+                    _selectedPrice = value;
+                    OnPropertyChanged(nameof(SelectedPrice));
+                    ApplyFilter();
+                }
+            }
+        }
+
+        private string _selectedLocation = "Semua";
+        public string SelectedLocation
+        {
+            get => _selectedLocation;
+            set
+            {
+                if (_selectedLocation != value)
+                {
+                    _selectedLocation = value;
+                    OnPropertyChanged(nameof(SelectedLocation));
+                    ApplyFilter();
+                }
+            }
+        }
+
+        private ObservableCollection<string> _locations;
+        public ObservableCollection<string> Locations
+        {
+            get => _locations;
+            set
+            {
+                if (_locations != value)
+                {
+                    _locations = value;
+                    OnPropertyChanged(nameof(Locations));
+                }
+            }
+        }
+
         public DashboardUserViewModel()
         {
             Boats = new ObservableCollection<Boat>();
+            AllBoats = new List<Boat>();
+            Locations = new ObservableCollection<string>();
             SelectBoatCommand = new RelayCommand(ExecuteSelectBoat);
             SearchWeatherCommand = new RelayCommand(ExecuteSearchWeather);
             OpenForecastCommand = new RelayCommand(ExecuteOpenForecast);
+            ResetFilterCommand = new RelayCommand(ExecuteResetFilter);
 
             LoadBoats();
         }
@@ -109,12 +193,33 @@ namespace CobaHW7.ViewModels
                 // Ambil semua data kapal dari Supabase
                 var boatList = await SupabaseService.GetBoatsAsync();
 
-                Boats.Clear();
+                // Normalize location data - trim whitespace
                 foreach (var boat in boatList)
                 {
-                    // if (!boat.Available) continue; 
-                    Boats.Add(boat);
+                    if (!string.IsNullOrWhiteSpace(boat.Location))
+                    {
+                        boat.Location = boat.Location.Trim();
+                    }
                 }
+
+                AllBoats = boatList.ToList();
+
+                // Build locations list dari data kapal
+                var uniqueLocations = boatList.Where(b => !string.IsNullOrWhiteSpace(b.Location))
+                                               .Select(b => b.Location.Trim())
+                                               .Distinct(StringComparer.OrdinalIgnoreCase)
+                                               .OrderBy(l => l)
+                                               .ToList();
+
+                Locations.Clear();
+                Locations.Add("Semua");
+                foreach (var location in uniqueLocations)
+                {
+                    Locations.Add(location);
+                }
+
+                // Apply initial filter
+                ApplyFilter();
             }
             catch (Exception ex)
             {
@@ -207,6 +312,72 @@ namespace CobaHW7.ViewModels
                 Debug.WriteLine($"[DashboardUserViewModel] Error opening forecast: {ex.Message}");
                 MessageBox.Show($"Gagal membuka forecast: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void ApplyFilter()
+        {
+            var filtered = AllBoats.AsEnumerable();
+
+            // Filter by search text (nama kapal)
+            if (!string.IsNullOrWhiteSpace(SearchText))
+            {
+                filtered = filtered.Where(b => b.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Filter by capacity
+            if (SelectedCapacity != "Semua")
+            {
+                filtered = filtered.Where(b =>
+                {
+                    return SelectedCapacity switch
+                    {
+                        "2-10 Orang" => b.Capacity >= 2 && b.Capacity <= 10,
+                        "11-30 Orang" => b.Capacity >= 11 && b.Capacity <= 30,
+                        "30-100 Orang" => b.Capacity > 30 && b.Capacity <= 100,
+                        "100+ Orang" => b.Capacity > 100,
+                        _ => true
+                    };
+                });
+            }
+
+            // Filter by price
+            if (SelectedPrice != "Semua")
+            {
+                filtered = filtered.Where(b =>
+                {
+                    return SelectedPrice switch
+                    {
+                        "Rp 0 - 10JT" => b.PricePerDay <= 10000000,
+                        "Rp 10JT - 30JT" => b.PricePerDay > 10000000 && b.PricePerDay <= 30000000,
+                        "Rp 30JT - 50JT" => b.PricePerDay > 30000000 && b.PricePerDay <= 50000000,
+                        "Rp 50JT - 100JT" => b.PricePerDay > 50000000 && b.PricePerDay <= 100000000,
+                        "Rp 100JT+" => b.PricePerDay > 100000000,
+                        _ => true
+                    };
+                });
+            }
+
+            // Filter by location
+            if (SelectedLocation != "Semua")
+            {
+                filtered = filtered.Where(b => !string.IsNullOrWhiteSpace(b.Location) &&
+                                               b.Location.Trim().Equals(SelectedLocation.Trim(), StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Update UI
+            Boats.Clear();
+            foreach (var boat in filtered)
+            {
+                Boats.Add(boat);
+            }
+        }
+
+        private void ExecuteResetFilter(object parameter)
+        {
+            SearchText = "";
+            SelectedCapacity = "Semua";
+            SelectedPrice = "Semua";
+            SelectedLocation = "Semua";
         }
     }
 }

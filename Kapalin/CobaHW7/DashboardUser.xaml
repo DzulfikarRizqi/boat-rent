@@ -25,6 +25,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -145,7 +146,94 @@
             </Grid>
         </Border>
 
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Padding="20">
+        <!-- Filter & Search Section -->
+        <Border Grid.Row="2" Background="White" Margin="20,15,20,15" Padding="20" BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="8">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.1" Color="Black"/>
+            </Border.Effect>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Search TextBox -->
+                <StackPanel Grid.Column="0" Margin="0,0,15,0">
+                    <TextBlock Text="Cari Kapal" Foreground="#666" FontSize="12" Margin="0,0,0,8" FontWeight="SemiBold"/>
+                    <TextBox x:Name="SearchTextBox"
+                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                             Padding="12" Height="40"
+                             Background="#F5F7FB" Foreground="#333"
+                             BorderThickness="1" BorderBrush="#DDD"
+                             VerticalContentAlignment="Center" FontSize="13"/>
+                </StackPanel>
+
+                <!-- Capacity Filter -->
+                <StackPanel Grid.Column="1" Margin="15,0,15,0">
+                    <TextBlock Text="Kapasitas" Foreground="#666" FontSize="12" Margin="0,0,0,8" FontWeight="SemiBold"/>
+                    <ComboBox x:Name="CapacityCombo"
+                              SelectedValuePath="Content"
+                              SelectedValue="{Binding SelectedCapacity, UpdateSourceTrigger=PropertyChanged}"
+                              Padding="12" Height="40"
+                              Background="White" Foreground="#333"
+                              BorderThickness="1" BorderBrush="#DDD" FontSize="13">
+                        <ComboBoxItem>Semua</ComboBoxItem>
+                        <ComboBoxItem>2-10 Orang</ComboBoxItem>
+                        <ComboBoxItem>11-30 Orang</ComboBoxItem>
+                        <ComboBoxItem>30-100 Orang</ComboBoxItem>
+                        <ComboBoxItem>100+ Orang</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- Price Filter -->
+                <StackPanel Grid.Column="2" Margin="15,0,15,0">
+                    <TextBlock Text="Harga Max" Foreground="#666" FontSize="12" Margin="0,0,0,8" FontWeight="SemiBold"/>
+                    <ComboBox x:Name="PriceCombo"
+                              SelectedValuePath="Content"
+                              SelectedValue="{Binding SelectedPrice, UpdateSourceTrigger=PropertyChanged}"
+                              Padding="12" Height="40"
+                              Background="White" Foreground="#333"
+                              BorderThickness="1" BorderBrush="#DDD" FontSize="13">
+                        <ComboBoxItem>Semua</ComboBoxItem>
+                        <ComboBoxItem>Rp 0 - 10JT</ComboBoxItem>
+                        <ComboBoxItem>Rp 10JT - 30JT</ComboBoxItem>
+                        <ComboBoxItem>Rp 30JT - 50JT</ComboBoxItem>
+                        <ComboBoxItem>Rp 50JT - 100JT</ComboBoxItem>
+                        <ComboBoxItem>Rp 100JT+</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- Location Filter -->
+                <StackPanel Grid.Column="3" Margin="15,0,15,0">
+                    <TextBlock Text="Lokasi" Foreground="#666" FontSize="12" Margin="0,0,0,8" FontWeight="SemiBold"/>
+                    <ComboBox x:Name="LocationCombo"
+                              SelectedItem="{Binding SelectedLocation, UpdateSourceTrigger=PropertyChanged}"
+                              Padding="12" Height="40"
+                              Background="White" Foreground="#333"
+                              BorderThickness="1" BorderBrush="#DDD" FontSize="13"
+                              ItemsSource="{Binding Locations}"/>
+                </StackPanel>
+
+                <!-- Reset Button -->
+                <Button Grid.Column="4" Content="Reset Filter"
+                        Command="{Binding ResetFilterCommand}"
+                        Padding="20,10" Height="40"
+                        Background="#E0E0E0" Foreground="#333" FontWeight="SemiBold"
+                        BorderThickness="0" Cursor="Hand" Margin="15,20,0,0">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="6"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </Border>
+
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" Padding="20">
             <ItemsControl ItemsSource="{Binding Boats}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
