@@ -44,7 +44,8 @@
 
                     <Button x:Name="Button1" Grid.Column="0" Content="OK" FontSize="14" FontWeight="SemiBold"
                             Padding="15,10" Background="#007ACC" Foreground="White" BorderThickness="0"
-                            Click="Button_Click" Cursor="Hand" Grid.ColumnSpan="3" Margin="112,0,112,0">
+                            Click="Button_Click" Cursor="Hand" Grid.ColumnSpan="3" Margin="112,0,112,0"
+                            IsDefault="True">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="8"/>
