@@ -72,7 +72,7 @@
                 <!-- Buttons Container -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,20,0">
                     <!-- Search Button -->
-                    <Button Content="Cari Cuaca" Padding="20,10" Width="130" Margin="0,0,10,0"
+                    <Button Content="Cek Cuaca" Padding="20,10" Width="130" Margin="0,0,10,0"
                             Command="{Binding SearchWeatherCommand}"
                             Height="45"
                             Background="#1976D2" Foreground="White" FontWeight="Bold" BorderThickness="0" Cursor="Hand">
