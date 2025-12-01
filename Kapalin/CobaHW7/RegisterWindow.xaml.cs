@@ -21,15 +21,14 @@ namespace CobaHW7
 
         private async void SignUpButton_Click(object sender, RoutedEventArgs e)
         {
-            var name = NameTextBox.Text;
             var email = EmailTextBox.Text;
             var password = PasswordBox.Password;
             var confirmPassword = ConfirmPasswordBox.Password;
 
             // Validasi sederhana
-            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             {
-                var alert = new AlertWindow("Validasi Gagal", "Nama, email, dan password tidak boleh kosong.", AlertWindow.AlertType.Warning);
+                var alert = new AlertWindow("Validasi Gagal", "Email dan password tidak boleh kosong.", AlertWindow.AlertType.Warning);
                 alert.ShowDialog();
                 return;
             }
@@ -83,15 +82,6 @@ namespace CobaHW7
             MainWindow loginWindow = new MainWindow(); // Ganti dengan nama window login Anda
             loginWindow.Show();
             this.Close();
-        }
-
-        private void NameTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter || e.Key == Key.Return)
-            {
-                EmailTextBox.Focus();
-                e.Handled = true;
-            }
         }
 
         private void EmailTextBox_KeyDown(object sender, KeyEventArgs e)
