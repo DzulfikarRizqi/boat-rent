@@ -10,89 +10,96 @@
         WindowStyle="SingleBorderWindow">
 
     <Grid>
-        <StackPanel Margin="40" VerticalAlignment="Center">
-            <!-- Header -->
-            <TextBlock Text="Pembayaran QRIS" FontSize="24" FontWeight="Bold" Foreground="#333"
-                       Margin="0,0,0,30" TextAlignment="Center"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-            <!-- QRIS Code Container -->
-            <Border Background="White" Padding="30" Margin="0,0,0,30">
-                <Border.CornerRadius>
-                    <CornerRadius TopLeft="15" TopRight="15" BottomLeft="15" BottomRight="15"/>
-                </Border.CornerRadius>
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>
-                </Border.Effect>
+        <ScrollViewer Grid.Row="0" Margin="40" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Header -->
+                <TextBlock Text="Pembayaran QRIS" FontSize="24" FontWeight="Bold" Foreground="#333"
+                           Margin="0,0,0,30" TextAlignment="Center" HorizontalAlignment="Center"/>
 
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <!-- QRIS Image -->
-                    <Border Height="250" Width="250" Background="White" Margin="0,0,0,20" HorizontalAlignment="Center" BorderBrush="#DDD" BorderThickness="1">
-                        <Border.CornerRadius>
-                            <CornerRadius TopLeft="10" TopRight="10" BottomLeft="10" BottomRight="10"/>
-                        </Border.CornerRadius>
-                        <Image Source="pack://application:,,,/Assets/QRIS.jpeg" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
+                <!-- QRIS Code Container -->
+                <Border Background="White" Padding="30" Margin="0,0,0,30" HorizontalAlignment="Center">
+                    <Border.CornerRadius>
+                        <CornerRadius TopLeft="15" TopRight="15" BottomLeft="15" BottomRight="15"/>
+                    </Border.CornerRadius>
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>
+                    </Border.Effect>
 
-                    <!-- Instructions -->
-                    <TextBlock Text="Scan kode QRIS di bawah menggunakan aplikasi pembayaran Anda"
-                              FontSize="12" Foreground="#666" TextAlignment="Center"
-                              TextWrapping="Wrap" Margin="0,0,0,25"/>
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <!-- QRIS Image -->
+                        <Border Height="250" Width="250" Background="White" Margin="0,0,0,20" HorizontalAlignment="Center" BorderBrush="#DDD" BorderThickness="1">
+                            <Border.CornerRadius>
+                                <CornerRadius TopLeft="10" TopRight="10" BottomLeft="10" BottomRight="10"/>
+                            </Border.CornerRadius>
+                            <Image Source="pack://application:,,,/Assets/QRIS.jpeg" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
 
-                    <!-- Nominal Section -->
-                    <Border Background="#F9F9F9" Padding="15" Margin="0,0,0,25">
-                        <Border.CornerRadius>
-                            <CornerRadius TopLeft="8" TopRight="8" BottomLeft="8" BottomRight="8"/>
-                        </Border.CornerRadius>
-                        <StackPanel>
-                            <TextBlock Text="Nominal Pembayaran" FontSize="12" Foreground="#999" Margin="0,0,0,8"/>
-                            <TextBlock x:Name="NominalText" FontSize="24" FontWeight="Bold" Foreground="#007ACC"/>
-                        </StackPanel>
-                    </Border>
+                        <!-- Instructions -->
+                        <TextBlock Text="Scan kode QRIS di bawah menggunakan aplikasi pembayaran Anda"
+                                  FontSize="12" Foreground="#666" TextAlignment="Center"
+                                  TextWrapping="Wrap" Margin="0,0,0,25"/>
 
-                    <!-- Reference Number -->
-                    <Border Background="#F9F9F9" Padding="15">
-                        <Border.CornerRadius>
-                            <CornerRadius TopLeft="8" TopRight="8" BottomLeft="8" BottomRight="8"/>
-                        </Border.CornerRadius>
-                        <StackPanel>
-                            <TextBlock Text="Referensi Transaksi" FontSize="12" Foreground="#999" Margin="0,0,0,8"/>
-                            <TextBlock x:Name="ReferenceText" FontSize="14" Foreground="#333"
-                                      FontFamily="Courier New" TextWrapping="Wrap"/>
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-            </Border>
+                        <!-- Nominal Section -->
+                        <Border Background="#F9F9F9" Padding="15" Margin="0,0,0,25">
+                            <Border.CornerRadius>
+                                <CornerRadius TopLeft="8" TopRight="8" BottomLeft="8" BottomRight="8"/>
+                            </Border.CornerRadius>
+                            <StackPanel>
+                                <TextBlock Text="Nominal Pembayaran" FontSize="12" Foreground="#999" Margin="0,0,0,8"/>
+                                <TextBlock x:Name="NominalText" FontSize="24" FontWeight="Bold" Foreground="#007ACC"/>
+                            </StackPanel>
+                        </Border>
 
-            <!-- Action Buttons -->
-            <Grid Margin="0,20,0,0" HorizontalAlignment="Right">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+                        <!-- Reference Number -->
+                        <Border Background="#F9F9F9" Padding="15">
+                            <Border.CornerRadius>
+                                <CornerRadius TopLeft="8" TopRight="8" BottomLeft="8" BottomRight="8"/>
+                            </Border.CornerRadius>
+                            <StackPanel>
+                                <TextBlock Text="Referensi Transaksi" FontSize="12" Foreground="#999" Margin="0,0,0,8"/>
+                                <TextBlock x:Name="ReferenceText" FontSize="14" Foreground="#333"
+                                          FontFamily="Courier New" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
 
-                <Button Grid.Column="0" Content="Batalkan" Width="120" Height="45"
-                        Background="#E0E0E0" Foreground="#333" FontSize="14" FontWeight="SemiBold"
-                        Cursor="Hand" Click="Cancel_Click">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="8"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
+        <!-- Action Buttons -->
+        <Grid Grid.Row="1" Margin="40,10,40,30" HorizontalAlignment="Right">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Batalkan" Width="120" Height="45"
+                    Background="#E0E0E0" Foreground="#333" FontSize="14" FontWeight="SemiBold"
+                    Cursor="Hand" Click="Cancel_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="8"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
 
 
 
-                <Button Grid.Column="2" Content="Konfirmasi Pembayaran" Width="180" Height="45"
-                        Background="#007ACC" Foreground="White" FontSize="14" FontWeight="SemiBold"
-                        Cursor="Hand" Click="Confirm_Click">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="8"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
-            </Grid>
-        </StackPanel>
+            <Button Grid.Column="2" Content="Konfirmasi Pembayaran" Width="180" Height="45"
+                    Background="#007ACC" Foreground="White" FontSize="14" FontWeight="SemiBold"
+                    Cursor="Hand" Click="Confirm_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="8"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
     </Grid>
 </Window>
