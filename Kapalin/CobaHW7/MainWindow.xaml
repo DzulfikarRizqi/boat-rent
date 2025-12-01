@@ -13,6 +13,11 @@
 
     <Grid>
 
+        <Image Source="/Assets/BekgronKapel.jpeg"
+               Stretch="UniformToFill"
+               Opacity="0.70"
+               Panel.ZIndex="0" />
+
         <Border Width="850" Height="580"
                 Background="White"
                 CornerRadius="15"
@@ -40,6 +45,10 @@
 
                     <StackPanel VerticalAlignment="Center" Margin="35">
 
+                        <Image Source="Assets/kapalinLOGO.png"
+                                Width="300"
+                                Height="300"
+                                Stretch="Uniform"/>
 
                         <TextBlock Text="Selamat datang di KAPALIN"
                                    FontSize="26" FontWeight="Bold" Foreground="#FFFFFF"
@@ -73,8 +82,8 @@
                         <PasswordBox x:Name="PasswordBox" FontSize="14" Padding="10,8" BorderThickness="1" BorderBrush="#CCCCCC" Margin="0,0,0,25" KeyDown="PasswordBox_KeyDown"/>
 
                         <Button x:Name="SignInButton" Content="Sign In"
-                                FontSize="16" FontWeight="Bold" Foreground="White" 
-                                Background="#007ACC" BorderThickness="0" Padding="12" 
+                                FontSize="16" FontWeight="Bold" Background="#1649B2"
+                                Foreground="White" BorderBrush="#1649B2" BorderThickness="0" Padding="12" 
                                 Cursor="Hand" Click="SignInButton_Click"
                                 IsDefault="True">
                             <Button.Resources>

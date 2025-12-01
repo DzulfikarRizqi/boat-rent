@@ -8,12 +8,16 @@
         Title="WpfApp1 Register" Height="1080" Width="1920"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
-        WindowStyle="SingleBorderWindow"
-        Background="#F0F2F5">
+        WindowStyle="SingleBorderWindow">
 
     <Grid>
+        <Image Source="/Assets/BekgronKapel.jpeg"
+               Stretch="UniformToFill"
+               Opacity="0.70"
+               Panel.ZIndex="0" />
+        <!-- boleh diatur -->
 
-        <Border Width="850" Height="580"
+        <Border Panel.ZIndex="1" Width="850" Height="580"
                 Background="White"
                 CornerRadius="15"
                 Margin="15"
@@ -40,6 +44,10 @@
 
                     <StackPanel VerticalAlignment="Center" Margin="35">
 
+                        <Image Source="Assets/kapalinLOGO.png"
+                                Width="300"
+                                Height="300"
+                                Stretch="Uniform"/>
 
                         <TextBlock Text="Selamat datang di KAPALIN"
                                    FontSize="26" FontWeight="Bold" Foreground="#FFFFFF"
@@ -49,7 +57,7 @@
                                    FontSize="14" Foreground="#e6e6e6"
                                    TextWrapping="Wrap" LineHeight="20" Margin="0,0,0,30"/>
 
-                        
+
 
 
                     </StackPanel>
@@ -80,8 +88,8 @@
                         <PasswordBox x:Name="ConfirmPasswordBox" FontSize="14" Padding="10,8" BorderThickness="1" BorderBrush="#CCCCCC" Margin="0,0,0,25" KeyDown="ConfirmPasswordBox_KeyDown"/>
 
                         <Button x:Name="SignUpButton" Content="Sign Up"
-                                FontSize="16" FontWeight="Bold" Foreground="White" 
-                                Background="#007ACC" BorderThickness="0" Padding="12" 
+                                FontSize="16" FontWeight="Bold" Background="#1649B2"
+                                Foreground="White" BorderBrush="#1649B2" BorderThickness="0" Padding="12" 
                                 Cursor="Hand" Click="SignUpButton_Click"
                                 IsDefault="True">
                             <Button.Resources>
