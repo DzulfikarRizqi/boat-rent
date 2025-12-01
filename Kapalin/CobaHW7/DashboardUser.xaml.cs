@@ -126,13 +126,13 @@ namespace CobaHW7
 
         private void AboutUsSection_Click(object sender, RoutedEventArgs e)
         {
-            // Tidak ada AboutUsPanel di layout sekarang, placeholder untuk kompatibilitas
+            AboutUsPanel?.BringIntoView();
             CloseSidebar();
         }
 
         private void WhyUsSection_Click(object sender, RoutedEventArgs e)
         {
-            // Tidak ada WhyUsPanel di layout sekarang, placeholder untuk kompatibilitas
+            WhyUsPanel?.BringIntoView();
             CloseSidebar();
         }
 

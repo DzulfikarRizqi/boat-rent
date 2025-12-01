@@ -382,6 +382,57 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+
+                <!-- About Us -->
+                <WrapPanel x:Name="AboutUsPanel" Margin="20" Width="800">
+                    <Border Background="White" Margin="20" Width="750"
+                            CornerRadius="10" Padding="20">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="20" Opacity="0.30" ShadowDepth="2" Color="#88A8FF"/>
+                        </Border.Effect>
+
+                        <StackPanel>
+                            <TextBlock Text="ABOUT US"
+                                       FontSize="26"
+                                       FontWeight="Bold"
+                                       Foreground="#0D47A1"
+                                       Margin="0,0,0,10"
+                                       TextAlignment="Center"/>
+
+                            <TextBlock Text="   KAPALIN adalah platform modern yang menghadirkan layanan penyewaan kapal secara cepat, mudah, dan terpercaya. Kami menyediakan berbagai jenis kapal yang dapat disesuaikan dengan kebutuhan pelanggan, mulai dari perjalanan wisata, transportasi antar pulau, hingga keperluan profesional seperti survei laut atau kegiatan ekspedisi. Dengan sistem pemesanan yang praktis dan transparan, KAPALIN berkomitmen untuk memberikan pengalaman sewa kapal yang aman, nyaman, dan efisien. Didukung oleh mitra kapal berpengalaman serta layanan pelanggan yang responsif, kami terus berupaya menghadirkan solusi terbaik bagi setiap perjalanan Anda di laut."
+                                       FontSize="14"
+                                       TextWrapping="Wrap"
+                                       Foreground="Gray"
+                                       TextAlignment="Justify"/>
+                        </StackPanel>
+
+                    </Border>
+                </WrapPanel>
+
+                <!-- Why Us -->
+                <WrapPanel x:Name="WhyUsPanel" Margin="20" Width="800">
+                    <Border Background="White" Margin="20" Width="750"
+                            CornerRadius="10" Padding="20">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="20" Opacity="0.3" ShadowDepth="2" Color="#FF88A8FF"/>
+                        </Border.Effect>
+
+                        <StackPanel>
+                            <TextBlock Text="WHY US?"
+                                       FontSize="26"
+                                       FontWeight="Bold"
+                                       Foreground="#0D47A1"
+                                       Margin="0,0,0,10"
+                                       TextAlignment="Center"/>
+
+                            <TextBlock Text="   KAPALIN hadir dengan komitmen untuk memberikan layanan penyewaan kapal yang cepat, aman, dan tepercaya. Kami memastikan setiap kapal yang tersedia telah melalui proses pengecekan kualitas dan standar keselamatan yang ketat, sehingga pelanggan dapat berlayar dengan rasa aman dan nyaman. Selain itu, proses pemesanan yang mudah dan transparan memudahkan pelanggan untuk memilih kapal sesuai kebutuhan tanpa kerumitan. &#10;&#10;   Dengan dukungan tim profesional serta jaringan mitra kapal yang luas, kami mampu memberikan pelayanan yang responsif, informatif, dan berorientasi pada kepuasan pelanggan. Dedikasi kami dalam menjaga kualitas layanan menjadikan KAPALIN pilihan tepat bagi siapa pun yang membutuhkan solusi penyewaan kapal yang efisien dan dapat diandalkan."
+                                       FontSize="14"
+                                       TextWrapping="Wrap"
+                                       Foreground="Gray"
+                                       TextAlignment="Justify"/>
+                        </StackPanel>
+                    </Border>
+                </WrapPanel>
             </StackPanel>
         </ScrollViewer>
 
@@ -433,6 +484,12 @@
 
                 <Button Style="{StaticResource SidebarButtonStyle}" Content="Rental"
                         Click="RentalSection_Click" Margin="10"/>
+
+                <Button Style="{StaticResource SidebarButtonStyle}" Content="About Us"
+                        Click="AboutUsSection_Click" Margin="10"/>
+
+                <Button Style="{StaticResource SidebarButtonStyle}" Content="Why Us"
+                        Click="WhyUsSection_Click" Margin="10"/>
 
                 <Button Style="{StaticResource SidebarButtonStyle}" Content="Forecast"
                         Command="{Binding OpenForecastCommand}" Margin="10"/>
