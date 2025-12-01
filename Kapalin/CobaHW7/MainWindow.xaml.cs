@@ -4,6 +4,8 @@ using System.Windows;
 using CobaHW7.Class;
 using CobaHW7;
 using CobaHW7.Services;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace CobaHW7
 {
@@ -96,6 +98,24 @@ namespace CobaHW7
             RegisterWindow registerWindow = new RegisterWindow();
             registerWindow.Show();
             this.Close();
+        }
+
+        private void EmailTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter || e.Key == Key.Return)
+            {
+                PasswordBox.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void PasswordBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter || e.Key == Key.Return)
+            {
+                SignInButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                e.Handled = true;
+            }
         }
     }
 }

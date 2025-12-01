@@ -67,10 +67,10 @@
                         </TextBlock>
 
                         <TextBlock Text="Email" FontSize="14" FontWeight="SemiBold" Foreground="#555" Margin="0,0,0,5"/>
-                        <TextBox x:Name="EmailTextBox" FontSize="14" Padding="10,8" BorderThickness="1" BorderBrush="#CCCCCC" Margin="0,0,0,15"/>
+                        <TextBox x:Name="EmailTextBox" FontSize="14" Padding="10,8" BorderThickness="1" BorderBrush="#CCCCCC" Margin="0,0,0,15" KeyDown="EmailTextBox_KeyDown"/>
 
                         <TextBlock Text="Password" FontSize="14" FontWeight="SemiBold" Foreground="#555" Margin="0,0,0,5"/>
-                        <PasswordBox x:Name="PasswordBox" FontSize="14" Padding="10,8" BorderThickness="1" BorderBrush="#CCCCCC" Margin="0,0,0,25"/>
+                        <PasswordBox x:Name="PasswordBox" FontSize="14" Padding="10,8" BorderThickness="1" BorderBrush="#CCCCCC" Margin="0,0,0,25" KeyDown="PasswordBox_KeyDown"/>
 
                         <Button x:Name="SignInButton" Content="Sign In"
                                 FontSize="16" FontWeight="Bold" Foreground="White" 
