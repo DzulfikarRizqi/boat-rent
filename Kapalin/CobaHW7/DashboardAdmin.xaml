@@ -13,7 +13,7 @@
         Background="#F5F7FB">
 
     <Window.Resources>
-        <SolidColorBrush x:Key="PrimaryBrush" Color="#1976D2"/>
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#1649B2"/>
         <SolidColorBrush x:Key="PrimaryBrushHover" Color="#1E88E5"/>
         <SolidColorBrush x:Key="DangerBrush" Color="#E53935"/>
         <SolidColorBrush x:Key="DangerBrushHover" Color="#F4511E"/>
@@ -152,7 +152,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border Background="#1976D2" Height="56" Grid.Row="0">
+        <Border Background="#1649B2" Height="56" Grid.Row="0">
             <DockPanel LastChildFill="False" Margin="16,0">
                 <TextBlock Text="Dashboard — KAPALIN  •  Admin"
                            Foreground="White" FontSize="20" FontWeight="Bold"

@@ -10,7 +10,7 @@
         Background="#F5F7FB">
 
     <Window.Resources>
-        <SolidColorBrush x:Key="PrimaryBrush" Color="#1976D2"/>
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#1649B2"/>
         <SolidColorBrush x:Key="CardBorder" Color="#E2E8F0"/>
         <SolidColorBrush x:Key="HeaderGray" Color="#F0F0F0"/>
         <SolidColorBrush x:Key="TextDark" Color="#0F172A"/>

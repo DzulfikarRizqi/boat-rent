@@ -20,11 +20,11 @@
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Foreground" Value="#0F172A"/>
             <Setter Property="FontSize" Value="13"/>
-            <Setter Property="CaretBrush" Value="#1976D2"/>
+            <Setter Property="CaretBrush" Value="#1649B2"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="#1976D2"/>
+                    <Setter Property="BorderBrush" Value="#1649B2"/>
                     <Setter Property="Background" Value="#F0F4FF"/>
                 </Trigger>
             </Style.Triggers>
@@ -40,8 +40,9 @@
         <Style x:Key="PrimaryButton" TargetType="Button">
             <Setter Property="Height" Value="40"/>
             <Setter Property="Padding" Value="24,8"/>
-            <Setter Property="Background" Value="#1976D2"/>
+            <Setter Property="Background" Value="#1649B2"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#1649B2"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="Cursor" Value="Hand"/>
@@ -90,7 +91,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Border Grid.Row="0" Background="#1976D2" Height="60" Padding="24,0">
+        <Border Grid.Row="0" Background="#1649B2"  BorderBrush="#1649B2" Height="60" Padding="24,0">
             <StackPanel VerticalAlignment="Center">
                 <TextBlock x:Name="HeaderTitle" Text="Tambah Kapal Baru" FontSize="20" FontWeight="Bold" Foreground="White"/>
                 <TextBlock x:Name="HeaderSubtitle" Text="Isi data kapal yang akan ditambahkan ke sistem" FontSize="12" Foreground="#E3F2FD" Margin="0,4,0,0"/>

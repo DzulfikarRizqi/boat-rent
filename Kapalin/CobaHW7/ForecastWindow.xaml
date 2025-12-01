@@ -30,7 +30,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Border Grid.Row="0" Background="#1976D2" Padding="20,15">
+        <Border Grid.Row="0" Background="#1649B2" Padding="20,15">
             <DockPanel LastChildFill="False">
                 <TextBlock Text="Forecast Cuaca 7 Hari"
                            Foreground="White" FontWeight="Bold" FontSize="20"
@@ -39,7 +39,7 @@
                            Foreground="White" FontSize="16" Margin="20,0,0,0"
                            VerticalAlignment="Center"/>
                 <Button DockPanel.Dock="Right" Content="← Kembali ke Dashboard" Padding="15,8"
-                        Background="White" Foreground="#1976D2" FontWeight="SemiBold"
+                        Background="White" Foreground="#1649B2" FontWeight="SemiBold"
                         BorderThickness="0" Click="BtnBack_Click"/>
             </DockPanel>
         </Border>
@@ -203,7 +203,7 @@
                                                 <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}"
                                                             Value="True">
                                                     <Setter Property="Background" Value="#E3F2FD"/>
-                                                    <Setter Property="BorderBrush" Value="#1976D2"/>
+                                                    <Setter Property="BorderBrush" Value="#1649B2"/>
                                                     <Setter Property="BorderThickness" Value="2"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -214,7 +214,7 @@
                                                   Foreground="#333" FontWeight="Bold" FontSize="12"/>
                                         <TextBlock Text="{Binding Day.Condition.Text}"
                                                   Foreground="#666" FontSize="11" Margin="0,4,0,0"/>
-                                        <TextBlock Foreground="#1976D2" FontWeight="Bold" Margin="0,4,0,0">
+                                        <TextBlock Foreground="#1649B2" FontWeight="Bold" Margin="0,4,0,0">
                                             <Run Text="{Binding Day.MaxTempC, StringFormat=N0}"/>
                                             <Run Text="° / "/>
                                             <Run Text="{Binding Day.MinTempC, StringFormat=N0}"/>
@@ -248,7 +248,7 @@
                                     </Border.Effect>
                                     <StackPanel>
                                         <TextBlock Text="{Binding Time, StringFormat=HH:mm}"
-                                                  Foreground="#1976D2" FontWeight="Bold" FontSize="12"/>
+                                                  Foreground="#1649B2" FontWeight="Bold" FontSize="12"/>
                                         <TextBlock Text="{Binding Condition.Text}"
                                                   Foreground="#666" FontSize="10" Margin="0,6,0,0"
                                                   TextWrapping="Wrap"/>
@@ -286,3 +286,4 @@
         </ScrollViewer>
     </Grid>
 </Window>
+
