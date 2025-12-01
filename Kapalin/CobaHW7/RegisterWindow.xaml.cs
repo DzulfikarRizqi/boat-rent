@@ -6,6 +6,8 @@ using UserModel = CobaHW7.Class.User;
 using Supabase.Gotrue;
 using CobaHW7.Services;
 using Supabase;
+using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace CobaHW7
 {
@@ -81,6 +83,42 @@ namespace CobaHW7
             MainWindow loginWindow = new MainWindow(); // Ganti dengan nama window login Anda
             loginWindow.Show();
             this.Close();
+        }
+
+        private void NameTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter || e.Key == Key.Return)
+            {
+                EmailTextBox.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void EmailTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter || e.Key == Key.Return)
+            {
+                PasswordBox.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void PasswordBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter || e.Key == Key.Return)
+            {
+                ConfirmPasswordBox.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void ConfirmPasswordBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter || e.Key == Key.Return)
+            {
+                SignUpButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                e.Handled = true;
+            }
         }
     }
 }
