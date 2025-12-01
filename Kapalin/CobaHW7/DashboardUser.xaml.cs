@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Animation;
 using CobaHW7.ViewModels;
 using CobaHW7.Class;
 using CobaHW7.Services;
@@ -13,6 +14,8 @@ namespace CobaHW7
 {
     public partial class DashboardUser : Window
     {
+        private bool _isSidebarOpen = false;
+
         public DashboardUser()
         {
             InitializeComponent();
@@ -119,6 +122,71 @@ namespace CobaHW7
                 loginWindow.Show();
                 this.Close();
             }
+        }
+
+        private void AboutUsSection_Click(object sender, RoutedEventArgs e)
+        {
+            // Tidak ada AboutUsPanel di layout sekarang, placeholder untuk kompatibilitas
+            CloseSidebar();
+        }
+
+        private void WhyUsSection_Click(object sender, RoutedEventArgs e)
+        {
+            // Tidak ada WhyUsPanel di layout sekarang, placeholder untuk kompatibilitas
+            CloseSidebar();
+        }
+
+        private void ToggleSidebar_Click(object sender, RoutedEventArgs e)
+        {
+            if (_isSidebarOpen)
+                CloseSidebar();
+            else
+                OpenSidebar();
+        }
+
+        private void Overlay_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            CloseSidebar();
+        }
+
+        private void OpenSidebar()
+        {
+            _isSidebarOpen = true;
+            Overlay.Visibility = Visibility.Visible;
+
+            var anim = new DoubleAnimation
+            {
+                To = 0,
+                Duration = TimeSpan.FromMilliseconds(200),
+                EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut }
+            };
+            SidebarTransform.BeginAnimation(System.Windows.Media.TranslateTransform.XProperty, anim);
+        }
+
+        private void CloseSidebar()
+        {
+            _isSidebarOpen = false;
+            Overlay.Visibility = Visibility.Collapsed;
+
+            var anim = new DoubleAnimation
+            {
+                To = -Sidebar.ActualWidth,
+                Duration = TimeSpan.FromMilliseconds(200),
+                EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseIn }
+            };
+            SidebarTransform.BeginAnimation(System.Windows.Media.TranslateTransform.XProperty, anim);
+        }
+
+        private void RentalSection_Click(object sender, RoutedEventArgs e)
+        {
+            FilterSection?.BringIntoView();
+            CloseSidebar();
+        }
+
+        private void WeatherSection_Click(object sender, RoutedEventArgs e)
+        {
+            WeatherSection?.BringIntoView();
+            CloseSidebar();
         }
     }
 }
